@@ -1,0 +1,33 @@
+{% extends 'orientation/base.html' %}
+{% block title %}Connexion — AIOA{% endblock %}
+
+{% block content %}
+<div style="max-width:440px; margin:0 auto;">
+<div class="card">
+    <div style="text-align:center; margin-bottom:1.5rem;">
+        <div style="font-size:3rem;">🔐</div>
+        <h1 style="margin-bottom:0.3rem;">Connexion</h1>
+        <p style="color:#718096;">Content de te revoir !</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Email ou nom d'utilisateur *</label>
+        <input type="text" name="identifiant" required
+               placeholder="email@exemple.com ou username" autofocus>
+
+        <label>Mot de passe *</label>
+        <input type="password" name="password" required placeholder="••••••••">
+
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:0.9rem; font-size:1rem;">
+            Se connecter →
+        </button>
+    </form>
+
+    <p style="text-align:center; margin-top:1rem; color:#718096; font-size:0.9rem;">
+        Pas encore inscrit ?
+        <a href="{% url 'inscription' %}" style="color:#2b6cb0; font-weight:600;">Créer un compte</a>
+    </p>
+</div>
+</div>
+{% endblock %}

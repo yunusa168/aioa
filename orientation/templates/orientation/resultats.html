@@ -1,0 +1,77 @@
+{% extends 'orientation/base.html' %}
+{% block title %}Mes Recommandations — AIOA{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>🏆 Mes Recommandations</h1>
+    <p style="color:#718096; margin-bottom:0.5rem;">
+        Bonjour <strong>{{ utilisateur.prenom_util }}</strong> —
+        BAC {{ profil.serie_bac }}, {{ profil.mention_bac }},
+        Moyenne : <strong>{{ profil.moyenne_bac }}/20</strong>
+    </p>
+    <p style="color:#718096; font-size:0.9rem; margin-bottom:1.5rem;">
+        Voici tes filières classées par compatibilité avec ton profil.
+    </p>
+</div>
+
+{% for reco in recommandations %}
+<div class="card" style="border-left: 5px solid
+    {% if reco.niveau_reco == 'Excellente' %}#48bb78
+    {% elif reco.niveau_reco == 'Bonne' %}#4299e1
+    {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
+    {% else %}#fc8181{% endif %};">
+
+    <div style="display:flex; justify-content:space-between; align-items:start;">
+        <div>
+            <h2 style="margin-bottom:0.3rem;">
+                {% if forloop.counter == 1 %}🥇
+                {% elif forloop.counter == 2 %}🥈
+                {% elif forloop.counter == 3 %}🥉
+                {% else %}{{ forloop.counter }}.
+                {% endif %}
+               <a href="{% url 'detail_filiere' reco.filiere.id %}"
+   style="color:#1a365d; text-decoration:none;">
+    {{ reco.filiere.nom_filiere }} →
+</a>
+            </h2>
+            <span style="font-size:0.85rem; color:#718096;">{{ reco.filiere.code_filiere }}</span>
+        </div>
+        <div style="text-align:right;">
+            <div style="font-size:2rem; font-weight:700; color:
+                {% if reco.niveau_reco == 'Excellente' %}#38a169
+                {% elif reco.niveau_reco == 'Bonne' %}#3182ce
+                {% elif reco.niveau_reco == 'Moyenne' %}#dd6b20
+                {% else %}#e53e3e{% endif %};">
+                {{ reco.score_compatibilite }}%
+            </div>
+            <span style="font-size:0.85rem; font-weight:600; color:#718096;">{{ reco.niveau_reco }}</span>
+        </div>
+    </div>
+
+    <!-- Barre de progression -->
+    <div style="background:#e2e8f0; border-radius:999px; height:8px; margin:1rem 0;">
+        <div style="width:{{ reco.score_compatibilite }}%; background:
+            {% if reco.niveau_reco == 'Excellente' %}#48bb78
+            {% elif reco.niveau_reco == 'Bonne' %}#4299e1
+            {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
+            {% else %}#fc8181{% endif %};
+            height:8px; border-radius:999px; transition: width 1s;">
+        </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.9rem; color:#4a5568;">
+        <div>
+            <strong>⏱ Durée :</strong> {{ reco.filiere.duree_etudes|default:"N/A" }}<br>
+            <strong>📋 Conditions :</strong> {{ reco.filiere.conditions_acces|default:"N/A" }}
+        </div>
+        <div>
+            <strong>💼 Débouchés :</strong> {{ reco.filiere.debouches|default:"N/A" }}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div style="text-align:center; margin-top:1rem;">
+    <a href="{% url 'profil' %}" class="btn btn-secondary">✏️ Modifier mon profil</a>
+</div>
+{% endblock %}

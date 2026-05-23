@@ -1,0 +1,37 @@
+{% extends 'orientation/base.html' %}
+{% block title %}Accueil — AIOA{% endblock %}
+
+{% block content %}
+<div class="card" style="text-align:center; padding: 3rem 2rem;">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">🎓</div>
+    <h1>Bienvenue sur AIOA</h1>
+    <p style="color:#718096; margin: 1rem 0 2rem; font-size:1.1rem; line-height:1.6;">
+        L'Application Intelligente d'Orientation Académique t'aide à choisir
+        la meilleure filière selon ton profil BAC et tes aspirations.
+    </p>
+    <a href="{% url 'inscription' %}" class="btn btn-primary" style="margin-right:1rem;">
+        Commencer maintenant
+    </a>
+    <a href="{% url 'connexion' %}" class="btn btn-secondary">
+        J'ai déjà un compte
+    </a>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+    <div class="card" style="text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">📋</div>
+        <h2>Saisis ton profil</h2>
+        <p style="color:#718096; font-size:0.9rem;">Série BAC, mention, notes par matière et aspirations.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🤖</div>
+        <h2>L'IA analyse</h2>
+        <p style="color:#718096; font-size:0.9rem;">Notre algorithme calcule ta compatibilité avec chaque filière.</p>
+    </div>
+    <div class="card" style="text-align:center;">
+        <div style="font-size:2rem; margin-bottom:0.5rem;">🏆</div>
+        <h2>Découvre ta voie</h2>
+        <p style="color:#718096; font-size:0.9rem;">Reçois des recommandations personnalisées et classées.</p>
+    </div>
+</div>
+{% endblock %}

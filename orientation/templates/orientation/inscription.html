@@ -1,0 +1,151 @@
+{% extends 'orientation/base.html' %}
+{% block title %}Inscription — AIOA{% endblock %}
+
+{% block content %}
+<div style="max-width:480px; margin:0 auto;">
+<div class="card">
+    <div style="text-align:center; margin-bottom:1.5rem;">
+        <div style="font-size:3rem;">👤</div>
+        <h1 style="margin-bottom:0.3rem;">Créer un compte</h1>
+        <p style="color:#718096;">Rejoignez AIOA et découvrez votre filière idéale</p>
+    </div>
+
+    <form method="post" id="formInscription" novalidate>
+        {% csrf_token %}
+
+        <label>Nom de famille *</label>
+        <input type="text" name="nom" id="nom" required
+               placeholder="Votre nom de famille"
+               value="{{ nom|default:'' }}">
+        <span class="field-error" id="err-nom"></span>
+
+        <label>Prénom *</label>
+        <input type="text" name="prenom" id="prenom" required
+               placeholder="Votre prénom"
+               value="{{ prenom|default:'' }}">
+        <span class="field-error" id="err-prenom"></span>
+
+        <label>Nom d'utilisateur *</label>
+        <input type="text" name="username" id="username" required
+               placeholder="Généré automatiquement"
+               value="{{ username|default:'' }}">
+        <small style="color:#718096; display:block; margin-top:-0.7rem; margin-bottom:0.8rem;">
+            ✏️ Généré automatiquement à partir de votre prénom et nom
+        </small>
+        <span class="field-error" id="err-username"></span>
+
+        <label>Email *</label>
+        <input type="email" name="email" id="email" required
+               placeholder="votre.email@exemple.com"
+               value="{{ email|default:'' }}">
+        <span class="field-error" id="err-email"></span>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+            <div>
+                <label>Mot de passe *</label>
+                <input type="password" name="password" id="password"
+                       required placeholder="••••••••">
+                <span class="field-error" id="err-password"></span>
+            </div>
+            <div>
+                <label>Confirmer le mot de passe *</label>
+                <input type="password" name="password_confirm" id="password_confirm"
+                       required placeholder="Confirmez votre mot de passe">
+                <span class="field-error" id="err-confirm"></span>
+            </div>
+        </div>
+
+        <!-- Barre de force du mot de passe -->
+        <div style="margin-bottom:1rem;">
+            <div style="background:#e2e8f0; border-radius:999px; height:6px;">
+                <div id="pwd-bar" style="width:0%; height:6px; border-radius:999px; transition:all 0.3s;"></div>
+            </div>
+            <small id="pwd-label" style="color:#718096;"></small>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:0.9rem; font-size:1rem;">
+            👤 Créer mon compte
+        </button>
+    </form>
+
+    <p style="text-align:center; margin-top:1rem; color:#718096; font-size:0.9rem;">
+        Déjà un compte ? <a href="{% url 'connexion' %}" style="color:#2b6cb0; font-weight:600;">Se connecter</a>
+    </p>
+</div>
+</div>
+
+<style>
+.field-error { color: #e53e3e; font-size: 0.8rem; display:block; margin-top:-0.8rem; margin-bottom:0.5rem; }
+input.invalid { border-color: #fc8181 !important; }
+input.valid { border-color: #68d391 !important; }
+</style>
+
+<script>
+// Auto-génération du username
+function genUsername() {
+    const prenom = document.getElementById('prenom').value.trim().toLowerCase();
+    const nom = document.getElementById('nom').value.trim().toLowerCase();
+    if (prenom && nom) {
+        const clean = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "");
+        document.getElementById('username').value = clean(prenom) + clean(nom);
+    }
+}
+document.getElementById('prenom').addEventListener('input', genUsername);
+document.getElementById('nom').addEventListener('input', genUsername);
+
+// Force du mot de passe
+document.getElementById('password').addEventListener('input', function() {
+    const val = this.value;
+    const bar = document.getElementById('pwd-bar');
+    const label = document.getElementById('pwd-label');
+    let force = 0;
+    if (val.length >= 8) force++;
+    if (/[A-Z]/.test(val)) force++;
+    if (/[0-9]/.test(val)) force++;
+    if (/[^A-Za-z0-9]/.test(val)) force++;
+
+    const configs = [
+        {w:'0%', c:'', t:''},
+        {w:'25%', c:'#fc8181', t:'Faible'},
+        {w:'50%', c:'#ed8936', t:'Moyen'},
+        {w:'75%', c:'#4299e1', t:'Bon'},
+        {w:'100%', c:'#48bb78', t:'Excellent'},
+    ];
+    bar.style.width = configs[force].w;
+    bar.style.background = configs[force].c;
+    label.textContent = configs[force].t ? `Force : ${configs[force].t}` : '';
+});
+
+// Validation à la soumission
+document.getElementById('formInscription').addEventListener('submit', function(e) {
+    let ok = true;
+
+    function valider(id, errId, condition, msg) {
+        const el = document.getElementById(id);
+        const err = document.getElementById(errId);
+        if (condition) {
+            el.classList.add('invalid'); el.classList.remove('valid');
+            err.textContent = msg; ok = false;
+        } else {
+            el.classList.remove('invalid'); el.classList.add('valid');
+            err.textContent = '';
+        }
+    }
+
+    valider('nom', 'err-nom', !document.getElementById('nom').value.trim(), 'Le nom est obligatoire.');
+    valider('prenom', 'err-prenom', !document.getElementById('prenom').value.trim(), 'Le prénom est obligatoire.');
+    valider('username', 'err-username', !document.getElementById('username').value.trim(), "Le nom d'utilisateur est obligatoire.");
+
+    const email = document.getElementById('email').value;
+    valider('email', 'err-email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), 'Email invalide.');
+
+    const pwd = document.getElementById('password').value;
+    valider('password', 'err-password', pwd.length < 8, 'Minimum 8 caractères.');
+
+    const confirm = document.getElementById('password_confirm').value;
+    valider('password_confirm', 'err-confirm', pwd !== confirm, 'Les mots de passe ne correspondent pas.');
+
+    if (!ok) e.preventDefault();
+});
+</script>
+{% endblock %}

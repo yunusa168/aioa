@@ -1,0 +1,184 @@
+{% extends 'orientation/base.html' %}
+{% block title %}{{ filiere.nom_filiere }} — AIOA{% endblock %}
+
+{% block content %}
+
+<!-- En-tête filière -->
+<div class="card" style="background: linear-gradient(135deg, #1a365d, #2b6cb0); color:white; padding:2rem;">
+    <div style="display:flex; justify-content:space-between; align-items:start; flex-wrap:wrap; gap:1rem;">
+        <div>
+            <p style="color:#bee3f8; font-size:0.9rem; margin-bottom:0.3rem;">
+                {{ filiere.code_filiere }} &nbsp;·&nbsp; {{ filiere.type_profil_filiere|capfirst }}
+            </p>
+            <h1 style="color:white; font-size:2rem; margin-bottom:0.5rem;">
+                🎓 {{ filiere.nom_filiere }}
+            </h1>
+            {% if filiere.duree_etudes %}
+            <span style="background:rgba(255,255,255,0.2); padding:0.3rem 0.8rem;
+                         border-radius:999px; font-size:0.85rem; color:white;">
+                ⏱ {{ filiere.duree_etudes }}
+            </span>
+            {% endif %}
+        </div>
+
+        {% if reco %}
+        <div style="text-align:center; background:rgba(255,255,255,0.15);
+                    border-radius:12px; padding:1rem 1.5rem; min-width:120px;">
+            <div style="font-size:2.5rem; font-weight:700; color:white;">
+                {{ reco.score_compatibilite }}%
+            </div>
+            <div style="color:#bee3f8; font-size:0.85rem;">Compatibilité</div>
+            <div style="margin-top:0.3rem;">
+                <span style="background:
+                    {% if reco.niveau_reco == 'Excellente' %}#48bb78
+                    {% elif reco.niveau_reco == 'Bonne' %}#4299e1
+                    {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
+                    {% else %}#fc8181{% endif %};
+                    color:white; padding:0.2rem 0.7rem; border-radius:999px; font-size:0.8rem;">
+                    {{ reco.niveau_reco }}
+                </span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Barre de compatibilité -->
+{% if reco %}
+<div class="card" style="padding:1.2rem 2rem;">
+    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; font-size:0.9rem;">
+        <span style="color:#4a5568; font-weight:600;">Taux de compatibilité avec ton profil</span>
+        <span style="font-weight:700; color:#2b6cb0;">{{ reco.score_compatibilite }}%</span>
+    </div>
+    <div style="background:#e2e8f0; border-radius:999px; height:12px;">
+        <div style="width:{{ reco.score_compatibilite }}%;
+                    background: linear-gradient(90deg,
+                    {% if reco.niveau_reco == 'Excellente' %}#48bb78, #38a169
+                    {% elif reco.niveau_reco == 'Bonne' %}#4299e1, #2b6cb0
+                    {% elif reco.niveau_reco == 'Moyenne' %}#ed8936, #dd6b20
+                    {% else %}#fc8181, #e53e3e{% endif %});
+                    height:12px; border-radius:999px; transition:width 1s;">
+        </div>
+    </div>
+    <div style="display:flex; justify-content:space-between; margin-top:0.4rem; font-size:0.75rem; color:#a0aec0;">
+        <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+    </div>
+</div>
+{% endif %}
+
+<!-- Grille infos principales -->
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+
+    <!-- Description -->
+    {% if filiere.description_filiere %}
+    <div class="card" style="grid-column:span 2;">
+        <h2>📖 Description</h2>
+        <p style="color:#4a5568; line-height:1.7; margin-top:0.5rem;">
+            {{ filiere.description_filiere }}
+        </p>
+    </div>
+    {% endif %}
+
+    <!-- Conditions d'accès -->
+    {% if filiere.conditions_acces %}
+    <div class="card">
+        <h2>📋 Conditions d'accès</h2>
+        <p style="color:#4a5568; line-height:1.7; margin-top:0.5rem;">
+            {{ filiere.conditions_acces }}
+        </p>
+        {% if profil %}
+        <div style="margin-top:1rem; padding:0.7rem; border-radius:8px;
+                    background:{% if reco and reco.score_compatibilite >= 60 %}#f0fff4{% else %}#fff5f5{% endif %};">
+            <span style="font-size:0.9rem; font-weight:600;
+                         color:{% if reco and reco.score_compatibilite >= 60 %}#276749{% else %}#c53030{% endif %};">
+                {% if reco and reco.score_compatibilite >= 60 %}
+                    ✅ Ton profil BAC {{ profil.serie_bac }} correspond aux critères
+                {% else %}
+                    ⚠️ Vérifie si ton profil BAC {{ profil.serie_bac }} correspond
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Débouchés -->
+    {% if filiere.debouches %}
+    <div class="card">
+        <h2>💼 Débouchés professionnels</h2>
+        <div style="margin-top:0.5rem;">
+            {% for debouche in filiere.debouches.split %}
+            {% endfor %}
+            <p style="color:#4a5568; line-height:1.7;">{{ filiere.debouches }}</p>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Compétences requises -->
+    {% if filiere.competences_requises %}
+    <div class="card" style="grid-column:span 2;">
+        <h2>⚡ Compétences requises</h2>
+        <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.8rem;">
+            {% for comp in filiere.competences_requises.split|slice:":10" %}
+            <span style="background:#ebf8ff; color:#2b6cb0; padding:0.3rem 0.8rem;
+                         border-radius:999px; font-size:0.85rem; font-weight:500;">
+                {{ comp }}
+            </span>
+            {% endfor %}
+        </div>
+        <p style="color:#4a5568; margin-top:0.8rem; font-size:0.9rem;">
+            {{ filiere.competences_requises }}
+        </p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Matières clés pour cette filière -->
+{% if matieres_detail %}
+<div class="card">
+    <h2 style="margin-bottom:1rem;">📊 Matières clés pour cette filière</h2>
+    <p style="color:#718096; font-size:0.9rem; margin-bottom:1rem;">
+        Voici les matières les plus importantes et tes notes correspondantes.
+    </p>
+
+    {% for m in matieres_detail %}
+    <div style="display:flex; align-items:center; gap:1rem; padding:0.8rem;
+                border-radius:8px; margin-bottom:0.5rem;
+                background:{% if m.statut == 'bon' %}#f0fff4{% elif m.statut == 'moyen' %}#ebf8ff{% else %}#fff5f5{% endif %};">
+
+        <div style="font-size:1.3rem;">
+            {% if m.statut == 'bon' %}✅
+            {% elif m.statut == 'moyen' %}🔵
+            {% else %}⚠️{% endif %}
+        </div>
+
+        <div style="flex:1;">
+            <div style="font-weight:600; color:#2d3748;">{{ m.nom }}</div>
+            <div style="font-size:0.8rem; color:#718096;">
+                Importance : {{ m.coeff }}/2.0
+            </div>
+            <!-- Barre importance -->
+            <div style="background:#e2e8f0; border-radius:999px; height:4px; margin-top:0.3rem; width:120px;">
+                <div style="width:{% widthratio m.coeff 2 100 %}%;
+                            background:#2b6cb0; height:4px; border-radius:999px;"></div>
+            </div>
+        </div>
+
+        <div style="text-align:right;">
+            <div style="font-size:1.1rem; font-weight:700;
+                        color:{% if m.statut == 'bon' %}#38a169{% elif m.statut == 'moyen' %}#3182ce{% else %}#e53e3e{% endif %};">
+                {{ m.sur20 }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Boutons navigation -->
+<div style="display:flex; gap:1rem; justify-content:center; margin-top:1rem; flex-wrap:wrap;">
+    <a href="{% url 'resultats' %}" class="btn btn-secondary">← Toutes mes recommandations</a>
+    <a href="{% url 'dashboard' %}" class="btn btn-primary">🏠 Mon Dashboard</a>
+</div>
+
+{% endblock %}
