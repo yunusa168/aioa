@@ -9,6 +9,13 @@ from .models import (
     Concours, RecommandationConcours
 )
 import json
+# Ajouter ces imports en haut de views.py
+from .services.mistral_service import analyser_document_mistral
+import magic
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
+
 
 MATIERES_PAR_SERIE = {
     "A1": ["Français","Philosophie","Histoire-Géographie","Anglais","Espagnol","Allemand","Mathématiques"],
@@ -590,3 +597,57 @@ def detail_filiere(request, filiere_id):
         'matieres_detail': matieres_detail,
         'profil': profil_bac,
     })
+
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 Mo
+ALLOWED_MIME_TYPES = {
+    'image/jpeg', 'image/png', 'image/webp', 'application/pdf'
+}
+
+
+@require_POST
+def analyser_bulletin(request):
+    """
+    Endpoint POST /analyser-bulletin/
+    Reçoit une image ou PDF, appelle Mistral, retourne les notes en JSON.
+
+    Pour le BAC : retourne notes calculées (note_obtenue / coefficient)
+    Pour T1/T2/T3 : retourne les moyennes trimestrielles sur 20
+    """
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return JsonResponse(
+            {'success': False, 'error': 'Non authentifié.'}, status=401
+        )
+
+    fichier = request.FILES.get('bulletin_image')
+    if not fichier:
+        return JsonResponse(
+            {'success': False, 'error': 'Aucun fichier reçu.'}, status=400
+        )
+
+    # Vérification taille
+    if fichier.size > MAX_FILE_SIZE:
+        return JsonResponse({
+            'success': False,
+            'error': f'Fichier trop volumineux (max 10 Mo). '
+                     f'Taille reçue : {fichier.size // 1024} Ko.'
+        }, status=400)
+
+    # Vérification par extension (sans python-magic)
+    nom = fichier.name.lower()
+    if not nom.endswith(('.jpg', '.jpeg', '.png', '.webp', '.pdf')):
+        return JsonResponse({
+            'success': False,
+            'error': 'Format non supporté. Utilisez JPG, PNG, WebP ou PDF.'
+        }, status=400)
+
+    # Paramètres
+    type_document = request.POST.get('type_document', 'T1')
+    serie_bac = request.POST.get('serie_bac', '')
+
+    if type_document not in ['bac', 'T1', 'T2', 'T3', 'bulletin_2nde', 'bulletin_1ere']:
+        type_document = 'T1'
+
+    # Appel Mistral
+    resultat = analyser_document_mistral(fichier, type_document, serie_bac)
+    return JsonResponse(resultat)
