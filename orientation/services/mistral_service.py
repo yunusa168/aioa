@@ -17,11 +17,17 @@ CORRESPONDANCES = {
     "mathematiques": "Mathématiques", "mathématiques": "Mathématiques",
     "mathématique": "Mathématiques", "mathematique": "Mathématiques",
 
-    # Physique-Chimie
-    "physique": "Physique-Chimie", "chimie": "Physique-Chimie",
+    # Physique-Chimie (association explicite des deux mots)
     "physique-chimie": "Physique-Chimie", "physique chimie": "Physique-Chimie",
-    "pc": "Physique-Chimie", "physique & chimie": "Physique-Chimie",
-    "sciences physiques": "Physique-Chimie",
+    "physique & chimie": "Physique-Chimie", "physique et chimie": "Physique-Chimie",
+    "pc": "Physique-Chimie", "sciences physiques": "Physique-Chimie",
+    "chimie": "Physique-Chimie",
+
+    # Physique seul (séries F1, F2, F3, F4, TI)
+    # NB : "physique" seul est géré spécialement dans _normaliser_matiere
+    # pour distinguer selon le contexte. On le laisse ici mais la logique
+    # dans _normaliser_matiere le court-circuite si "chimie" est absent.
+    "physique": "Physique-Chimie",  # sera court-circuité si chimie absent
 
     # SVT
     "svt": "SVT", "sciences de la vie": "SVT",
@@ -137,6 +143,14 @@ def _normaliser_matiere(nom: str) -> str:
     if not nom:
         return nom
     cle = nom.strip().lower()
+    # Normaliser les tirets/espaces variantes autour de "physique-chimie"
+    cle = re.sub(r'physique\s*[–—-]\s*chimie', 'physique-chimie', cle)
+    cle = re.sub(r'physique\s*&\s*chimie', 'physique-chimie', cle)
+    cle = re.sub(r'physique\s+et\s+chimie', 'physique-chimie', cle)
+
+    # ── Cas spécial : "physique" seul (sans chimie) → "Physique" (séries F/TI)
+    if cle == "physique" or (cle.startswith("physique") and "chimie" not in cle and len(cle) <= 10):
+        return "Physique"
 
     # 1. Correspondance directe
     if cle in CORRESPONDANCES:
@@ -148,8 +162,12 @@ def _normaliser_matiere(nom: str) -> str:
             return CORRESPONDANCES.get(variante, variante.title())
 
     # 3. Correspondance partielle : variante >= 5 chars contenue dans le nom
+    #    IMPORTANT : "physique" seul sans "chimie" → on NE mappe PAS vers "Physique-Chimie"
     for variante, canonique in CORRESPONDANCES.items():
         if len(variante) >= 5 and variante in cle:
+            # Éviter que "physique" seul (sans chimie) soit mappé vers Physique-Chimie
+            if variante == "physique" and "chimie" not in cle:
+                continue
             return canonique
 
     # 4. Retourner tel quel
@@ -284,13 +302,48 @@ def _calculer_notes_bac(matieres_brutes: list) -> dict:
 
 
 def _normaliser_notes_bulletin(notes_brutes: dict) -> dict:
-    """Normalise les clés d'un dict de notes bulletin vers les noms canoniques."""
+    """Normalise les clés d'un dict de notes bulletin vers les noms canoniques.
+    
+    Gère le cas spécial du Français qui peut apparaître en deux lignes
+    distinctes dans les bulletins : "Français Écrit" et "Français Oral".
+    Dans ce cas on calcule la moyenne des deux pour obtenir une seule note.
+    """
     notes_propres = {}
+    francais_ecrit = None
+    francais_oral  = None
+
     for matiere_brute, note in notes_brutes.items():
         v = _valider_note(note)
-        if v is not None:
-            nom_canonique = _normaliser_matiere(matiere_brute)
-            notes_propres[nom_canonique] = v
+        if v is None:
+            continue
+        nom_lower = matiere_brute.strip().lower()
+        is_francais = "fran" in nom_lower
+        is_ecrit    = any(x in nom_lower for x in ["ecrit", "écrit"])
+        is_oral     = "oral" in nom_lower
+
+        if is_francais and is_ecrit:
+            francais_ecrit = v
+            continue
+        if is_francais and is_oral:
+            francais_oral = v
+            continue
+
+        nom_canonique = _normaliser_matiere(matiere_brute)
+        notes_propres[nom_canonique] = v
+
+    # Fusionner Français Écrit + Oral → une seule note Français
+    if francais_ecrit is not None and francais_oral is not None:
+        notes_propres["Français"] = round((francais_ecrit + francais_oral) / 2, 2)
+    elif francais_ecrit is not None:
+        notes_propres["Français"] = francais_ecrit
+    elif francais_oral is not None:
+        notes_propres["Français"] = francais_oral
+
+    # Si "Français" existe déjà (sans oral/écrit séparés) on le garde tel quel
+    if "Français" not in notes_propres:
+        # Chercher une entrée "français" générique déjà ajoutée
+        pass  # déjà géré au-dessus
+
     return notes_propres
 
 
@@ -337,11 +390,17 @@ RÈGLES DE CALCUL STRICTES — BAC IVOIRIEN
    - SVT : 12/40, coeff 2 → 12 ÷ 2 = 6.0
    - Philosophie : 18/40, coeff 2 → 18 ÷ 2 = 9.0
 
-2. CAS SPÉCIAL — PHYSIQUE-CHIMIE (très important, erreur fréquente) :
-   - La note est sur /100, le coefficient est 5
-   - Calcul : note_obtenue ÷ 5 = note sur 20
-   - Exemple : 50/100, coeff 5 → 50 ÷ 5 = 10.0 (PAS 50÷4, PAS 50÷100×20)
-   - Vérification : le résultat DOIT être entre 0 et 20
+2. CAS SPÉCIAL — PHYSIQUE-CHIMIE vs PHYSIQUE SEUL (très important, erreur fréquente) :
+   a) PHYSIQUE-CHIMIE (séries C, D, E) — si le document écrit "Physique-Chimie", "Physique & Chimie", "Sciences Physiques" :
+      - La note est sur /100, le coefficient est 5
+      - Calcul : note_obtenue ÷ 5 = note sur 20
+      - Exemple : 50/100, coeff 5 → 50 ÷ 5 = 10.0
+      - Retourne le nom "Physique-Chimie"
+   b) PHYSIQUE SEUL (séries F1, F2, F3, F4, TI) — si le document écrit uniquement "Physique" sans "Chimie" :
+      - Retourne le nom "Physique" (PAS "Physique-Chimie")
+      - Ne fusionne JAMAIS Physique et Chimie si le document ne les associe pas
+   La série déclarée est {serie_bac or 'inconnue'} — utilise-la pour lever le doute si besoin.
+   Vérification : le résultat DOIT être entre 0 et 20
 
 3. CAS SPÉCIAL — FRANÇAIS (deux lignes à fusionner) :
    - "Français (Écrit)" ou "Français Écrit" : note sur /40, coeff 2
@@ -367,6 +426,10 @@ RÈGLES DE CALCUL STRICTES — BAC IVOIRIEN
    - Sinon inclure normalement
 
 ════════════════════════════════════════════
+
+IMPORTANT — LECTURE DE LA SÉRIE :
+Le champ etudiant.serie DOIT contenir la série BAC exactement telle qu'elle est écrite sur le document
+(ex: "D", "C", "A1", "G2", "TI"). Ne laisse JAMAIS ce champ à null si la série est lisible sur le document.
 
 Format de réponse JSON :
 {{
@@ -435,7 +498,78 @@ Règles STRICTES :
 - N'invente PAS de notes, extrais uniquement ce qui est écrit
 - Si une matière a plusieurs notes (interros, exam...), prends la MOYENNE finale
 - Ignore : rang, appréciation du prof, absences, conduites
-- Les coefficients ne doivent PAS avoir de zéro devant"""
+- Les coefficients ne doivent PAS avoir de zéro devant
+
+CAS SPÉCIAL — FRANÇAIS (oral et écrit séparés) :
+- Si le bulletin présente DEUX lignes distinctes "Français Écrit" et "Français Oral",
+  retourne-les comme deux entrées séparées :
+  {{"matiere": "Français Écrit", "moyenne": 12.0}},
+  {{"matiere": "Français Oral", "moyenne": 13.0}}
+- Si une seule ligne "Français" existe, retourne-la telle quelle :
+  {{"matiere": "Français", "moyenne": 12.5}}
+- Ne fusionne JAMAIS toi-même oral et écrit : laisse le système calculer la moyenne."""
+
+
+# ─────────────────────────────────────────────────────────────
+# VALIDATION DE SÉRIE
+# ─────────────────────────────────────────────────────────────
+
+# Séries valides du BAC ivoirien
+_SERIES_VALIDES = {'A1', 'A2', 'C', 'D', 'E', 'F1', 'F2', 'F3', 'F4', 'G1', 'G2', 'TI'}
+
+# Matières caractéristiques de chaque série (pour détecter une incohérence)
+_MATIERES_SERIE = {
+    'A1': {'Français', 'Philosophie', 'Histoire-Géographie', 'Anglais'},
+    'A2': {'Français', 'Philosophie', 'Histoire-Géographie', 'Anglais'},
+    'C':  {'Mathématiques', 'Physique-Chimie', 'SVT'},
+    'D':  {'Mathématiques', 'Physique-Chimie', 'SVT'},
+    'E':  {'Mathématiques', 'Physique-Chimie', 'Sciences Industrielles'},
+    'F1': {'Mathématiques', 'Physique', 'Dessin Technique', 'Construction Mécanique'},
+    'F2': {'Mathématiques', 'Physique', 'Électronique', 'Électrotechnique'},
+    'F3': {'Mathématiques', 'Physique', 'Génie Civil', 'Dessin Technique'},
+    'F4': {'Mathématiques', 'Physique', 'Topographie'},
+    'G1': {'Comptabilité', 'Économie-Gestion'},
+    'G2': {'Économie-Gestion', 'Gestion Commerciale'},
+    'TI': {'Informatique', 'Mathématiques', 'Physique'},
+}
+
+# Matières qui, si présentes, excluent certaines séries
+_MATIERES_EXCLUSIVES = {
+    'Physique-Chimie':       {'A1', 'A2', 'F1', 'F2', 'F3', 'F4', 'G1', 'G2', 'TI'},  # séries sans PC
+    'SVT':                   {'A1', 'A2', 'E', 'F1', 'F2', 'F3', 'F4', 'G1', 'G2', 'TI'},
+    'Sciences Industrielles': {'A1', 'A2', 'C', 'D', 'F1', 'F2', 'F3', 'F4', 'G1', 'G2', 'TI'},
+    'Comptabilité':          {'A1', 'A2', 'C', 'D', 'E', 'F1', 'F2', 'F3', 'F4', 'G2', 'TI'},
+    'Gestion Commerciale':   {'A1', 'A2', 'C', 'D', 'E', 'F1', 'F2', 'F3', 'F4', 'G1', 'TI'},
+    'Informatique':          {'A1', 'A2', 'C', 'D', 'E', 'F1', 'F2', 'F3', 'F4', 'G1', 'G2'},
+}
+
+
+def _valider_serie_document(notes_extraites: dict, serie_declaree: str) -> dict | None:
+    """
+    Vérifie si les matières extraites sont cohérentes avec la série déclarée.
+    Retourne None si OK, sinon un dict d'erreur.
+    """
+    if not serie_declaree or serie_declaree not in _SERIES_VALIDES:
+        return None  # Pas de série déclarée → on ne bloque pas
+
+    serie = serie_declaree.upper()
+    matieres_doc = set(notes_extraites.keys())
+
+    # Vérifier les matières exclusives : une matière présente dans le doc
+    # qui est incompatible avec la série déclarée → incohérence forte
+    for matiere, series_incompatibles in _MATIERES_EXCLUSIVES.items():
+        if matiere in matieres_doc and serie in series_incompatibles:
+            return {
+                'success': False,
+                'error': (
+                    f"❌ Ce document ne correspond pas à votre série {serie}. "
+                    f"La matière « {matiere} » n'appartient pas à la série {serie}. "
+                    f"Veuillez importer le bon document (série {serie})."
+                ),
+                'serie_conflict': True,
+            }
+
+    return None  # Tout est cohérent
 
 
 # ─────────────────────────────────────────────────────────────
@@ -452,8 +586,42 @@ def analyser_document_mistral(file_obj, type_document: str, serie_bac: str = '')
 
     try:
         if media_type == 'application/pdf':
-            return _analyser_pdf(client, file_obj, prompt, type_document)
-        return _analyser_image(client, file_obj, media_type, prompt, type_document)
+            resultat = _analyser_pdf(client, file_obj, prompt, type_document)
+        else:
+            resultat = _analyser_image(client, file_obj, media_type, prompt, type_document)
+
+        # ── Validation de cohérence série ──────────────────────────────
+        if resultat.get('success') and serie_bac:
+
+            # Pour le relevé BAC : comparer la série écrite sur le document
+            # avec la série déclarée par l'étudiant — c'est la vérif la plus fiable
+            if type_document == 'bac':
+                serie_doc = ''
+                etudiant = resultat.get('etudiant') or {}
+                if etudiant:
+                    serie_doc = (etudiant.get('serie') or '').strip().upper()
+
+                if serie_doc and serie_doc != serie_bac.upper():
+                    return {
+                        'success': False,
+                        'error': (
+                            f"❌ Ce relevé de BAC est de série {serie_doc}, "
+                            f"mais vous avez déclaré la série {serie_bac.upper()}. "
+                            f"Veuillez importer le relevé correspondant à votre série {serie_bac.upper()}."
+                        ),
+                        'serie_conflict': True,
+                    }
+
+            # Pour tous les types : vérification par les matières présentes
+            if resultat.get('notes'):
+                erreur_serie = _valider_serie_document(resultat['notes'], serie_bac)
+                if erreur_serie:
+                    return erreur_serie
+
+        # ──────────────────────────────────────────────────────────────
+
+        return resultat
+
     except Exception as e:
         logger.error(f"Mistral API error: {e}")
         return {'success': False, 'error': f"Erreur lors de l'analyse : {str(e)}"}

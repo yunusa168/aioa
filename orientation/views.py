@@ -643,11 +643,29 @@ def analyser_bulletin(request):
 
     # Paramètres
     type_document = request.POST.get('type_document', 'T1')
-    serie_bac = request.POST.get('serie_bac', '')
+    serie_bac = (request.POST.get('serie_bac', '') or '').strip().upper()
 
     if type_document not in ['bac', 'T1', 'T2', 'T3', 'bulletin_2nde', 'bulletin_1ere']:
         type_document = 'T1'
 
-    # Appel Mistral
+    # ─ Série : fallback BDD si le JS ne l'a pas envoyée ─────────────
+    if not serie_bac:
+        try:
+            profil_obj = ProfilBachelier.objects.get(utilisateur__id=user_id)
+            serie_bac = (profil_obj.serie_bac or '').strip().upper()
+        except Exception:
+            serie_bac = ''
+
+    # ─ Bloquer si aucune série connue ────────────────────────────────
+    if not serie_bac:
+        return JsonResponse({
+            'success': False,
+            'error': (
+                "⚠️ Aucune série BAC renseignée. "
+                "Veuillez d'abord choisir votre série à l'étape 1 avant d'importer un document."
+            )
+        }, status=400)
+
+    # Appel Mistral (la validation de cohérence série est dans le service)
     resultat = analyser_document_mistral(fichier, type_document, serie_bac)
     return JsonResponse(resultat)
