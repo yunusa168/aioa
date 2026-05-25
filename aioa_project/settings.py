@@ -5,6 +5,7 @@ Django settings for aioa_project project.
 import os
 from pathlib import Path
 from decouple import config
+os.environ['PATH'] += r';C:\poppler-26.02.0\Library\bin'
 
 # ══════════════════════════════════════════
 # CHEMINS
