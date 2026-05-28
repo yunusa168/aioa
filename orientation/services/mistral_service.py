@@ -224,79 +224,63 @@ def _valider_note(note) -> float | None:
 
 
 def _calculer_notes_bac(matieres_brutes: list) -> dict:
+    """
+    Calcule toutes les notes sur 20 à partir des données brutes fournies par Mistral.
+    Mistral fournit uniquement note_obtenue + coefficient, Python fait tous les calculs.
+
+    Règle générale : note_sur_20 = note_obtenue ÷ coefficient
+    Règle Français : écrit_sur_20 = note_ecrit ÷ coeff_ecrit
+                     oral_sur_20  = note_oral  ÷ coeff_oral
+                     Français     = (écrit_sur_20 + oral_sur_20) ÷ 2
+    """
     notes = {}
-    francais_ecrit = None
-    francais_oral  = None
+    francais_ecrit_sur_20 = None
+    francais_oral_sur_20  = None
 
     for item in matieres_brutes:
         nom_brut = item.get("matiere", "")
         if not nom_brut: continue
         nom_lower = nom_brut.lower().strip()
-        no  = item.get("note_obtenue")
-        co  = item.get("coefficient")
-        n20 = item.get("note_sur_20")
 
-        # Detecter Francais Ecrit / Oral
-        is_fr_ecrit = any(x in nom_lower for x in ["ecrit", "écrit"])
-        is_fr_oral  = any(x in nom_lower for x in ["oral"])
-        is_francais = "fran" in nom_lower
+        no = item.get("note_obtenue")
+        co = item.get("coefficient")
 
-        if is_francais and is_fr_ecrit:
-            try:
-                if n20 is not None and 0 <= float(n20) <= 20:
-                    francais_ecrit = ("n20", float(n20))
-                elif no is not None and co is not None:
-                    francais_ecrit = ("brut", float(no), float(co))
-            except: pass
+        if no is None or co is None:
+            continue
+        try:
+            no_f = float(no)
+            co_f = float(co)
+            if co_f <= 0:
+                continue
+            sur_20 = round(no_f / co_f, 2)
+            if not (0 <= sur_20 <= 20):
+                continue
+        except:
             continue
 
-        if is_francais and is_fr_oral:
-            try:
-                if n20 is not None and 0 <= float(n20) <= 20:
-                    francais_oral = ("n20", float(n20))
-                elif no is not None and co is not None:
-                    francais_oral = ("brut", float(no), float(co))
-                elif no is not None:
-                    francais_oral = ("n20", float(no))
-            except: pass
+        is_francais = "fran" in nom_lower
+        is_ecrit    = any(x in nom_lower for x in ["ecrit", "écrit"])
+        is_oral     = "oral" in nom_lower
+
+        if is_francais and is_ecrit:
+            francais_ecrit_sur_20 = sur_20
+            continue
+
+        if is_francais and is_oral:
+            francais_oral_sur_20 = sur_20
             continue
 
         nom = _normaliser_matiere(nom_brut)
-        try:
-            if n20 is not None:
-                v = float(n20)
-                if 0 <= v <= 20:
-                    notes[nom] = round(v, 2)
-                    continue
-            if no is not None and co is not None:
-                n, c = float(no), float(co)
-                if c > 0:
-                    v = round(n / c, 2)
-                    if 0 <= v <= 20:
-                        notes[nom] = v
-                        continue
-            if no is not None:
-                n = float(no)
-                if 0 <= n <= 20:
-                    notes[nom] = round(n, 2)
-        except: pass
+        notes[nom] = sur_20
 
-    # Fusionner Francais Ecrit + Oral
-    if francais_ecrit or francais_oral:
-        try:
-            def to_sur_20(t):
-                if t[0] == "n20": return t[1]
-                _, n, c = t
-                return round(n / c, 2) if c > 0 else None
-            e20 = to_sur_20(francais_ecrit) if francais_ecrit else None
-            o20 = to_sur_20(francais_oral)  if francais_oral  else None
-            if e20 is not None and o20 is not None:
-                notes["Français"] = round((e20 + o20) / 2, 2)
-            elif e20 is not None:
-                notes["Français"] = e20
-            elif o20 is not None:
-                notes["Français"] = o20
-        except: pass
+    # Fusionner Français Écrit + Oral
+    # Formule : (écrit_sur_20 + oral_sur_20) ÷ 2
+    if francais_ecrit_sur_20 is not None and francais_oral_sur_20 is not None:
+        notes["Français"] = round((francais_ecrit_sur_20 + francais_oral_sur_20) / 2, 2)
+    elif francais_ecrit_sur_20 is not None:
+        notes["Français"] = francais_ecrit_sur_20
+    elif francais_oral_sur_20 is not None:
+        notes["Français"] = francais_oral_sur_20
 
     return notes
 
@@ -331,18 +315,14 @@ def _normaliser_notes_bulletin(notes_brutes: dict) -> dict:
         nom_canonique = _normaliser_matiere(matiere_brute)
         notes_propres[nom_canonique] = v
 
-    # Fusionner Français Écrit + Oral → une seule note Français
+    # Fusionner Français Écrit + Oral :
+    #   Les notes sont ramenées sur 20 (note / coeff), puis moyenne des deux
     if francais_ecrit is not None and francais_oral is not None:
         notes_propres["Français"] = round((francais_ecrit + francais_oral) / 2, 2)
     elif francais_ecrit is not None:
         notes_propres["Français"] = francais_ecrit
     elif francais_oral is not None:
         notes_propres["Français"] = francais_oral
-
-    # Si "Français" existe déjà (sans oral/écrit séparés) on le garde tel quel
-    if "Français" not in notes_propres:
-        # Chercher une entrée "français" générique déjà ajoutée
-        pass  # déjà géré au-dessus
 
     return notes_propres
 
@@ -379,51 +359,32 @@ def _build_prompt(type_document: str, serie_bac: str) -> str:
         return base + f"""
 Document : Relevé de notes du BAC ivoirien — série {serie_bac or 'inconnue'}.
 
-Extrais TOUTES les lignes de matières du tableau, ligne par ligne.
+TON RÔLE : lire et extraire les données brutes uniquement. NE CALCULE RIEN.
+Le système Python se charge de tous les calculs.
 
 ════════════════════════════════════════════
-RÈGLES DE CALCUL STRICTES — BAC IVOIRIEN
+RÈGLES DE LECTURE
 ════════════════════════════════════════════
 
-1. RÈGLE GÉNÉRALE : note_sur_20 = note_obtenue ÷ coefficient
-   - Mathématiques : 65/100, coeff 5 → 65 ÷ 5 = 13.0
-   - SVT : 12/40, coeff 2 → 12 ÷ 2 = 6.0
-   - Philosophie : 18/40, coeff 2 → 18 ÷ 2 = 9.0
+1. RÈGLE GÉNÉRALE :
+   Extrais le nom de la matière, la note_obtenue et le coefficient exactement tels qu'écrits.
+   Ne calcule PAS de note sur 20. Pas de champ "note_sur_20".
 
-2. CAS SPÉCIAL — PHYSIQUE-CHIMIE vs PHYSIQUE SEUL (très important, erreur fréquente) :
-   a) PHYSIQUE-CHIMIE (séries C, D, E) — si le document écrit "Physique-Chimie", "Physique & Chimie", "Sciences Physiques" :
-      - La note est sur /100, le coefficient est 5
-      - Calcul : note_obtenue ÷ 5 = note sur 20
-      - Exemple : 50/100, coeff 5 → 50 ÷ 5 = 10.0
-      - Retourne le nom "Physique-Chimie"
-   b) PHYSIQUE SEUL (séries F1, F2, F3, F4, TI) — si le document écrit uniquement "Physique" sans "Chimie" :
-      - Retourne le nom "Physique" (PAS "Physique-Chimie")
-      - Ne fusionne JAMAIS Physique et Chimie si le document ne les associe pas
-   La série déclarée est {serie_bac or 'inconnue'} — utilise-la pour lever le doute si besoin.
-   Vérification : le résultat DOIT être entre 0 et 20
+2. PHYSIQUE-CHIMIE vs PHYSIQUE SEUL :
+   - Document écrit "Physique-Chimie", "Physique & Chimie", "Sciences Physiques" → nom = "Physique-Chimie"
+   - Document écrit uniquement "Physique" sans "Chimie" → nom = "Physique"
+   - Série déclarée : {serie_bac or 'inconnue'} — utilise-la pour lever le doute si besoin.
 
-3. CAS SPÉCIAL — FRANÇAIS (deux lignes à fusionner) :
-   - "Français (Écrit)" ou "Français Écrit" : note sur /40, coeff 2
-   - "Français (Oral)" ou "Français Oral" : note sur /20, coeff 1
-   - Calcul de la note Français sur 20 :
-     note_ecrit_sur_20 = note_ecrit ÷ 2
-     note_oral_sur_20 = note_oral ÷ 1
-     note_francais = (note_ecrit_sur_20 + note_oral_sur_20) ÷ 2
-   - Exemple : Écrit=22/40 → 11.0 ; Oral=12/20 → 12.0 ; Français = (11+12)÷2 = 11.5
-   - NE PAS créer deux entrées séparées pour oral et écrit — une seule entrée "Français"
+3. FRANÇAIS (deux lignes séparées obligatoires) :
+   - Retourne TOUJOURS deux entrées distinctes : "Français Écrit" et "Français Oral"
+   - Chacune avec sa propre note_obtenue et son coefficient
+   - NE fusionne PAS, NE calcule PAS de moyenne — Python s'en charge
+   - Exemple :
+     {{"matiere": "Français Écrit", "note_obtenue": 22, "coefficient": 2}},
+     {{"matiere": "Français Oral",  "note_obtenue": 12, "coefficient": 1}}
 
-4. ANGLAIS ORAL / AUTRES ORAUX :
-   - Note directement sur /20, coeff 1 → note_sur_20 = note telle quelle
-   - Exemple : Anglais Oral 13/20 → 13.0
-
-5. EPS / ÉDUCATION PHYSIQUE :
-   - Souvent noté comme bonus (+05) ou note sur /20
-   - Si c'est un bonus (+05), note_sur_20 = 5.0, coefficient = 1
-   - Si c'est une note normale sur /20, prendre telle quelle
-
-6. ÉPREUVES FACULTATIVES :
-   - Si la note est 00 ou nulle, ignorer cette matière
-   - Sinon inclure normalement
+4. ÉPREUVES FACULTATIVES :
+   - Si la note est 00 ou nulle, ignorer cette matière.
 
 ════════════════════════════════════════════
 
@@ -442,22 +403,22 @@ Format de réponse JSON :
     "annee": null
   }},
   "matieres": [
-    {{"matiere": "Mathématiques", "note_obtenue": 65, "coefficient": 5, "note_sur_20": 13.0}},
-    {{"matiere": "Physique-Chimie", "note_obtenue": 50, "coefficient": 5, "note_sur_20": 10.0}},
-    {{"matiere": "SVT", "note_obtenue": 12, "coefficient": 2, "note_sur_20": 6.0}},
-    {{"matiere": "Français", "note_obtenue": null, "coefficient": 3, "note_sur_20": 11.5}},
-    {{"matiere": "Philosophie", "note_obtenue": 18, "coefficient": 2, "note_sur_20": 9.0}},
-    {{"matiere": "Histoire-Géographie", "note_obtenue": 24, "coefficient": 2, "note_sur_20": 12.0}},
-    {{"matiere": "Anglais", "note_obtenue": 13, "coefficient": 1, "note_sur_20": 13.0}}
+    {{"matiere": "Mathématiques",       "note_obtenue": 65, "coefficient": 5}},
+    {{"matiere": "Physique-Chimie",     "note_obtenue": 50, "coefficient": 5}},
+    {{"matiere": "SVT",                 "note_obtenue": 12, "coefficient": 2}},
+    {{"matiere": "Français Écrit",      "note_obtenue": 22, "coefficient": 2}},
+    {{"matiere": "Français Oral",       "note_obtenue": 12, "coefficient": 1}},
+    {{"matiere": "Philosophie",         "note_obtenue": 18, "coefficient": 2}},
+    {{"matiere": "Histoire-Géographie", "note_obtenue": 24, "coefficient": 2}},
+    {{"matiere": "Anglais",             "note_obtenue": 13, "coefficient": 1}}
   ],
   "moyenne_generale": null,
   "mention": null
 }}
 
 Règles finales :
-- Ajoute le champ "note_sur_20" directement dans chaque matière (tu calcules toi-même)
-- note_sur_20 doit TOUJOURS être entre 0 et 20 — si ce n'est pas le cas, tu t'es trompé
-- moyenne_generale = la M.G.A. écrite sur le document (sur 20)
+- PAS de champ "note_sur_20" — Python calcule tout
+- moyenne_generale = la M.G.A. écrite sur le document (sur 20), telle quelle
 - mention = "Passable", "Assez bien", "Bien", "Très bien" ou "Excellent"
 - Les coefficients ne doivent PAS avoir de zéro devant (écrire 5, pas 05)
 - Ignorer les épreuves facultatives avec note = 00"""
