@@ -223,6 +223,11 @@ class MoyenneBulletin(models.Model):
         ('2nde', 'Seconde'),
         ('1ere', 'Première'),
     ]
+    TRIMESTRES = [
+        ('T1', 'Trimestre 1'),
+        ('T2', 'Trimestre 2'),
+        ('T3', 'Trimestre 3'),
+    ]
 
     profil_bachelier = models.ForeignKey(
         ProfilBachelier, on_delete=models.CASCADE,
@@ -233,11 +238,12 @@ class MoyenneBulletin(models.Model):
         related_name='bulletins'
     )
     classe = models.CharField(max_length=5, choices=CLASSES)
+    trimestre = models.CharField(max_length=2, choices=TRIMESTRES, null=True, blank=True)
     moyenne = models.DecimalField(max_digits=4, decimal_places=2)
 
     class Meta:
         db_table = 'moyenne_bulletin'
-        unique_together = ('profil_bachelier', 'matiere', 'classe')
+        unique_together = ('profil_bachelier', 'matiere', 'classe', 'trimestre')
 
     def __str__(self):
         return f"{self.profil_bachelier} — {self.classe} — {self.matiere} : {self.moyenne}/20"

@@ -259,14 +259,16 @@ def profil(request):
                 )
 
             for classe in ['2nde', '1ere']:
-                val_b = request.POST.get(f'bulletin_{classe}_{nom_mat}')
-                if val_b and val_b.strip():
-                    MoyenneBulletin.objects.create(
-                        profil_bachelier=profil_bac,
-                        matiere=matiere,
-                        classe=classe,
-                        moyenne=float(val_b),
-                    )
+                for trim in ['T1', 'T2', 'T3']:
+                    val_b = request.POST.get(f'bulletin_{classe}_{trim}_{nom_mat}')
+                    if val_b and val_b.strip():
+                        MoyenneBulletin.objects.create(
+                            profil_bachelier=profil_bac,
+                            matiere=matiere,
+                            classe=classe,
+                            trimestre=trim,
+                            moyenne=float(val_b),
+                        )
 
         return redirect('concours')
 
@@ -281,7 +283,8 @@ def profil(request):
             notes_trim_exist[f"{nt.trimestre}_{nt.matiere.nom_matiere}"] = str(nt.note)
         bulletins_exist = {}
         for b in MoyenneBulletin.objects.filter(profil_bachelier=profil_existant):
-            bulletins_exist[f"{b.classe}_{b.matiere.nom_matiere}"] = str(b.moyenne)
+            trim_key = f"_{b.trimestre}" if b.trimestre else ''
+            bulletins_exist[f"{b.classe}{trim_key}_{b.matiere.nom_matiere}"] = str(b.moyenne)
     except ProfilBachelier.DoesNotExist:
         profil_existant = None
         notes_bac_exist = {}
@@ -645,7 +648,7 @@ def analyser_bulletin(request):
     type_document = request.POST.get('type_document', 'T1')
     serie_bac = (request.POST.get('serie_bac', '') or '').strip().upper()
 
-    if type_document not in ['bac', 'T1', 'T2', 'T3', 'bulletin_2nde', 'bulletin_1ere']:
+    if type_document not in ['bac', 'T1', 'T2', 'T3', 'bulletin_2nde_T1', 'bulletin_2nde_T2', 'bulletin_2nde_T3', 'bulletin_1ere_T1', 'bulletin_1ere_T2', 'bulletin_1ere_T3']:
         type_document = 'T1'
 
     # ─ Série : fallback BDD si le JS ne l'a pas envoyée ─────────────

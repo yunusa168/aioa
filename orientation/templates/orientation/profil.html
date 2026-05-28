@@ -5,38 +5,43 @@
 {% block content %}
 <div class="card" style="max-width:700px; margin:0 auto;">
 
-    <!-- Barre de progression -->
+    <!-- ══ BARRE DE PROGRESSION ══ -->
     <div style="margin-bottom:2rem;">
         <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
-            <span id="label-etape" style="font-weight:700; color:var(--orange); font-size:0.95rem;">
-                Étape 1 sur 5 — Série BAC
-            </span>
-            <span id="pct-etape" style="color:#718096; font-size:0.9rem;">20%</span>
+            <span id="label-etape" style="font-weight:700; color:var(--orange); font-size:0.95rem;">Étape 1 sur 7 — Série BAC</span>
+            <span id="pct-etape" style="color:#718096; font-size:0.9rem;">14%</span>
         </div>
         <div style="background:var(--border); border-radius:999px; height:8px;">
-            <div id="barre-progress" style="width:20%; background:var(--orange);
-                 height:8px; border-radius:999px; transition:width 0.4s ease;"></div>
+            <div id="barre-progress" style="width:14%; background:var(--orange); height:8px; border-radius:999px; transition:width 0.4s ease;"></div>
         </div>
-        <div style="display:flex; width:100%; justify-content:space-between; margin-top:0.5rem;">
-            <div id="dot-1" style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
-                <div style="width:28px; height:28px; border-radius:50%; background:var(--orange); color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;">1</div>
-                <span style="font-size:0.72rem; color:var(--orange); font-weight:600;">Série</span>
+        <div style="display:flex; width:100%; justify-content:space-between; margin-top:0.6rem;">
+            <div id="dot-1" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
+                <div style="width:26px; height:26px; border-radius:50%; background:var(--orange); color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">1</div>
+                <span style="font-size:0.65rem; color:var(--orange); font-weight:600; text-align:center; line-height:1.2;">Série</span>
             </div>
-            <div id="dot-2" style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
-                <div style="width:28px; height:28px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;">2</div>
-                <span style="font-size:0.72rem; color:#718096;">Infos</span>
+            <div id="dot-2" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
+                <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">2</div>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">Infos</span>
             </div>
-            <div id="dot-3" style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
-                <div style="width:28px; height:28px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;">3</div>
-                <span style="font-size:0.72rem; color:#718096;">Trimestres</span>
+            <div id="dot-3" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
+                <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">3</div>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">Term.</span>
             </div>
-            <div id="dot-4" style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
-                <div style="width:28px; height:28px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;">4</div>
-                <span style="font-size:0.72rem; color:#718096;">BAC</span>
+            <div id="dot-4" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
+                <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">4</div>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">BAC</span>
             </div>
-            <div id="dot-5" style="display:flex; flex-direction:column; align-items:center; gap:0.3rem;">
-                <div style="width:28px; height:28px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.85rem;">5</div>
-                <span style="font-size:0.72rem; color:#718096;">Bulletins</span>
+            <div id="dot-5" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
+                <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">5</div>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">2nde T1</span>
+            </div>
+            <div id="dot-6" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
+                <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">6</div>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">2nde T2-T3</span>
+            </div>
+            <div id="dot-7" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
+                <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">7</div>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">1ère</span>
             </div>
         </div>
     </div>
@@ -44,125 +49,103 @@
     <form method="post" id="formProfil">
         {% csrf_token %}
 
-        <!-- ═══════ ÉTAPE 1 — SÉRIE BAC ═══════ -->
+        <!-- ÉTAPE 1 — SÉRIE BAC -->
         <div id="etape-1">
             <h1 style="margin-bottom:0.3rem;">🎓 Quelle est ta série BAC ?</h1>
             <p style="color:#718096; margin-bottom:1.5rem; font-size:0.92rem;">
                 Bonjour <strong>{{ utilisateur.prenom_util }}</strong> !
-                Commence par sélectionner ta série pour que l'on personnalise ton parcours.
+                Sélectionne ta série pour personnaliser ton parcours.
             </p>
-
             <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0.8rem; margin-bottom:1.5rem;">
-                {% for s in "A1,A2,C,D,E,F1,F2,F3,F4,G1,G2,TI"|split:"," %}
-                <div class="serie-card" data-serie="{{ s }}"
-                     onclick="choisirSerie('{{ s }}')"
-                     style="border:2px solid var(--border); border-radius:10px;
-                            padding:1rem; text-align:center; cursor:pointer;
-                            transition:all 0.2s; background:white;
-                            {% if profil.serie_bac == s %}border-color:var(--orange); background:var(--orange-light);{% endif %}">
-                    <div style="font-size:1.4rem; font-weight:800; color:
-                        {% if profil.serie_bac == s %}var(--orange){% else %}#2d3748{% endif %};">
-                        {{ s }}
-                    </div>
+                <div class="serie-card" data-serie="A1" onclick="choisirSerie('A1')" style="border:2px solid {% if profil.serie_bac == 'A1' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'A1' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'A1' %}var(--orange){% else %}#2d3748{% endif %};">A1</div>
                 </div>
-                {% endfor %}
+                <div class="serie-card" data-serie="A2" onclick="choisirSerie('A2')" style="border:2px solid {% if profil.serie_bac == 'A2' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'A2' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'A2' %}var(--orange){% else %}#2d3748{% endif %};">A2</div>
+                </div>
+                <div class="serie-card" data-serie="C" onclick="choisirSerie('C')" style="border:2px solid {% if profil.serie_bac == 'C' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'C' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'C' %}var(--orange){% else %}#2d3748{% endif %};">C</div>
+                </div>
+                <div class="serie-card" data-serie="D" onclick="choisirSerie('D')" style="border:2px solid {% if profil.serie_bac == 'D' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'D' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'D' %}var(--orange){% else %}#2d3748{% endif %};">D</div>
+                </div>
+                <div class="serie-card" data-serie="E" onclick="choisirSerie('E')" style="border:2px solid {% if profil.serie_bac == 'E' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'E' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'E' %}var(--orange){% else %}#2d3748{% endif %};">E</div>
+                </div>
+                <div class="serie-card" data-serie="F1" onclick="choisirSerie('F1')" style="border:2px solid {% if profil.serie_bac == 'F1' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'F1' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'F1' %}var(--orange){% else %}#2d3748{% endif %};">F1</div>
+                </div>
+                <div class="serie-card" data-serie="F2" onclick="choisirSerie('F2')" style="border:2px solid {% if profil.serie_bac == 'F2' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'F2' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'F2' %}var(--orange){% else %}#2d3748{% endif %};">F2</div>
+                </div>
+                <div class="serie-card" data-serie="F3" onclick="choisirSerie('F3')" style="border:2px solid {% if profil.serie_bac == 'F3' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'F3' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'F3' %}var(--orange){% else %}#2d3748{% endif %};">F3</div>
+                </div>
+                <div class="serie-card" data-serie="F4" onclick="choisirSerie('F4')" style="border:2px solid {% if profil.serie_bac == 'F4' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'F4' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'F4' %}var(--orange){% else %}#2d3748{% endif %};">F4</div>
+                </div>
+                <div class="serie-card" data-serie="G1" onclick="choisirSerie('G1')" style="border:2px solid {% if profil.serie_bac == 'G1' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'G1' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'G1' %}var(--orange){% else %}#2d3748{% endif %};">G1</div>
+                </div>
+                <div class="serie-card" data-serie="G2" onclick="choisirSerie('G2')" style="border:2px solid {% if profil.serie_bac == 'G2' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'G2' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'G2' %}var(--orange){% else %}#2d3748{% endif %};">G2</div>
+                </div>
+                <div class="serie-card" data-serie="TI" onclick="choisirSerie('TI')" style="border:2px solid {% if profil.serie_bac == 'TI' %}var(--orange){% else %}var(--border){% endif %}; border-radius:10px; padding:1rem; text-align:center; cursor:pointer; transition:all 0.2s; background:{% if profil.serie_bac == 'TI' %}var(--orange-light){% else %}white{% endif %};">
+                    <div style="font-size:1.4rem; font-weight:800; color:{% if profil.serie_bac == 'TI' %}var(--orange){% else %}#2d3748{% endif %};">TI</div>
+                </div>
             </div>
-
-            <input type="hidden" name="serie_bac" id="serie_bac_input"
-                   value="{{ profil.serie_bac|default:'' }}" required>
-
-            <div id="desc-serie" style="background:var(--orange-light); border-left:4px solid var(--orange);
-                 padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.5rem;
-                 font-size:0.88rem; color:#5a3e00; display:none;"></div>
-
-            <button type="button" onclick="allerEtape(2)"
-                    class="btn btn-primary btn-block" style="padding:0.9rem;">
-                Continuer → Informations générales
-            </button>
+            <input type="hidden" name="serie_bac" id="serie_bac_input" value="{{ profil.serie_bac|default:'' }}" required>
+            <div id="desc-serie" style="background:var(--orange-light); border-left:4px solid var(--orange); padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.5rem; font-size:0.88rem; color:#5a3e00; display:none;"></div>
+            <button type="button" onclick="allerEtape(2)" class="btn btn-primary btn-block" style="padding:0.9rem;">Continuer → Informations générales</button>
         </div>
-
-        <!-- ═══════ ÉTAPE 2 — INFOS GÉNÉRALES ═══════ -->
+        <!-- ÉTAPE 2 — INFOS GÉNÉRALES -->
         <div id="etape-2" style="display:none;">
-            <h1 style="margin-bottom:0.3rem;">📋 Tes informations générales</h1>
-            <p style="color:#718096; margin-bottom:1.5rem; font-size:0.92rem;">
-                Renseigne ta mention, ta moyenne et tes aspirations.
-            </p>
-
+            <h1 style="margin-bottom:0.3rem;">📋 Informations générales</h1>
+            <p style="color:#718096; margin-bottom:1.5rem; font-size:0.92rem;">Renseigne ta mention, ta moyenne et tes aspirations.</p>
             <div class="grid-2">
                 <div>
                     <label>Mention <span style="color:#718096; font-weight:400;">(optionnelle)</span></label>
                     <select name="mention_bac">
                         <option value="">-- Non renseignée --</option>
-                        {% for m in "Passable,Assez bien,Bien,Très bien,Excellent"|split:"," %}
-                        <option value="{{ m }}" {% if profil.mention_bac == m %}selected{% endif %}>{{ m }}</option>
-                        {% endfor %}
+                        <option value="Passable" {% if profil.mention_bac == 'Passable' %}selected{% endif %}>Passable</option>
+                        <option value="Assez bien" {% if profil.mention_bac == 'Assez bien' %}selected{% endif %}>Assez bien</option>
+                        <option value="Bien" {% if profil.mention_bac == 'Bien' %}selected{% endif %}>Bien</option>
+                        <option value="Très bien" {% if profil.mention_bac == 'Très bien' %}selected{% endif %}>Très bien</option>
+                        <option value="Excellent" {% if profil.mention_bac == 'Excellent' %}selected{% endif %}>Excellent</option>
                     </select>
                 </div>
                 <div>
                     <label>Année d'obtention *</label>
-                    <input type="number" name="annee_bac" min="2000" max="2030" required
-                           placeholder="Ex : 2024" value="{{ profil.annee_bac|default:'' }}">
+                    <input type="number" name="annee_bac" min="2000" max="2030" required placeholder="Ex : 2024" value="{{ profil.annee_bac|default:'' }}">
                 </div>
             </div>
-
             <label>Moyenne générale BAC * (sur 20)</label>
-            <input type="number" name="moyenne_bac" step="0.01" min="0" max="20" required
-                   placeholder="Ex : 13.50" value="{{ profil.moyenne_bac|default:'' }}">
-
+            <input type="number" name="moyenne_bac" step="0.01" min="0" max="20" required placeholder="Ex : 13.50" value="{{ profil.moyenne_bac|default:'' }}">
             <label>Lycée d'origine</label>
-            <input type="text" name="etablissement_bac"
-                   placeholder="Ex : Lycée Classique d'Abidjan"
-                   value="{{ profil.etablissement_bac|default:'' }}">
-
-            <label>Aspirations professionnelles
-                <span style="color:#718096; font-weight:400;">— aide l'IA à mieux te recommander</span>
-            </label>
-            <textarea name="aspirations_bac" rows="3"
-                      placeholder="Ex : Je veux être médecin, ou travailler dans l'informatique...">{{ profil.aspirations_bac|default:'' }}</textarea>
-
+            <input type="text" name="etablissement_bac" placeholder="Ex : Lycée Classique d'Abidjan" value="{{ profil.etablissement_bac|default:'' }}">
+            <label>Aspirations professionnelles <span style="color:#718096; font-weight:400;">— aide l'IA à mieux te recommander</span></label>
+            <textarea name="aspirations_bac" rows="3" placeholder="Ex : Je veux être médecin, ou travailler dans l'informatique...">{{ profil.aspirations_bac|default:'' }}</textarea>
             <div style="display:flex; gap:1rem; margin-top:0.5rem;">
                 <button type="button" onclick="allerEtape(1)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="button" onclick="allerEtape(3)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Notes trimestrielles</button>
+                <button type="button" onclick="allerEtape(3)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Notes Terminale</button>
             </div>
         </div>
 
-        <!-- ═══════ ÉTAPE 3 — NOTES TRIMESTRIELLES T1 T2 T3 ═══════ -->
+        <!-- ÉTAPE 3 — BULLETINS TERMINALE T1 T2 T3 -->
         <div id="etape-3" style="display:none;">
-            <h1 style="margin-bottom:0.3rem;">📊 Notes trimestrielles</h1>
-            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">
-                Charge tes bulletins T1, T2 et T3 — l'IA remplit les notes automatiquement !
-            </p>
-
-            <div style="background:var(--orange-light); border-left:4px solid var(--orange);
-                        padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#5a3e00;">
-                <strong>📐 Formule MGA ivoirienne :</strong><br>
-                MGA = (T1×1 + T2×2 + T3×2) ÷ 5 &nbsp;→&nbsp;
-                <strong>Score matière = Note BAC×60% + MGA×40%</strong>
+            <h1 style="margin-bottom:0.3rem;">📊 Bulletins Terminale (T1, T2, T3)</h1>
+            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge tes 3 bulletins de Terminale — l'IA remplit les notes automatiquement.</p>
+            <div style="background:var(--orange-light); border-left:4px solid var(--orange); padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#5a3e00;">
+                <strong>📐 Formule MGA :</strong> MGA = (T1×1 + T2×2 + T3×2) ÷ 5 → <strong>Score = BAC×60% + MGA×40%</strong>
             </div>
-
-            <!-- Upload T1 T2 T3 -->
-            <div style="background:linear-gradient(135deg,#1a365d,#2b6cb0); border-radius:12px;
-                        padding:1.4rem; margin-bottom:1.4rem; color:white;">
-                <div style="font-weight:700; font-size:1rem; margin-bottom:0.4rem;">
-                    🤖 Remplissage automatique par IA
-                </div>
-                <p style="font-size:0.83rem; color:rgba(255,255,255,0.85); margin-bottom:1rem;">
-                    Charge tes bulletins trimestriels — l'IA détecte et remplit les notes automatiquement !
-                </p>
-
+            <div style="background:linear-gradient(135deg,#1a365d,#2b6cb0); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
+                <div style="font-weight:700; font-size:1rem; margin-bottom:0.4rem;">🤖 Remplissage automatique par IA</div>
+                <p style="font-size:0.83rem; color:rgba(255,255,255,0.85); margin-bottom:1rem;">Charge tes 3 bulletins — l'IA détecte et remplit les notes !</p>
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem; margin-bottom:0.8rem;">
-
-                    <!-- T1 -->
                     <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
                         <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#bee3f8;">📋 Bulletin T1</div>
-                        <label for="upload-t1"
-                               style="display:block; background:rgba(255,255,255,0.2); color:white;
-                                      padding:0.5rem; border-radius:8px; cursor:pointer;
-                                      font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">
-                            📷 Choisir fichier
-                        </label>
-                        <input type="file" id="upload-t1" accept="image/*,.pdf"
-                               style="display:none;" onchange="analyserBulletin(this, 'T1')">
+                        <label for="upload-t1" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Choisir fichier</label>
+                        <input type="file" id="upload-t1" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, 'T1', undefined)">
                         <div id="nom-fichier-t1" style="font-size:0.72rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
                         <div id="status-t1" style="display:none; margin-top:0.4rem; font-size:0.78rem;">
                             <div id="loading-t1" style="color:#63b3ed;">⏳ Analyse...</div>
@@ -170,18 +153,10 @@
                             <div id="error-t1" style="color:#fc8181; display:none;"></div>
                         </div>
                     </div>
-
-                    <!-- T2 -->
                     <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
                         <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#bee3f8;">📋 Bulletin T2</div>
-                        <label for="upload-t2"
-                               style="display:block; background:rgba(255,255,255,0.2); color:white;
-                                      padding:0.5rem; border-radius:8px; cursor:pointer;
-                                      font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">
-                            📷 Choisir fichier
-                        </label>
-                        <input type="file" id="upload-t2" accept="image/*,.pdf"
-                               style="display:none;" onchange="analyserBulletin(this, 'T2')">
+                        <label for="upload-t2" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Choisir fichier</label>
+                        <input type="file" id="upload-t2" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, 'T2', undefined)">
                         <div id="nom-fichier-t2" style="font-size:0.72rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
                         <div id="status-t2" style="display:none; margin-top:0.4rem; font-size:0.78rem;">
                             <div id="loading-t2" style="color:#63b3ed;">⏳ Analyse...</div>
@@ -189,18 +164,10 @@
                             <div id="error-t2" style="color:#fc8181; display:none;"></div>
                         </div>
                     </div>
-
-                    <!-- T3 -->
                     <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
                         <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#bee3f8;">📋 Bulletin T3</div>
-                        <label for="upload-t3"
-                               style="display:block; background:rgba(255,255,255,0.2); color:white;
-                                      padding:0.5rem; border-radius:8px; cursor:pointer;
-                                      font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">
-                            📷 Choisir fichier
-                        </label>
-                        <input type="file" id="upload-t3" accept="image/*,.pdf"
-                               style="display:none;" onchange="analyserBulletin(this, 'T3')">
+                        <label for="upload-t3" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Choisir fichier</label>
+                        <input type="file" id="upload-t3" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, 'T3', undefined)">
                         <div id="nom-fichier-t3" style="font-size:0.72rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
                         <div id="status-t3" style="display:none; margin-top:0.4rem; font-size:0.78rem;">
                             <div id="loading-t3" style="color:#63b3ed;">⏳ Analyse...</div>
@@ -208,175 +175,166 @@
                             <div id="error-t3" style="color:#fc8181; display:none;"></div>
                         </div>
                     </div>
-
                 </div>
-                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">
-                    📎 Formats acceptés : JPG, PNG, PDF · Max 10 Mo par fichier
-                </div>
+                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">📎 JPG, PNG, PDF · Max 10 Mo par fichier</div>
             </div>
-
-            <!-- Grille notes trimestrielles -->
             <div id="grille-notes"></div>
-
             <div style="display:flex; gap:1rem; margin-top:1rem;">
                 <button type="button" onclick="allerEtape(2)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="button" onclick="allerEtape(4)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Notes BAC →</button>
+                <button type="button" onclick="allerEtape(4)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Relevé BAC →</button>
             </div>
         </div>
 
-        <!-- ═══════ ÉTAPE 4 — NOTES BAC ═══════ -->
+        <!-- ÉTAPE 4 — NOTES BAC -->
         <div id="etape-4" style="display:none;">
-            <h1 style="margin-bottom:0.3rem;">🎓 Notes obtenues au BAC</h1>
-            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">
-                Charge ton relevé de notes du BAC — l'IA calcule automatiquement
-                <strong>note obtenue ÷ coefficient</strong> et remplit les champs !
-            </p>
-
-            <!-- Upload relevé BAC -->
-            <div style="background:linear-gradient(135deg,#2E7D32,#1B5E20); border-radius:12px;
-                        padding:1.4rem; margin-bottom:1.4rem; color:white;">
-                <div style="font-weight:700; font-size:1rem; margin-bottom:0.4rem;">
-                    🤖 Scanner ton relevé du BAC
-                </div>
-                <p style="font-size:0.83rem; color:rgba(255,255,255,0.85); margin-bottom:1rem;">
-                    L'IA lit la note obtenue et le coefficient de chaque matière,
-                    puis calcule la note sur 20 automatiquement.
-                </p>
-
-                <div style="background:rgba(255,255,255,0.1); border-radius:10px;
-                            padding:1rem; text-align:center; max-width:300px; margin:0 auto;">
-                    <div style="font-size:0.88rem; font-weight:700; margin-bottom:0.6rem; color:#c6f6d5;">
-                        📄 Relevé de notes BAC
-                    </div>
-                    <label for="upload-bac"
-                           style="display:block; background:rgba(255,255,255,0.25); color:white;
-                                  padding:0.7rem 1rem; border-radius:8px; cursor:pointer;
-                                  font-size:0.9rem; font-weight:700; margin-bottom:0.5rem;">
-                        📷 Charger le relevé BAC
-                    </label>
-                    <input type="file" id="upload-bac" accept="image/*,.pdf"
-                           style="display:none;" onchange="analyserBulletin(this, 'BAC')">
+            <h1 style="margin-bottom:0.3rem;">🎓 Relevé de notes du BAC</h1>
+            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge ton relevé BAC — l'IA calcule <strong>note obtenue ÷ coefficient</strong> automatiquement.</p>
+            <div style="background:linear-gradient(135deg,#2E7D32,#1B5E20); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
+                <div style="font-weight:700; font-size:1rem; margin-bottom:0.4rem;">🤖 Scanner ton relevé du BAC</div>
+                <p style="font-size:0.83rem; color:rgba(255,255,255,0.85); margin-bottom:1rem;">L'IA lit la note obtenue et le coefficient, puis calcule la note sur 20.</p>
+                <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center; max-width:300px; margin:0 auto;">
+                    <div style="font-size:0.88rem; font-weight:700; margin-bottom:0.6rem; color:#c6f6d5;">📄 Relevé de notes BAC</div>
+                    <label for="upload-bac" style="display:block; background:rgba(255,255,255,0.25); color:white; padding:0.7rem 1rem; border-radius:8px; cursor:pointer; font-size:0.9rem; font-weight:700; margin-bottom:0.5rem;">📷 Charger le relevé BAC</label>
+                    <input type="file" id="upload-bac" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, 'BAC')">
                     <div id="nom-fichier-bac" style="font-size:0.75rem; color:rgba(255,255,255,0.65); min-height:1rem;"></div>
                     <div id="status-bac" style="display:none; margin-top:0.5rem; font-size:0.82rem;">
-                        <div id="loading-bac" style="color:#9ae6b4;">⏳ Analyse du relevé BAC...</div>
+                        <div id="loading-bac" style="color:#9ae6b4;">⏳ Analyse...</div>
                         <div id="success-bac" style="color:#68d391; display:none;"></div>
                         <div id="error-bac" style="color:#fc8181; display:none;"></div>
                     </div>
                 </div>
-
-                <!-- Exemple de calcul -->
-                <div style="margin-top:1rem; background:rgba(255,255,255,0.1);
-                            border-radius:8px; padding:0.8rem; font-size:0.8rem; color:rgba(255,255,255,0.85);">
-                    <strong>📐 Exemple de calcul :</strong><br>
-                    Maths : note obtenue = 56, coefficient = 4 &nbsp;→&nbsp;
-                    <strong>56 ÷ 4 = 14/20</strong>
+                <div style="margin-top:1rem; background:rgba(255,255,255,0.1); border-radius:8px; padding:0.8rem; font-size:0.8rem; color:rgba(255,255,255,0.85);">
+                    <strong>📐 Exemple :</strong> Maths : 65/100, coeff 5 → <strong>65 ÷ 5 = 13/20</strong>
                 </div>
-
-                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center; margin-top:0.8rem;">
-                    📎 Formats acceptés : JPG, PNG, PDF · Max 10 Mo
-                </div>
+                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center; margin-top:0.8rem;">📎 JPG, PNG, PDF · Max 10 Mo</div>
             </div>
-
-            <!-- Grille notes BAC -->
             <div id="grille-notes-bac"></div>
-
             <div style="display:flex; gap:1rem; margin-top:1rem;">
                 <button type="button" onclick="allerEtape(3)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="button" onclick="allerEtape(5)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Bulletins 2nde & 1ère →</button>
+                <button type="button" onclick="allerEtape(5)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Bulletin 2nde T1 →</button>
             </div>
         </div>
 
-        <!-- ═══════ ÉTAPE 5 — BULLETINS 2NDE & 1ÈRE ═══════ -->
+        <!-- ÉTAPE 5 — BULLETINS 2NDE T1 -->
         <div id="etape-5" style="display:none;">
-            <h1 style="margin-bottom:0.3rem;">📋 Bulletins 2nde & 1ère</h1>
-            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">
-                Charge tes bulletins de <strong>2nde</strong> et <strong>1ère</strong> —
-                l'IA remplit les moyennes automatiquement.
-                <em style="color:#718096;">(Optionnel mais recommandé pour les concours sur dossier)</em>
-            </p>
-
-            <div style="background:var(--orange-light); border-left:4px solid var(--orange);
-                        padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#5a3e00;">
-                <strong>📌 Pourquoi ces bulletins ?</strong><br>
-                Les concours sur <strong>étude de dossier</strong> (INPHB, ESCAE...)
-                demandent tes bulletins de 2nde + 1ère + Terminale.
-                Ces moyennes améliorent la précision de tes recommandations.
+            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#6b46c1;">2nde</span> — Trimestre 1</h1>
+            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge le bulletin T1 de 2nde — l'IA extrait les moyennes par matière. <em>(Optionnel mais recommandé pour les concours sur dossier)</em></p>
+            <div style="background:var(--orange-light); border-left:4px solid var(--orange); padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#5a3e00;">
+                <strong>📌 Pourquoi ces bulletins ?</strong> Les concours INPHB, ESCAE... demandent tes bulletins de 2nde et 1ère en plus du BAC.
             </div>
-
-            <!-- Upload 2nde et 1ère -->
-            <div style="background:linear-gradient(135deg,#44337a,#6b46c1); border-radius:12px;
-                        padding:1.4rem; margin-bottom:1.4rem; color:white;">
-                <div style="font-weight:700; font-size:1rem; margin-bottom:0.4rem;">
-                    🤖 Remplissage automatique par IA
-                </div>
-                <p style="font-size:0.83rem; color:rgba(255,255,255,0.85); margin-bottom:1rem;">
-                    Charge tes bulletins de 2nde et 1ère — l'IA extrait les moyennes par matière !
-                </p>
-
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
-
-                    <!-- 2nde -->
-                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center;">
-                        <div style="font-size:0.85rem; font-weight:700; margin-bottom:0.6rem; color:#e9d8fd;">
-                            📋 Bulletin de 2nde
-                        </div>
-                        <label for="upload-2nde"
-                               style="display:block; background:rgba(255,255,255,0.2); color:white;
-                                      padding:0.6rem; border-radius:8px; cursor:pointer;
-                                      font-size:0.82rem; font-weight:600; margin-bottom:0.4rem;">
-                            📷 Charger bulletin 2nde
-                        </label>
-                        <input type="file" id="upload-2nde" accept="image/*,.pdf"
-                               style="display:none;" onchange="analyserBulletin(this, '2nde')">
-                        <div id="nom-fichier-2nde" style="font-size:0.72rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
-                        <div id="status-2nde" style="display:none; margin-top:0.4rem; font-size:0.78rem;">
-                            <div id="loading-2nde" style="color:#b794f4;">⏳ Analyse...</div>
-                            <div id="success-2nde" style="color:#68d391; display:none;"></div>
-                            <div id="error-2nde" style="color:#fc8181; display:none;"></div>
-                        </div>
+            <div style="background:linear-gradient(135deg,#44337a,#6b46c1); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
+                <div style="font-weight:700; font-size:1rem; margin-bottom:0.6rem;">🤖 Remplissage automatique — 2nde Trimestre 1</div>
+                <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center; max-width:320px; margin:0 auto;">
+                    <div style="font-size:0.88rem; font-weight:700; margin-bottom:0.6rem; color:#e9d8fd;">📋 Bulletin 2nde — T1</div>
+                    <label for="upload-2nde-T1" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.6rem 1rem; border-radius:8px; cursor:pointer; font-size:0.88rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger bulletin 2nde T1</label>
+                    <input type="file" id="upload-2nde-T1" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T1')">
+                    <div id="nom-fichier-2nde-T1" style="font-size:0.72rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                    <div id="status-2nde-T1" style="display:none; margin-top:0.4rem; font-size:0.78rem;">
+                        <div id="loading-2nde-T1" style="color:#b794f4;">⏳ Analyse...</div>
+                        <div id="success-2nde-T1" style="color:#68d391; display:none;"></div>
+                        <div id="error-2nde-T1" style="color:#fc8181; display:none;"></div>
                     </div>
-
-                    <!-- 1ère -->
-                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center;">
-                        <div style="font-size:0.85rem; font-weight:700; margin-bottom:0.6rem; color:#e9d8fd;">
-                            📋 Bulletin de 1ère
-                        </div>
-                        <label for="upload-1ere"
-                               style="display:block; background:rgba(255,255,255,0.2); color:white;
-                                      padding:0.6rem; border-radius:8px; cursor:pointer;
-                                      font-size:0.82rem; font-weight:600; margin-bottom:0.4rem;">
-                            📷 Charger bulletin 1ère
-                        </label>
-                        <input type="file" id="upload-1ere" accept="image/*,.pdf"
-                               style="display:none;" onchange="analyserBulletin(this, '1ere')">
-                        <div id="nom-fichier-1ere" style="font-size:0.72rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
-                        <div id="status-1ere" style="display:none; margin-top:0.4rem; font-size:0.78rem;">
-                            <div id="loading-1ere" style="color:#b794f4;">⏳ Analyse...</div>
-                            <div id="success-1ere" style="color:#68d391; display:none;"></div>
-                            <div id="error-1ere" style="color:#fc8181; display:none;"></div>
-                        </div>
-                    </div>
-
                 </div>
-                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">
-                    📎 Formats acceptés : JPG, PNG, PDF · Max 10 Mo par fichier
-                </div>
+                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center; margin-top:0.8rem;">📎 JPG, PNG, PDF · Max 10 Mo</div>
             </div>
-
-            <!-- Grille bulletins -->
-            <div id="grille-bulletins"></div>
-
+            <div id="grille-bulletins-2nde-T1"></div>
             <div style="display:flex; gap:1rem; margin-top:1rem;">
                 <button type="button" onclick="allerEtape(4)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="submit" class="btn btn-primary" style="flex:2; padding:0.9rem; font-size:1rem;">
-                    🤖 Obtenir mes recommandations →
-                </button>
+                <button type="button" onclick="allerEtape(6)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → 2nde T2 & T3 →</button>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 6 — BULLETINS 2NDE T2 & T3 -->
+        <div id="etape-6" style="display:none;">
+            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#6b46c1;">2nde</span> — Trimestres 2 & 3</h1>
+            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge les bulletins T2 et T3 de 2nde.</p>
+            <div style="background:linear-gradient(135deg,#44337a,#6b46c1); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
+                <div style="font-weight:700; font-size:1rem; margin-bottom:0.8rem;">🤖 Remplissage automatique — 2nde T2 & T3</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.9rem; text-align:center;">
+                        <div style="font-size:0.82rem; font-weight:700; margin-bottom:0.5rem; color:#e9d8fd;">📋 2nde — T2</div>
+                        <label for="upload-2nde-T2" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T2</label>
+                        <input type="file" id="upload-2nde-T2" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T2')">
+                        <div id="nom-fichier-2nde-T2" style="font-size:0.7rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-2nde-T2" style="display:none; margin-top:0.4rem; font-size:0.76rem;">
+                            <div id="loading-2nde-T2" style="color:#b794f4;">⏳ Analyse...</div>
+                            <div id="success-2nde-T2" style="color:#68d391; display:none;"></div>
+                            <div id="error-2nde-T2" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.9rem; text-align:center;">
+                        <div style="font-size:0.82rem; font-weight:700; margin-bottom:0.5rem; color:#e9d8fd;">📋 2nde — T3</div>
+                        <label for="upload-2nde-T3" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T3</label>
+                        <input type="file" id="upload-2nde-T3" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T3')">
+                        <div id="nom-fichier-2nde-T3" style="font-size:0.7rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-2nde-T3" style="display:none; margin-top:0.4rem; font-size:0.76rem;">
+                            <div id="loading-2nde-T3" style="color:#b794f4;">⏳ Analyse...</div>
+                            <div id="success-2nde-T3" style="color:#68d391; display:none;"></div>
+                            <div id="error-2nde-T3" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">📎 JPG, PNG, PDF · Max 10 Mo</div>
+            </div>
+            <div id="grille-bulletins-2nde-T2T3"></div>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button type="button" onclick="allerEtape(5)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
+                <button type="button" onclick="allerEtape(7)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Bulletins 1ère →</button>
+            </div>
+        </div>
+
+        <!-- ÉTAPE 7 — BULLETINS 1ÈRE T1 T2 T3 -->
+        <div id="etape-7" style="display:none;">
+            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#c05621;">1ère</span> — T1, T2 & T3</h1>
+            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge tes bulletins de 1ère (<span id="serie-label-1ere" style="font-weight:700;"></span>) — les matières s'adaptent à ta série.</p>
+            <div style="background:linear-gradient(135deg,#7b341e,#c05621); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
+                <div style="font-weight:700; font-size:1rem; margin-bottom:0.8rem;">🤖 Remplissage automatique — 1ère T1, T2 & T3</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem; margin-bottom:0.8rem;">
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
+                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T1</div>
+                        <label for="upload-1ere-T1" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T1</label>
+                        <input type="file" id="upload-1ere-T1" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T1')">
+                        <div id="nom-fichier-1ere-T1" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-1ere-T1" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
+                            <div id="loading-1ere-T1" style="color:#fbd38d;">⏳ Analyse...</div>
+                            <div id="success-1ere-T1" style="color:#68d391; display:none;"></div>
+                            <div id="error-1ere-T1" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
+                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T2</div>
+                        <label for="upload-1ere-T2" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T2</label>
+                        <input type="file" id="upload-1ere-T2" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T2')">
+                        <div id="nom-fichier-1ere-T2" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-1ere-T2" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
+                            <div id="loading-1ere-T2" style="color:#fbd38d;">⏳ Analyse...</div>
+                            <div id="success-1ere-T2" style="color:#68d391; display:none;"></div>
+                            <div id="error-1ere-T2" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
+                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T3</div>
+                        <label for="upload-1ere-T3" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T3</label>
+                        <input type="file" id="upload-1ere-T3" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T3')">
+                        <div id="nom-fichier-1ere-T3" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-1ere-T3" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
+                            <div id="loading-1ere-T3" style="color:#fbd38d;">⏳ Analyse...</div>
+                            <div id="success-1ere-T3" style="color:#68d391; display:none;"></div>
+                            <div id="error-1ere-T3" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">📎 JPG, PNG, PDF · Max 10 Mo par fichier</div>
+            </div>
+            <div id="grille-bulletins-1ere"></div>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button type="button" onclick="allerEtape(6)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
+                <button type="submit" class="btn btn-primary" style="flex:2; padding:0.9rem; font-size:1rem;">🤖 Obtenir mes recommandations →</button>
             </div>
         </div>
 
     </form>
 </div>
-
 <script>
 const MATIERES_PAR_SERIE = {{ matieres_par_serie|safe }};
 const TOUTES_MATIERES    = {{ toutes_matieres|safe }};
@@ -385,18 +343,29 @@ const NOTES_TRIM         = {{ notes_trim_exist|safe }};
 const BULLETINS          = {{ bulletins_exist|safe }};
 
 const DESC_SERIES = {
-    "A1": "Série littéraire avec Allemand — Lettres, philosophie, langues vivantes.",
-    "A2": "Série littéraire — Lettres, philosophie, histoire-géographie, langues.",
-    "C":  "Série scientifique Mathématiques-Physique — la plus polyvalente pour les filières scientifiques.",
-    "D":  "Série scientifique Sciences de la Vie — idéale pour médecine, pharmacie, agronomie.",
-    "E":  "Série scientifique Mathématiques-Technique — génie civil, électrique, mécanique.",
-    "F1": "Série technique Mécanique — construction mécanique et dessin industriel.",
-    "F2": "Série technique Électronique — électrotechnique et automatisme.",
-    "F3": "Série technique Génie Civil — bâtiment et travaux publics.",
-    "F4": "Série technique Topographie — géomètre et aménagement du territoire.",
-    "G1": "Série économique Comptabilité — gestion, comptabilité, finance.",
-    "G2": "Série économique Commerce — gestion commerciale, marketing.",
-    "TI": "Série Techniques de l'Informatique — développement, réseaux, systèmes.",
+    "A1":"Série littéraire avec Allemand — Lettres, philosophie, langues vivantes.",
+    "A2":"Série littéraire — Lettres, philosophie, histoire-géographie, langues.",
+    "C": "Série scientifique Mathématiques-Physique — la plus polyvalente pour les filières scientifiques.",
+    "D": "Série scientifique Sciences de la Vie — idéale pour médecine, pharmacie, agronomie.",
+    "E": "Série scientifique Mathématiques-Technique — génie civil, électrique, mécanique.",
+    "F1":"Série technique Mécanique — construction mécanique et dessin industriel.",
+    "F2":"Série technique Électronique — électrotechnique et automatisme.",
+    "F3":"Série technique Génie Civil — bâtiment et travaux publics.",
+    "F4":"Série technique Topographie — géomètre et aménagement du territoire.",
+    "G1":"Série économique Comptabilité — gestion, comptabilité, finance.",
+    "G2":"Série économique Commerce — gestion commerciale, marketing.",
+    "TI":"Série Techniques de l'Informatique — développement, réseaux, systèmes.",
+};
+
+const NB_ETAPES = 7;
+const LABELS_ETAPES = {
+    1:'Étape 1/7 — Série BAC',
+    2:'Étape 2/7 — Informations',
+    3:'Étape 3/7 — Bulletins Terminale (T1 T2 T3)',
+    4:'Étape 4/7 — Relevé BAC',
+    5:'Étape 5/7 — Bulletins 2nde T1',
+    6:'Étape 6/7 — Bulletins 2nde T2 & T3',
+    7:'Étape 7/7 — Bulletins 1ère (T1 T2 T3)',
 };
 
 let etapeActuelle = 1;
@@ -412,14 +381,15 @@ function choisirSerie(serie) {
     document.getElementById('serie_bac_input').value = serie;
     document.querySelectorAll('.serie-card').forEach(card => {
         const s = card.getAttribute('data-serie');
+        const circle = card.querySelector('div');
         if (s === serie) {
             card.style.borderColor = 'var(--orange)';
-            card.style.background = 'var(--orange-light)';
-            card.querySelector('div').style.color = 'var(--orange)';
+            card.style.background  = 'var(--orange-light)';
+            circle.style.color     = 'var(--orange)';
         } else {
             card.style.borderColor = 'var(--border)';
-            card.style.background = 'white';
-            card.querySelector('div').style.color = '#2d3748';
+            card.style.background  = 'white';
+            circle.style.color     = '#2d3748';
         }
     });
     afficherDescSerie(serie);
@@ -427,327 +397,304 @@ function choisirSerie(serie) {
 }
 
 function afficherDescSerie(serie) {
-    const desc = document.getElementById('desc-serie');
-    if (DESC_SERIES[serie]) {
-        desc.textContent = '📚 ' + DESC_SERIES[serie];
-        desc.style.display = 'block';
-    }
+    const el = document.getElementById('desc-serie');
+    if (DESC_SERIES[serie]) { el.textContent = '📚 ' + DESC_SERIES[serie]; el.style.display = 'block'; }
 }
 
 function allerEtape(num) {
-    if (num === 2 && !serieChoisie) {
-        alert('⚠️ Veuillez choisir une série BAC !');
-        return;
-    }
+    if (num === 2 && !serieChoisie) { alert('⚠️ Veuillez choisir une série BAC !'); return; }
     if (num === 3) {
-        const moy = document.querySelector('[name="moyenne_bac"]').value;
+        const moy   = document.querySelector('[name="moyenne_bac"]').value;
         const annee = document.querySelector('[name="annee_bac"]').value;
-        if (!moy || !annee) {
-            alert('⚠️ Veuillez remplir la moyenne et l\'année d\'obtention !');
-            return;
-        }
+        if (!moy || !annee) { alert("⚠️ Veuillez remplir la moyenne et l'année d'obtention !"); return; }
     }
-
-    for (let i = 1; i <= 5; i++) {
-        const el = document.getElementById(`etape-${i}`);
+    for (let i = 1; i <= NB_ETAPES; i++) {
+        const el = document.getElementById('etape-' + i);
         if (el) el.style.display = 'none';
     }
-    document.getElementById(`etape-${num}`).style.display = 'block';
+    document.getElementById('etape-' + num).style.display = 'block';
     etapeActuelle = num;
 
-    const pcts = {1:'20%', 2:'40%', 3:'60%', 4:'80%', 5:'100%'};
-    const labels = {
-        1: 'Étape 1 sur 5 — Série BAC',
-        2: 'Étape 2 sur 5 — Informations',
-        3: 'Étape 3 sur 5 — Notes trimestrielles',
-        4: 'Étape 4 sur 5 — Notes BAC',
-        5: 'Étape 5 sur 5 — Bulletins 2nde & 1ère',
-    };
+    const pct = Math.round((num / NB_ETAPES) * 100);
+    document.getElementById('barre-progress').style.width = pct + '%';
+    document.getElementById('label-etape').textContent = LABELS_ETAPES[num];
+    document.getElementById('pct-etape').textContent   = pct + '%';
 
-    document.getElementById('barre-progress').style.width = pcts[num];
-    document.getElementById('label-etape').textContent = labels[num];
-    document.getElementById('pct-etape').textContent = pcts[num];
-
-    for (let i = 1; i <= 5; i++) {
-        const dot    = document.getElementById(`dot-${i}`);
+    for (let i = 1; i <= NB_ETAPES; i++) {
+        const dot    = document.getElementById('dot-' + i);
         const circle = dot.querySelector('div');
         const text   = dot.querySelector('span');
-        if (i <= num) {
-            circle.style.background = 'var(--orange)';
-            circle.style.color = 'white';
-            text.style.color = 'var(--orange)';
-            text.style.fontWeight = '600';
-        } else {
-            circle.style.background = 'var(--border)';
-            circle.style.color = '#718096';
-            text.style.color = '#718096';
-            text.style.fontWeight = 'normal';
-        }
+        const actif  = i <= num;
+        circle.style.background = actif ? 'var(--orange)' : 'var(--border)';
+        circle.style.color      = actif ? 'white' : '#718096';
+        text.style.color        = actif ? 'var(--orange)' : '#718096';
+        text.style.fontWeight   = actif ? '600' : 'normal';
     }
 
     if (num === 4) genererNotesBac(serieChoisie);
-    if (num === 5) genererBulletins(serieChoisie);
+    if (num === 5) genererGrilleBulletin('grille-bulletins-2nde-T1', '2nde', 'T1');
+    if (num === 6) genererGrilleBulletin('grille-bulletins-2nde-T2T3', '2nde', 'T2', 'T3');
+    if (num === 7) {
+        const label = document.getElementById('serie-label-1ere');
+        if (label) label.textContent = 'série ' + serieChoisie;
+        genererGrilleBulletin('grille-bulletins-1ere', '1ere', 'T1', 'T2', 'T3');
+    }
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
-// ── Grille notes trimestrielles (étape 3) ──
 function genererNotes(serie) {
     const grille = document.getElementById('grille-notes');
     if (!grille) return;
     grille.innerHTML = '';
     const matieres = MATIERES_PAR_SERIE[serie];
     if (!matieres) return;
-
-    matieres.forEach(nom => {
-        const t1 = NOTES_TRIM[`T1_${nom}`] || '';
-        const t2 = NOTES_TRIM[`T2_${nom}`] || '';
-        const t3 = NOTES_TRIM[`T3_${nom}`] || '';
-
+    matieres.forEach(function(nom) {
+        const t1 = NOTES_TRIM['T1_' + nom] || '';
+        const t2 = NOTES_TRIM['T2_' + nom] || '';
+        const t3 = NOTES_TRIM['T3_' + nom] || '';
         const div = document.createElement('div');
         div.style.cssText = 'background:#f7fafc; border-radius:10px; padding:1rem; margin-bottom:0.8rem; border-left:3px solid #2b6cb0;';
-        div.innerHTML = `
-            <div style="font-weight:700; color:#1a1a1a; margin-bottom:0.7rem;">📚 ${nom}</div>
-            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">
-                <div>
-                    <label style="font-size:0.76rem; color:#718096; font-weight:600;">T1 — coeff 1</label>
-                    <input type="number" name="t1_${nom}" step="0.5" min="0" max="20"
-                           placeholder="/20" value="${t1}"
-                           style="margin-bottom:0; font-size:0.88rem;">
-                </div>
-                <div>
-                    <label style="font-size:0.76rem; color:#718096; font-weight:600;">T2 — coeff 2</label>
-                    <input type="number" name="t2_${nom}" step="0.5" min="0" max="20"
-                           placeholder="/20" value="${t2}"
-                           style="margin-bottom:0; font-size:0.88rem;">
-                </div>
-                <div>
-                    <label style="font-size:0.76rem; color:#718096; font-weight:600;">T3 — coeff 2</label>
-                    <input type="number" name="t3_${nom}" step="0.5" min="0" max="20"
-                           placeholder="/20" value="${t3}"
-                           style="margin-bottom:0; font-size:0.88rem;">
-                </div>
-            </div>`;
+        div.innerHTML =
+            '<div style="font-weight:700; color:#1a1a1a; margin-bottom:0.7rem;">📚 ' + nom + '</div>' +
+            '<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">' +
+                '<div>' +
+                    '<label style="font-size:0.76rem; color:#718096; font-weight:600;">T1 — coeff 1</label>' +
+                    '<input type="number" name="t1_' + nom + '" step="0.5" min="0" max="20" placeholder="/20" value="' + t1 + '" style="margin-bottom:0; font-size:0.88rem;">' +
+                '</div>' +
+                '<div>' +
+                    '<label style="font-size:0.76rem; color:#718096; font-weight:600;">T2 — coeff 2</label>' +
+                    '<input type="number" name="t2_' + nom + '" step="0.5" min="0" max="20" placeholder="/20" value="' + t2 + '" style="margin-bottom:0; font-size:0.88rem;">' +
+                '</div>' +
+                '<div>' +
+                    '<label style="font-size:0.76rem; color:#718096; font-weight:600;">T3 — coeff 2</label>' +
+                    '<input type="number" name="t3_' + nom + '" step="0.5" min="0" max="20" placeholder="/20" value="' + t3 + '" style="margin-bottom:0; font-size:0.88rem;">' +
+                '</div>' +
+            '</div>';
         grille.appendChild(div);
     });
 }
 
-// ── Grille notes BAC (étape 4) ──
 function genererNotesBac(serie) {
     const grille = document.getElementById('grille-notes-bac');
     if (!grille) return;
     grille.innerHTML = '';
     const matieres = MATIERES_PAR_SERIE[serie];
     if (!matieres) return;
-
-    matieres.forEach(nom => {
+    matieres.forEach(function(nom) {
         const bac = NOTES_BAC[nom] || '';
-
         const div = document.createElement('div');
         div.style.cssText = 'background:#fff8f0; border-radius:10px; padding:1rem; margin-bottom:0.8rem; border-left:3px solid var(--orange);';
-        div.innerHTML = `
-            <div style="font-weight:700; color:#1a1a1a; margin-bottom:0.7rem;">📚 ${nom}</div>
-            <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
-                <div>
-                    <label style="font-size:0.76rem; color:var(--orange); font-weight:700;">
-                        Note BAC ⭐ (sur 20 — calculée par l'IA)
-                    </label>
-                    <input type="number" name="bac_${nom}" step="0.01" min="0" max="20"
-                           placeholder="/20" value="${bac}"
-                           style="margin-bottom:0; font-size:0.95rem;
-                                  border-color:var(--orange); background:var(--orange-light);">
-                </div>
-            </div>`;
+        div.innerHTML =
+            '<div style="font-weight:700; color:#1a1a1a; margin-bottom:0.7rem;">📚 ' + nom + '</div>' +
+            '<div>' +
+                '<label style="font-size:0.76rem; color:var(--orange); font-weight:700;">Note BAC ⭐ (sur 20 — calculée par l\'IA)</label>' +
+                '<input type="number" name="bac_' + nom + '" step="0.01" min="0" max="20" placeholder="/20" value="' + bac + '" style="margin-bottom:0; font-size:0.95rem; border-color:var(--orange); background:var(--orange-light);">' +
+            '</div>';
         grille.appendChild(div);
     });
 }
 
-// ── Grille bulletins 2nde & 1ère (étape 5) ──
-function genererBulletins(serie) {
-    const grille = document.getElementById('grille-bulletins');
+function genererGrilleBulletin(idGrille, classe, t1, t2, t3) {
+    const grille = document.getElementById(idGrille);
     if (!grille) return;
     grille.innerHTML = '';
-    const matieres = MATIERES_PAR_SERIE[serie];
+    const matieres = MATIERES_PAR_SERIE[serieChoisie];
     if (!matieres) return;
-
-    matieres.forEach(nom => {
-        const val2nde = BULLETINS[`2nde_${nom}`] || '';
-        const val1ere = BULLETINS[`1ere_${nom}`] || '';
-
+    const trimestres = [];
+    if (t1) trimestres.push(t1);
+    if (t2) trimestres.push(t2);
+    if (t3) trimestres.push(t3);
+    const couleur = classe === '2nde' ? '#6b46c1' : '#c05621';
+    matieres.forEach(function(nom) {
         const div = document.createElement('div');
-        div.style.cssText = 'background:#f7fafc; border-radius:10px; padding:1rem; margin-bottom:0.8rem; border-left:3px solid #6b46c1;';
-        div.innerHTML = `
-            <div style="font-weight:700; color:#1a1a1a; margin-bottom:0.7rem;">📚 ${nom}</div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
-                <div>
-                    <label style="font-size:0.8rem; color:#718096; font-weight:600;">Moyenne 2nde</label>
-                    <input type="number" name="bulletin_2nde_${nom}" step="0.5" min="0" max="20"
-                           placeholder="Moyenne /20" value="${val2nde}"
-                           style="margin-bottom:0; font-size:0.88rem;">
-                </div>
-                <div>
-                    <label style="font-size:0.8rem; color:#718096; font-weight:600;">Moyenne 1ère</label>
-                    <input type="number" name="bulletin_1ere_${nom}" step="0.5" min="0" max="20"
-                           placeholder="Moyenne /20" value="${val1ere}"
-                           style="margin-bottom:0; font-size:0.88rem;">
-                </div>
-            </div>`;
+        div.style.cssText = 'background:#f7fafc; border-radius:10px; padding:1rem; margin-bottom:0.8rem; border-left:3px solid ' + couleur + ';';
+        let cols = '';
+        trimestres.forEach(function(trim) {
+            const val = BULLETINS[classe + '_' + trim + '_' + nom] || '';
+            cols += '<div>' +
+                '<label style="font-size:0.76rem; color:#718096; font-weight:600;">' + trim + '</label>' +
+                '<input type="number" name="bulletin_' + classe + '_' + trim + '_' + nom + '" step="0.5" min="0" max="20" placeholder="/20" value="' + val + '" style="margin-bottom:0; font-size:0.88rem;">' +
+                '</div>';
+        });
+        const gridCols = trimestres.map(function() { return '1fr'; }).join(' ');
+        div.innerHTML =
+            '<div style="font-weight:700; color:#1a1a1a; margin-bottom:0.7rem;">📚 ' + nom + '</div>' +
+            '<div style="display:grid; grid-template-columns:' + gridCols + '; gap:0.5rem;">' + cols + '</div>';
         grille.appendChild(div);
     });
 }
 
-{% if profil %}
-allerEtape(1);
-{% endif %}
+{% if profil %}allerEtape(1);{% endif %}
 
-// ══════════════════════════════════════════
-// ANALYSE BULLETIN PAR MISTRAL AI
-// ══════════════════════════════════════════
-function analyserBulletin(input, trimestre) {
+function analyserBulletin(input, classe, trimestre) {
+    if (classe === 'BAC') { _analyserBAC(input); return; }
+    if ((classe === 'T1' || classe === 'T2' || classe === 'T3') && trimestre === undefined) {
+        _analyserTerminale(input, classe); return;
+    }
+    _analyserBulletinClasse(input, classe, trimestre);
+}
+
+function _analyserTerminale(input, trimestre) {
     const file = input.files[0];
     if (!file) return;
-
-    const isBAC    = trimestre === 'BAC';
-    const is2nde   = trimestre === '2nde';
-    const is1ere   = trimestre === '1ere';
-    const cleId    = trimestre.toLowerCase();
-
-    // Afficher le nom du fichier
-    const nomEl = document.getElementById(`nom-fichier-${cleId}`);
+    const cleId = trimestre.toLowerCase();
+    const nomEl = document.getElementById('nom-fichier-' + cleId);
     if (nomEl) nomEl.textContent = '📎 ' + file.name;
-
-    // Statuts
-    const statusEl  = document.getElementById(`status-${cleId}`);
-    const loadingEl = document.getElementById(`loading-${cleId}`);
-    const successEl = document.getElementById(`success-${cleId}`);
-    const errorEl   = document.getElementById(`error-${cleId}`);
-
+    const statusEl  = document.getElementById('status-'  + cleId);
+    const loadingEl = document.getElementById('loading-' + cleId);
+    const successEl = document.getElementById('success-' + cleId);
+    const errorEl   = document.getElementById('error-'   + cleId);
     statusEl.style.display  = 'block';
     loadingEl.style.display = 'block';
     successEl.style.display = 'none';
     errorEl.style.display   = 'none';
+    _appelAPI(file, trimestre, serieChoisie)
+        .then(function(data) {
+            loadingEl.style.display = 'none';
+            if (data.success) {
+                let nbRemplis = 0;
+                Object.entries(data.notes).forEach(function(entry) {
+                    const mat = entry[0]; const note = entry[1];
+                    const champ = document.querySelector('[name="' + trimestre.toLowerCase() + '_' + mat + '"]');
+                    if (champ && note !== null) {
+                        champ.value = note;
+                        champ.style.background  = '#f0fff4';
+                        champ.style.borderColor = '#48bb78';
+                        nbRemplis++;
+                    }
+                });
+                if (nbRemplis > 0) {
+                    successEl.style.display = 'block';
+                    successEl.textContent   = '✅ ' + nbRemplis + ' notes ' + trimestre + ' remplies !';
+                } else {
+                    errorEl.style.display = 'block';
+                    errorEl.textContent   = '⚠️ Aucune note détectée. Essayez une image plus nette.';
+                }
+            } else {
+                errorEl.style.display = 'block';
+                errorEl.textContent   = '❌ ' + (data.error || 'Erreur inconnue');
+            }
+        }).catch(function() {
+            loadingEl.style.display = 'none';
+            errorEl.style.display   = 'block';
+            errorEl.textContent     = '❌ Erreur réseau.';
+        });
+}
 
-    // Déterminer le type_document à envoyer
-    let typeDoc = trimestre;
-    if (is2nde) typeDoc = 'bulletin_2nde';
-    if (is1ere) typeDoc = 'bulletin_1ere';
-    if (isBAC)  typeDoc = 'bac';
+function _analyserBAC(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const nomEl = document.getElementById('nom-fichier-bac');
+    if (nomEl) nomEl.textContent = '📎 ' + file.name;
+    const statusEl  = document.getElementById('status-bac');
+    const loadingEl = document.getElementById('loading-bac');
+    const successEl = document.getElementById('success-bac');
+    const errorEl   = document.getElementById('error-bac');
+    statusEl.style.display  = 'block';
+    loadingEl.style.display = 'block';
+    successEl.style.display = 'none';
+    errorEl.style.display   = 'none';
+    _appelAPI(file, 'bac', serieChoisie)
+        .then(function(data) {
+            loadingEl.style.display = 'none';
+            if (data.success) {
+                let nbRemplis = 0;
+                Object.entries(data.notes).forEach(function(entry) {
+                    const mat = entry[0]; const note = entry[1];
+                    const champ = document.querySelector('[name="bac_' + mat + '"]');
+                    if (champ && note !== null) {
+                        champ.value = note;
+                        champ.style.background  = '#f0fff4';
+                        champ.style.borderColor = '#48bb78';
+                        nbRemplis++;
+                    }
+                });
+                if (data.moyenne_generale) {
+                    const mi = document.querySelector('[name="moyenne_bac"]');
+                    if (mi) { mi.value = data.moyenne_generale; mi.style.background = '#f0fff4'; mi.style.borderColor = '#48bb78'; }
+                }
+                if (data.mention) {
+                    const ms = document.querySelector('[name="mention_bac"]');
+                    if (ms) { for (let o of ms.options) { if (o.value === data.mention) { o.selected = true; break; } } }
+                }
+                if (nbRemplis > 0) {
+                    successEl.style.display = 'block';
+                    successEl.textContent   = '✅ ' + nbRemplis + ' notes BAC calculées !';
+                } else {
+                    errorEl.style.display = 'block';
+                    errorEl.textContent   = '⚠️ Aucune note détectée. Essayez une image plus nette.';
+                }
+            } else {
+                errorEl.style.display = 'block';
+                errorEl.textContent   = '❌ ' + (data.error || 'Erreur inconnue');
+            }
+        }).catch(function() {
+            loadingEl.style.display = 'none';
+            errorEl.style.display   = 'block';
+            errorEl.textContent     = '❌ Erreur réseau.';
+        });
+}
 
+function _analyserBulletinClasse(input, classe, trimestre) {
+    const file = input.files[0];
+    if (!file) return;
+    const cleId     = classe + '-' + trimestre;
+    const nomEl     = document.getElementById('nom-fichier-' + cleId);
+    if (nomEl) nomEl.textContent = '📎 ' + file.name;
+    const statusEl  = document.getElementById('status-'  + cleId);
+    const loadingEl = document.getElementById('loading-' + cleId);
+    const successEl = document.getElementById('success-' + cleId);
+    const errorEl   = document.getElementById('error-'   + cleId);
+    if (!statusEl) return;
+    statusEl.style.display  = 'block';
+    loadingEl.style.display = 'block';
+    successEl.style.display = 'none';
+    errorEl.style.display   = 'none';
+    const typeDoc = 'bulletin_' + classe + '_' + trimestre;
+    _appelAPI(file, typeDoc, serieChoisie)
+        .then(function(data) {
+            loadingEl.style.display = 'none';
+            if (data.success) {
+                let nbRemplis = 0;
+                Object.entries(data.notes).forEach(function(entry) {
+                    const mat = entry[0]; const note = entry[1];
+                    const champ = document.querySelector('[name="bulletin_' + classe + '_' + trimestre + '_' + mat + '"]');
+                    if (champ && note !== null) {
+                        champ.value = note;
+                        champ.style.background  = classe === '2nde' ? '#f3e8ff' : '#fff7ed';
+                        champ.style.borderColor = classe === '2nde' ? '#9f7aea' : '#ed8936';
+                        nbRemplis++;
+                    }
+                });
+                if (nbRemplis > 0) {
+                    successEl.style.display = 'block';
+                    successEl.textContent   = '✅ ' + nbRemplis + ' moyennes extraites (' + classe + ' ' + trimestre + ') !';
+                } else {
+                    errorEl.style.display = 'block';
+                    errorEl.textContent   = '⚠️ Aucune note détectée. Essayez une image plus nette.';
+                }
+            } else {
+                errorEl.style.display = 'block';
+                errorEl.textContent   = '❌ ' + (data.error || 'Erreur inconnue');
+            }
+        }).catch(function() {
+            loadingEl.style.display = 'none';
+            errorEl.style.display   = 'block';
+            errorEl.textContent     = '❌ Erreur réseau.';
+        });
+}
+
+function _appelAPI(file, typeDoc, serie) {
     const formData = new FormData();
     formData.append('bulletin_image', file);
     formData.append('type_document', typeDoc);
-    formData.append('serie_bac', serieChoisie || '');
-
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-    fetch('/analyser-bulletin/', {
+    formData.append('serie_bac', serie || '');
+    const csrf = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    return fetch('/analyser-bulletin/', {
         method: 'POST',
-        headers: { 'X-CSRFToken': csrfToken },
-        body: formData
-    })
-    .then(res => res.json())
-    .then(data => {
-        loadingEl.style.display = 'none';
-
-        if (data.success) {
-            const notes = data.notes;
-            let nbRemplis = 0;
-
-            if (isBAC) {
-                // ── Étape 4 : Remplir notes BAC calculées (note_obtenue ÷ coefficient) ──
-                Object.entries(notes).forEach(([matiere, noteSur20]) => {
-                    const champ = document.querySelector(`[name="bac_${matiere}"]`);
-                    if (champ && noteSur20 !== null) {
-                        champ.value = noteSur20;
-                        champ.style.background = '#f0fff4';
-                        champ.style.borderColor = '#48bb78';
-                        nbRemplis++;
-                    }
-                });
-
-                // Remplir moyenne générale (étape 2)
-                if (data.moyenne_generale) {
-                    const moyInput = document.querySelector('[name="moyenne_bac"]');
-                    if (moyInput) {
-                        moyInput.value = data.moyenne_generale;
-                        moyInput.style.background = '#f0fff4';
-                        moyInput.style.borderColor = '#48bb78';
-                    }
-                }
-
-                // Remplir mention (étape 2)
-                if (data.mention) {
-                    const mentionInput = document.querySelector('[name="mention_bac"]');
-                    if (mentionInput) {
-                        for (let opt of mentionInput.options) {
-                            if (opt.value === data.mention) {
-                                opt.selected = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                // Message avec détail des calculs
-                const details = (data.details_matieres || [])
-                    .filter(d => d.note_sur_20 !== null)
-                    .slice(0, 3)
-                    .map(d => `${d.matiere}: ${d.note_obtenue}÷${d.coefficient}=${d.note_sur_20}`)
-                    .join(' | ');
-
-                successEl.style.display = 'block';
-                successEl.textContent = `✅ ${nbRemplis} notes BAC calculées !${details ? ' Ex: ' + details : ''}`;
-
-            } else if (is2nde || is1ere) {
-                // ── Étape 5 : Remplir bulletins 2nde ou 1ère ──
-                const classe = is2nde ? '2nde' : '1ere';
-
-                Object.entries(notes).forEach(([matiere, note]) => {
-                    const champ = document.querySelector(`[name="bulletin_${classe}_${matiere}"]`);
-                    if (champ && note !== null) {
-                        champ.value = note;
-                        champ.style.background = '#f3e8ff';
-                        champ.style.borderColor = '#9f7aea';
-                        nbRemplis++;
-                    }
-                });
-
-                successEl.style.display = 'block';
-                successEl.textContent = `✅ ${nbRemplis} moyennes ${classe} extraites automatiquement !`;
-
-            } else {
-                // ── Étape 3 : Remplir notes trimestrielles T1 / T2 / T3 ──
-                const prefixe = trimestre.toLowerCase();
-
-                Object.entries(notes).forEach(([matiere, note]) => {
-                    const champ = document.querySelector(`[name="${prefixe}_${matiere}"]`);
-                    if (champ && note !== null) {
-                        champ.value = note;
-                        champ.style.background = '#f0fff4';
-                        champ.style.borderColor = '#48bb78';
-                        nbRemplis++;
-                    }
-                });
-
-                successEl.style.display = 'block';
-                successEl.textContent = `✅ ${nbRemplis} notes ${trimestre} remplies automatiquement !`;
-            }
-
-            if (nbRemplis === 0) {
-                successEl.style.display = 'none';
-                errorEl.style.display = 'block';
-                errorEl.textContent = '⚠️ Aucune note détectée. Essayez une image plus nette.';
-            }
-
-        } else {
-            errorEl.style.display = 'block';
-            errorEl.textContent = `❌ ${data.error || 'Erreur inconnue'}`;
-        }
-    })
-    .catch(() => {
-        loadingEl.style.display = 'none';
-        errorEl.style.display = 'block';
-        errorEl.textContent = '❌ Erreur réseau. Vérifiez votre connexion.';
-    });
+        headers: { 'X-CSRFToken': csrf },
+        body: formData,
+    }).then(function(r) { return r.json(); });
 }
 </script>
 {% endblock %}
