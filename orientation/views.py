@@ -418,17 +418,25 @@ def concours(request):
     recommandations_concours.sort(key=lambda r: r.score_admission, reverse=True)
     inphb  = [r for r in recommandations_concours if r.concours.etablissement == 'INPHB'  and r.score_admission >= 30]
     esatic = [r for r in recommandations_concours if r.concours.etablissement == 'ESATIC' and r.score_admission >= 30]
-    etat = [r for r in recommandations_concours if r.concours.etablissement == 'ETAT' and r.score_admission >= 20]
+    etat   = [r for r in recommandations_concours if r.concours.etablissement == 'ETAT'   and r.score_admission >= 20]
+
+    # Top 3 : fusion TOUTES listes, triée par score décroissant
+    top3_concours = sorted(
+        inphb + esatic + etat,
+        key=lambda r: r.score_admission,
+        reverse=True
+    )[:3]
+
     return render(request, 'orientation/concours.html', {
-    'utilisateur': utilisateur,
-    'profil': profil_bac,
-    #'top3_concours': top3_concours,
-    'inphb': inphb,
-    'esatic': esatic,
-    'etat': etat,
-    'note_maths': note_maths,
-    'note_physique': note_physique,
-})
+        'utilisateur': utilisateur,
+        'profil': profil_bac,
+        'top3_concours': top3_concours,
+        'inphb': inphb,
+        'esatic': esatic,
+        'etat': etat,
+        'note_maths': note_maths,
+        'note_physique': note_physique,
+    })
 
 
 def resultats(request):

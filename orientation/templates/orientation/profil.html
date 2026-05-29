@@ -459,15 +459,15 @@ function genererNotes(serie) {
             '<div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">' +
                 '<div>' +
                     '<label style="font-size:0.76rem; color:#718096; font-weight:600;">T1 — coeff 1</label>' +
-                    '<input type="number" name="t1_' + nom + '" step="0.5" min="0" max="20" placeholder="/20" value="' + t1 + '" style="margin-bottom:0; font-size:0.88rem;">' +
+                    '<input type="number" name="t1_' + nom + '" step="0.01" min="0" max="20" placeholder="/20" value="' + t1 + '" style="margin-bottom:0; font-size:0.88rem;">' +
                 '</div>' +
                 '<div>' +
                     '<label style="font-size:0.76rem; color:#718096; font-weight:600;">T2 — coeff 2</label>' +
-                    '<input type="number" name="t2_' + nom + '" step="0.5" min="0" max="20" placeholder="/20" value="' + t2 + '" style="margin-bottom:0; font-size:0.88rem;">' +
+                    '<input type="number" name="t2_' + nom + '" step="0.01" min="0" max="20" placeholder="/20" value="' + t2 + '" style="margin-bottom:0; font-size:0.88rem;">' +
                 '</div>' +
                 '<div>' +
                     '<label style="font-size:0.76rem; color:#718096; font-weight:600;">T3 — coeff 2</label>' +
-                    '<input type="number" name="t3_' + nom + '" step="0.5" min="0" max="20" placeholder="/20" value="' + t3 + '" style="margin-bottom:0; font-size:0.88rem;">' +
+                    '<input type="number" name="t3_' + nom + '" step="0.01" min="0" max="20" placeholder="/20" value="' + t3 + '" style="margin-bottom:0; font-size:0.88rem;">' +
                 '</div>' +
             '</div>';
         grille.appendChild(div);
@@ -513,7 +513,7 @@ function genererGrilleBulletin(idGrille, classe, t1, t2, t3) {
             const val = BULLETINS[classe + '_' + trim + '_' + nom] || '';
             cols += '<div>' +
                 '<label style="font-size:0.76rem; color:#718096; font-weight:600;">' + trim + '</label>' +
-                '<input type="number" name="bulletin_' + classe + '_' + trim + '_' + nom + '" step="0.5" min="0" max="20" placeholder="/20" value="' + val + '" style="margin-bottom:0; font-size:0.88rem;">' +
+                '<input type="number" name="bulletin_' + classe + '_' + trim + '_' + nom + '" step="0.01" min="0" max="20" placeholder="/20" value="' + val + '" style="margin-bottom:0; font-size:0.88rem;">' +
                 '</div>';
         });
         const gridCols = trimestres.map(function() { return '1fr'; }).join(' ');

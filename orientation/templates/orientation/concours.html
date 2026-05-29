@@ -17,9 +17,73 @@
                 Physique {{ note_physique }}/20
             </p>
         </div>
-        <a href="{% url 'resultats' %}" class="btn"
-           style="background:white; color:#1a365d; font-weight:700; flex-shrink:0;">
-            Voir mes filières →
+        <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+            <a href="#top3-concours" class="btn"
+               style="background:#f6ad55; color:#1a1a1a; font-weight:700; flex-shrink:0;">
+                🏆 Mon Top 3
+            </a>
+            <a href="{% url 'resultats' %}" class="btn"
+               style="background:white; color:#1a365d; font-weight:700; flex-shrink:0;">
+                Voir mes filières →
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ══════ TOP 3 CONCOURS ══════ -->
+<div id="top3-concours" class="card"
+     style="border:2px solid #f6ad55; background:linear-gradient(135deg,#fffbeb,#fff8e1); padding:1.5rem;">
+    <h2 style="margin-bottom:0.2rem; font-size:1.15rem; color:#92400e;">
+        🏆 Tes 3 meilleurs concours
+    </h2>
+    <p style="color:#b7791f; font-size:0.85rem; margin-bottom:1.2rem;">
+        Les concours où tu as les meilleures chances d'admission, toutes écoles confondues.
+    </p>
+
+    <div style="display:flex; flex-direction:column; gap:0.8rem;">
+        {% for reco in top3_concours %}
+        <div style="display:flex; align-items:center; gap:1rem; background:white;
+                    border-radius:10px; padding:0.9rem 1.2rem;
+                    border-left:5px solid
+                    {% if forloop.counter == 1 %}#f6c90e
+                    {% elif forloop.counter == 2 %}#a0aec0
+                    {% else %}#cd7f32{% endif %};
+                    box-shadow:0 1px 4px rgba(0,0,0,0.07);">
+            <div style="font-size:2rem; flex-shrink:0;">
+                {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% else %}🥉{% endif %}
+            </div>
+            <div style="flex:1; min-width:0;">
+                <div style="font-weight:700; font-size:0.95rem; color:#1a1a1a; margin-bottom:0.1rem;">
+                    {{ reco.concours.nom_concours }}
+                </div>
+                <div style="font-size:0.8rem; color:#718096;">
+                    {{ reco.concours.etablissement }} · {{ reco.concours.ecole }} · {{ reco.concours.duree_formation }}
+                </div>
+                <div style="font-size:0.8rem; color:#276749; margin-top:0.2rem;">
+                    📋 {{ reco.concours.series_requises }} &nbsp;·&nbsp;
+                    📊 Moy. min {{ reco.concours.moyenne_min }}/20
+                </div>
+            </div>
+            <div style="text-align:right; flex-shrink:0;">
+                <div style="font-size:1.5rem; font-weight:800; color:
+                    {% if reco.niveau_chance == 'Excellente' %}#38a169
+                    {% elif reco.niveau_chance == 'Bonne' %}#3182ce
+                    {% elif reco.niveau_chance == 'Possible' %}#dd6b20
+                    {% else %}#e53e3e{% endif %};">
+                    {{ reco.score_admission }}%
+                </div>
+                <div style="font-size:0.75rem; font-weight:600; color:#718096;">{{ reco.niveau_chance }}</div>
+            </div>
+        </div>
+        {% empty %}
+        <div style="color:#718096; text-align:center; padding:1rem;">Aucun concours compatible pour l'instant.</div>
+        {% endfor %}
+    </div>
+
+    <div style="margin-top:1rem; text-align:right;">
+        <a href="#" onclick="document.querySelector('.card:nth-of-type(4)').scrollIntoView({behavior:'smooth'}); return false;"
+           style="color:#b7791f; font-size:0.85rem; text-decoration:none; font-weight:600;">
+            Voir tous les concours ↓
         </a>
     </div>
 </div>

@@ -2,76 +2,150 @@
 {% block title %}Mes Recommandations — AIOA{% endblock %}
 
 {% block content %}
-<div class="card">
-    <h1>🏆 Mes Recommandations</h1>
-    <p style="color:#718096; margin-bottom:0.5rem;">
-        Bonjour <strong>{{ utilisateur.prenom_util }}</strong> —
-        BAC {{ profil.serie_bac }}, {{ profil.mention_bac }},
-        Moyenne : <strong>{{ profil.moyenne_bac }}/20</strong>
-    </p>
-    <p style="color:#718096; font-size:0.9rem; margin-bottom:1.5rem;">
-        Voici tes filières classées par compatibilité avec ton profil.
-    </p>
+<div class="card" style="background:linear-gradient(135deg,#1a365d,#2b6cb0); color:white; padding:1.8rem;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div>
+            <h1 style="color:white; font-size:1.5rem; margin-bottom:0.3rem;">🏆 Mes Recommandations</h1>
+            <p style="color:rgba(255,255,255,0.8); margin:0; font-size:0.88rem;">
+                Bonjour <strong>{{ utilisateur.prenom_util }}</strong> —
+                BAC {{ profil.serie_bac }}, {{ profil.mention_bac }},
+                Moyenne : <strong>{{ profil.moyenne_bac }}/20</strong>
+            </p>
+            <p style="color:rgba(255,255,255,0.7); font-size:0.82rem; margin:0.3rem 0 0;">
+                Voici tes 10 filières les plus compatibles avec ton profil, classées par score.
+            </p>
+        </div>
+        <a href="{% url 'concours' %}" class="btn"
+           style="background:#f6ad55; color:#1a1a1a; font-weight:700; flex-shrink:0;">
+            🎯 Voir mes concours
+        </a>
+    </div>
 </div>
 
-{% for reco in recommandations %}
-<div class="card" style="border-left: 5px solid
-    {% if reco.niveau_reco == 'Excellente' %}#48bb78
-    {% elif reco.niveau_reco == 'Bonne' %}#4299e1
-    {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
-    {% else %}#fc8181{% endif %};">
+<!-- Légende -->
+<div class="card" style="padding:1rem;">
+    <div style="display:flex; flex-wrap:wrap; gap:1rem; font-size:0.85rem; align-items:center;">
+        <strong style="color:#4a5568;">Compatibilité :</strong>
+        <span style="background:#f0fff4; color:#276749; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #48bb78;">🟢 Excellente ≥ 80%</span>
+        <span style="background:#ebf8ff; color:#2b6cb0; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #4299e1;">🔵 Bonne ≥ 60%</span>
+        <span style="background:#fffbeb; color:#b7791f; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #f6ad55;">🟡 Moyenne ≥ 40%</span>
+        <span style="background:#fff5f5; color:#c53030; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #fc8181;">🔴 Faible</span>
+    </div>
+</div>
 
-    <div style="display:flex; justify-content:space-between; align-items:start;">
-        <div>
-            <h2 style="margin-bottom:0.3rem;">
-                {% if forloop.counter == 1 %}🥇
-                {% elif forloop.counter == 2 %}🥈
-                {% elif forloop.counter == 3 %}🥉
-                {% else %}{{ forloop.counter }}.
-                {% endif %}
-               <a href="{% url 'detail_filiere' reco.filiere.id %}"
-   style="color:#1a365d; text-decoration:none;">
-    {{ reco.filiere.nom_filiere }} →
-</a>
-            </h2>
-            <span style="font-size:0.85rem; color:#718096;">{{ reco.filiere.code_filiere }}</span>
-        </div>
-        <div style="text-align:right;">
-            <div style="font-size:2rem; font-weight:700; color:
-                {% if reco.niveau_reco == 'Excellente' %}#38a169
-                {% elif reco.niveau_reco == 'Bonne' %}#3182ce
-                {% elif reco.niveau_reco == 'Moyenne' %}#dd6b20
-                {% else %}#e53e3e{% endif %};">
-                {{ reco.score_compatibilite }}%
+<!-- Top 3 podium -->
+<div class="card" style="border:2px solid #f6ad55; background:linear-gradient(135deg,#fffbeb,#fff8e1); padding:1.4rem;">
+    <h2 style="color:#92400e; font-size:1.05rem; margin-bottom:1rem;">🏆 Ton podium — Top 3 filières</h2>
+    <div style="display:flex; flex-direction:column; gap:0.7rem;">
+        {% for reco in recommandations|slice:":3" %}
+        <div style="display:flex; align-items:center; gap:1rem; background:white;
+                    border-radius:10px; padding:0.85rem 1.1rem;
+                    border-left:5px solid
+                    {% if forloop.counter == 1 %}#f6c90e
+                    {% elif forloop.counter == 2 %}#a0aec0
+                    {% else %}#cd7f32{% endif %};
+                    box-shadow:0 1px 4px rgba(0,0,0,0.07);">
+            <div style="font-size:1.8rem; flex-shrink:0;">
+                {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% else %}🥉{% endif %}
             </div>
-            <span style="font-size:0.85rem; font-weight:600; color:#718096;">{{ reco.niveau_reco }}</span>
+            <div style="flex:1; min-width:0;">
+                <a href="{% url 'detail_filiere' reco.filiere.id %}"
+                   style="font-weight:700; font-size:0.95rem; color:#1a365d; text-decoration:none;">
+                    {{ reco.filiere.nom_filiere }} →
+                </a>
+                <div style="font-size:0.8rem; color:#718096; margin-top:0.15rem;">
+                    {{ reco.filiere.code_filiere }} · {{ reco.filiere.duree_etudes|default:"N/A" }}
+                </div>
+            </div>
+            <div style="text-align:right; flex-shrink:0;">
+                <div style="font-size:1.5rem; font-weight:800; color:
+                    {% if reco.niveau_reco == 'Excellente' %}#38a169
+                    {% elif reco.niveau_reco == 'Bonne' %}#3182ce
+                    {% elif reco.niveau_reco == 'Moyenne' %}#dd6b20
+                    {% else %}#e53e3e{% endif %};">
+                    {{ reco.score_compatibilite }}%
+                </div>
+                <div style="font-size:0.75rem; color:#718096; font-weight:600;">{{ reco.niveau_reco }}</div>
+            </div>
         </div>
-    </div>
-
-    <!-- Barre de progression -->
-    <div style="background:#e2e8f0; border-radius:999px; height:8px; margin:1rem 0;">
-        <div style="width:{{ reco.score_compatibilite }}%; background:
-            {% if reco.niveau_reco == 'Excellente' %}#48bb78
-            {% elif reco.niveau_reco == 'Bonne' %}#4299e1
-            {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
-            {% else %}#fc8181{% endif %};
-            height:8px; border-radius:999px; transition: width 1s;">
-        </div>
-    </div>
-
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.9rem; color:#4a5568;">
-        <div>
-            <strong>⏱ Durée :</strong> {{ reco.filiere.duree_etudes|default:"N/A" }}<br>
-            <strong>📋 Conditions :</strong> {{ reco.filiere.conditions_acces|default:"N/A" }}
-        </div>
-        <div>
-            <strong>💼 Débouchés :</strong> {{ reco.filiere.debouches|default:"N/A" }}
-        </div>
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 
-<div style="text-align:center; margin-top:1rem;">
+<!-- Liste complète Top 10 -->
+<div class="card">
+    <h2 style="font-size:1.05rem; color:#2d3748; margin-bottom:1.2rem;">📋 Classement complet — Top 10</h2>
+
+    {% for reco in recommandations|slice:":10" %}
+    <div style="border:1px solid var(--border); border-radius:10px; margin-bottom:1rem;
+                border-left:4px solid
+                {% if reco.niveau_reco == 'Excellente' %}#48bb78
+                {% elif reco.niveau_reco == 'Bonne' %}#4299e1
+                {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
+                {% else %}#fc8181{% endif %};">
+
+        <div style="display:flex; justify-content:space-between; align-items:center;
+                    padding:1rem; flex-wrap:wrap; gap:0.5rem;">
+            <div style="flex:1; min-width:0;">
+                <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                    <span style="background:#e2e8f0; color:#4a5568; font-weight:700;
+                                 font-size:0.78rem; padding:0.15rem 0.55rem; border-radius:999px;">
+                        #{{ forloop.counter }}
+                    </span>
+                    <a href="{% url 'detail_filiere' reco.filiere.id %}"
+                       style="font-weight:700; font-size:1rem; color:#1a365d; text-decoration:none;">
+                        {{ reco.filiere.nom_filiere }} →
+                    </a>
+                </div>
+                <div style="font-size:0.82rem; color:#718096; margin-top:0.3rem;">
+                    {{ reco.filiere.code_filiere }}
+                </div>
+            </div>
+            <div style="text-align:right; flex-shrink:0;">
+                <div style="font-size:2rem; font-weight:700; color:
+                    {% if reco.niveau_reco == 'Excellente' %}#38a169
+                    {% elif reco.niveau_reco == 'Bonne' %}#3182ce
+                    {% elif reco.niveau_reco == 'Moyenne' %}#dd6b20
+                    {% else %}#e53e3e{% endif %};">
+                    {{ reco.score_compatibilite }}%
+                </div>
+                <span style="font-size:0.82rem; font-weight:600; color:#718096;">{{ reco.niveau_reco }}</span>
+            </div>
+        </div>
+
+        <!-- Barre de progression -->
+        <div style="background:#e2e8f0; border-radius:999px; height:6px; margin:0 1rem;">
+            <div style="width:{{ reco.score_compatibilite }}%; background:
+                {% if reco.niveau_reco == 'Excellente' %}#48bb78
+                {% elif reco.niveau_reco == 'Bonne' %}#4299e1
+                {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
+                {% else %}#fc8181{% endif %};
+                height:6px; border-radius:999px; transition: width 1s;"></div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;
+                    font-size:0.88rem; color:#4a5568; padding:0.9rem 1rem;">
+            <div>
+                <strong>⏱ Durée :</strong> {{ reco.filiere.duree_etudes|default:"N/A" }}<br>
+                <strong>📋 Conditions :</strong> {{ reco.filiere.conditions_acces|default:"N/A" }}
+            </div>
+            <div>
+                <strong>💼 Débouchés :</strong> {{ reco.filiere.debouches|default:"N/A"|truncatechars:100 }}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div style="text-align:center; padding:2rem; color:#718096;">
+        <div style="font-size:3rem; margin-bottom:1rem;">😔</div>
+        <h3>Aucune filière compatible trouvée</h3>
+        <p>Vérifie ton profil ou tes notes.</p>
+        <a href="{% url 'profil' %}" class="btn btn-primary">Mettre à jour mon profil</a>
+    </div>
+    {% endfor %}
+</div>
+
+<div style="text-align:center; margin-top:1rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
     <a href="{% url 'profil' %}" class="btn btn-secondary">✏️ Modifier mon profil</a>
+    <a href="{% url 'concours' %}" class="btn btn-primary">🎯 Voir mes concours →</a>
 </div>
 {% endblock %}
