@@ -424,16 +424,35 @@ Règles finales :
 - Ignorer les épreuves facultatives avec note = 00"""
 
     else:
-        labels = {
-            'T1': '1er trimestre (Terminale)',
-            'T2': '2ème trimestre (Terminale)',
-            'T3': '3ème trimestre (Terminale)',
-            'bulletin_2nde': 'Seconde',
-            'bulletin_1ere': 'Première',
+        # Correspondance série BAC → classe précédente réelle
+        SERIE_VERS_2NDE = {
+            'A1':'2nde A1','A2':'2nde A2',
+            'C':'2nde C','D':'2nde C','E':'2nde E',
+            'F1':'2nde F1','F2':'2nde F2','F3':'2nde F3','F4':'2nde F4',
+            'G1':'2nde G1','G2':'2nde G2','TI':'2nde TI',
         }
-        label = labels.get(type_document, type_document)
+        SERIE_VERS_1ERE = {
+            'A1':'1ère A1','A2':'1ère A2',
+            'C':'1ère C','D':'1ère D','E':'1ère E',
+            'F1':'1ère F1','F2':'1ère F2','F3':'1ère F3','F4':'1ère F4',
+            'G1':'1ère G1','G2':'1ère G2','TI':'1ère TI',
+        }
+        if type_document in ('T1','T2','T3'):
+            label = f'{type_document} — Terminale {serie_bac or ""}'
+        elif type_document.startswith('bulletin_2nde'):
+            trim = type_document.replace('bulletin_2nde_','')
+            classe_reelle = SERIE_VERS_2NDE.get(serie_bac, f'2nde')
+            label = f'Trimestre {trim} — {classe_reelle}'
+        elif type_document.startswith('bulletin_1ere'):
+            trim = type_document.replace('bulletin_1ere_','')
+            classe_reelle = SERIE_VERS_1ERE.get(serie_bac, f'1ère')
+            label = f'Trimestre {trim} — {classe_reelle}'
+        else:
+            label = type_document
+
         return base + f"""
-Document : Bulletin scolaire ivoirien — classe de {label}, série {serie_bac or 'inconnue'}.
+Document : Bulletin scolaire ivoirien — {label}, série BAC visée : {serie_bac or 'inconnue'}.
+IMPORTANT : Ce bulletin doit correspondre à la classe indiquée ci-dessus. Si tu détectes que la classe sur le document ne correspond PAS ({label}), signale-le dans un champ "avertissement" dans ta réponse JSON.
 
 Extrais la moyenne de CHAQUE matière visible dans le bulletin.
 Utilise une liste, pas un objet fixe — comme ça tu n'oublies rien.

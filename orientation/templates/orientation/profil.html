@@ -317,7 +317,26 @@
     </form>
 </div>
 <script>
-const MATIERES_PAR_SERIE = {{ matieres_par_serie|safe }};
+const MATIERES_PAR_SERIE      = {{ matieres_par_serie|safe }};
+const MATIERES_2NDE_PAR_SERIE = {{ matieres_2nde_par_serie|safe }};
+const MATIERES_1ERE_PAR_SERIE = {{ matieres_1ere_par_serie|safe }};
+
+// Correspondance série BAC → classe précédente réelle en CI
+// Ex: BAC D → Tle D, 1ère D, 2nde C
+// Ex: BAC C → Tle C, 1ère C, 2nde C
+// Ex: BAC A1/A2 → Tle A, 1ère A, 2nde A
+const SERIE_VERS_2NDE = {
+    'A1':'A1','A2':'A2',
+    'C':'C','D':'C','E':'E',
+    'F1':'F1','F2':'F2','F3':'F3','F4':'F4',
+    'G1':'G1','G2':'G2','TI':'TI',
+};
+const SERIE_VERS_1ERE = {
+    'A1':'A1','A2':'A2',
+    'C':'C','D':'D','E':'E',
+    'F1':'F1','F2':'F2','F3':'F3','F4':'F4',
+    'G1':'G1','G2':'G2','TI':'TI',
+};
 const TOUTES_MATIERES    = {{ toutes_matieres|safe }};
 const NOTES_BAC          = {{ notes_bac_exist|safe }};
 const NOTES_TRIM         = {{ notes_trim_exist|safe }};
@@ -349,12 +368,28 @@ const LABELS_ETAPES = {
 };
 
 let etapeActuelle = 1;
-let serieChoisie = document.getElementById('serie_bac_input').value || '';
+let serieChoisie = '';
 
-if (serieChoisie) {
-    afficherDescSerie(serieChoisie);
-    genererNotes(serieChoisie);
-}
+// Initialisation après chargement complet du DOM
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('serie_bac_input');
+    if (input) {
+        serieChoisie = input.value || '';
+        if (serieChoisie) {
+            afficherDescSerie(serieChoisie);
+            genererNotes(serieChoisie);
+            // Mettre en surbrillance la carte de série déjà choisie
+            document.querySelectorAll('.serie-card').forEach(function(card) {
+                if (card.getAttribute('data-serie') === serieChoisie) {
+                    card.style.borderColor = 'var(--orange)';
+                    card.style.background  = 'var(--orange-light)';
+                    const circle = card.querySelector('div');
+                    if (circle) circle.style.color = 'var(--orange)';
+                }
+            });
+        }
+    }
+});
 
 function choisirSerie(serie) {
     serieChoisie = serie;
@@ -480,7 +515,17 @@ function genererGrilleBulletin(idGrille, classe, t1, t2, t3) {
     const grille = document.getElementById(idGrille);
     if (!grille) return;
     grille.innerHTML = '';
-    const matieres = MATIERES_PAR_SERIE[serieChoisie];
+    // Utilise les matières correctes selon la classe (2nde, 1ere ou Tle)
+    let matieres;
+    if (classe === '2nde') {
+        const serie2nde = SERIE_VERS_2NDE[serieChoisie] || serieChoisie;
+        matieres = MATIERES_2NDE_PAR_SERIE[serie2nde] || MATIERES_2NDE_PAR_SERIE[serieChoisie];
+    } else if (classe === '1ere') {
+        const serie1ere = SERIE_VERS_1ERE[serieChoisie] || serieChoisie;
+        matieres = MATIERES_1ERE_PAR_SERIE[serie1ere] || MATIERES_1ERE_PAR_SERIE[serieChoisie];
+    } else {
+        matieres = MATIERES_PAR_SERIE[serieChoisie];
+    }
     if (!matieres) return;
     const trimestres = [];
     if (t1) trimestres.push(t1);
@@ -617,9 +662,39 @@ function _analyserBAC(input) {
         });
 }
 
+function _verifierConformiteBulletin(classe, trimestre) {
+    // Vérifie que le bulletin uploadé correspond à la bonne classe selon la série BAC
+    const serie = serieChoisie;
+    if (!serie) return { ok: true }; // pas encore de série choisie
+    
+    // Correspondance : série BAC → classes attendues
+    const classesAttendues = {
+        '2nde': { label: '2nde C (pour BAC C/D/E), 2nde A (pour BAC A1/A2), 2nde G (pour BAC G1/G2)' },
+        '1ere': { label: '1ère ' + (SERIE_VERS_1ERE[serie] || serie) },
+    };
+    
+    // Séries techniques F : vérification classe
+    const seriesF = ['F1','F2','F3','F4'];
+    
+    if (classe === '2nde') {
+        // BAC D → 2nde C (sciences) ✓ — pas 2nde A ou G
+        const attendu2nde = SERIE_VERS_2NDE[serie] || serie;
+        return { ok: true, attendu: attendu2nde, msg: `Assure-toi que c'est un bulletin de 2nde ${attendu2nde === 'C' ? 'C (scientifique)' : attendu2nde === 'A1' || attendu2nde === 'A2' ? 'A (littéraire)' : attendu2nde}` };
+    }
+    if (classe === '1ere') {
+        const attendu1ere = SERIE_VERS_1ERE[serie] || serie;
+        return { ok: true, attendu: attendu1ere, msg: `Assure-toi que c'est un bulletin de 1ère ${attendu1ere}` };
+    }
+    return { ok: true };
+}
+
 function _analyserBulletinClasse(input, classe, trimestre) {
     const file = input.files[0];
     if (!file) return;
+    
+    // ── Vérification de conformité ──
+    const conformite = _verifierConformiteBulletin(classe, trimestre);
+    
     const cleId     = classe + '-' + trimestre;
     const nomEl     = document.getElementById('nom-fichier-' + cleId);
     if (nomEl) nomEl.textContent = '📎 ' + file.name;
@@ -650,10 +725,12 @@ function _analyserBulletinClasse(input, classe, trimestre) {
                 });
                 if (nbRemplis > 0) {
                     successEl.style.display = 'block';
-                    successEl.textContent   = '✅ ' + nbRemplis + ' moyennes extraites (' + classe + ' ' + trimestre + ') !';
+                    const serieAttendue = classe === '2nde' ? (SERIE_VERS_2NDE[serieChoisie] || serieChoisie) : (SERIE_VERS_1ERE[serieChoisie] || serieChoisie);
+                    successEl.textContent = '✅ ' + nbRemplis + ' moyennes extraites (' + classe + ' ' + serieAttendue + ' — ' + trimestre + ') !';
                 } else {
                     errorEl.style.display = 'block';
-                    errorEl.textContent   = '⚠️ Aucune note détectée. Essayez une image plus nette.';
+                    const serieAttenduE = classe === '2nde' ? (SERIE_VERS_2NDE[serieChoisie]||serieChoisie) : (SERIE_VERS_1ERE[serieChoisie]||serieChoisie);
+                    errorEl.textContent = "⚠️ Aucune note détectée. Vérifiez que c'est bien un bulletin de " + classe + " " + serieAttenduE + " (série " + serieChoisie + "). Essayez une image plus nette.";
                 }
             } else {
                 errorEl.style.display = 'block';

@@ -19,6 +19,7 @@ from django.views.decorators.http import require_POST
 
 
 
+# Matières par série — TERMINALE (avec Philosophie car c'est une matière de Tle)
 MATIERES_PAR_SERIE = {
     "A1": ["Français","Philosophie","Histoire-Géographie","Anglais","Espagnol","Allemand","Mathématiques"],
     "A2": ["Français","Philosophie","Histoire-Géographie","Anglais","Espagnol","Mathématiques"],
@@ -32,6 +33,44 @@ MATIERES_PAR_SERIE = {
     "G1": ["Comptabilité","Économie","Mathématiques","Français","Philosophie","Anglais"],
     "G2": ["Économie","Gestion Commerciale","Mathématiques","Français","Philosophie","Anglais"],
     "TI": ["Informatique","Mathématiques","Physique","Français","Philosophie"],
+}
+
+# ── Matières par série pour la SECONDE (pas de Philosophie en 2nde en CI) ──
+# En 2nde, la série correspond au parcours : 2ndeC → BAC C ou D, 2ndeA → BAC A1/A2, 2ndeG → BAC G1/G2
+MATIERES_2NDE_PAR_SERIE = {
+    # Séries scientifiques (2nde C) → futurs BAC C, D, E
+    "C": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol/Allemand"],
+    "D": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol/Allemand"],
+    "E": ["Mathématiques","Physique-Chimie","Sciences Industrielles","Français","Histoire-Géographie","Anglais","Espagnol/Allemand"],
+    # Séries littéraires (2nde A) → futurs BAC A1, A2
+    "A1": ["Français","Histoire-Géographie","Anglais","Espagnol","Allemand","Mathématiques","Sciences Naturelles"],
+    "A2": ["Français","Histoire-Géographie","Anglais","Espagnol","Mathématiques","Sciences Naturelles"],
+    # Séries techniques (2nde G) → futurs BAC G1, G2
+    "G1": ["Comptabilité","Économie","Mathématiques","Français","Anglais","Histoire-Géographie"],
+    "G2": ["Économie","Gestion Commerciale","Mathématiques","Français","Anglais","Histoire-Géographie"],
+    # Série technique industrielle
+    "TI": ["Informatique","Mathématiques","Physique","Français","Anglais","Histoire-Géographie"],
+    # Séries F (techniques industrielles)
+    "F1": ["Mathématiques","Physique","Dessin Technique","Construction Mécanique","Français","Anglais"],
+    "F2": ["Mathématiques","Physique","Électronique","Électrotechnique","Français","Anglais"],
+    "F3": ["Mathématiques","Physique","Génie Civil","Dessin Technique","Français","Anglais"],
+    "F4": ["Mathématiques","Physique","Topographie","Construction","Français","Anglais"],
+}
+
+# ── Matières par série pour la PREMIERE (Philosophie apparaît en 1ère) ──
+MATIERES_1ERE_PAR_SERIE = {
+    "C":  ["Mathématiques","Physique-Chimie","SVT","Français","Philosophie","Histoire-Géographie","Anglais"],
+    "D":  ["Mathématiques","Physique-Chimie","SVT","Français","Philosophie","Histoire-Géographie","Anglais"],
+    "E":  ["Mathématiques","Physique-Chimie","Sciences Industrielles","Français","Philosophie","Histoire-Géographie","Anglais"],
+    "A1": ["Français","Philosophie","Histoire-Géographie","Anglais","Espagnol","Allemand","Mathématiques"],
+    "A2": ["Français","Philosophie","Histoire-Géographie","Anglais","Espagnol","Mathématiques"],
+    "G1": ["Comptabilité","Économie","Mathématiques","Français","Philosophie","Anglais"],
+    "G2": ["Économie","Gestion Commerciale","Mathématiques","Français","Philosophie","Anglais"],
+    "TI": ["Informatique","Mathématiques","Physique","Français","Philosophie"],
+    "F1": ["Mathématiques","Physique","Dessin Technique","Construction Mécanique","Français","Philosophie"],
+    "F2": ["Mathématiques","Physique","Électronique","Électrotechnique","Français","Philosophie"],
+    "F3": ["Mathématiques","Physique","Génie Civil","Dessin Technique","Français","Philosophie"],
+    "F4": ["Mathématiques","Physique","Topographie","Construction","Français","Philosophie"],
 }
 
 ASPIRATIONS_KEYWORDS = {
@@ -48,8 +87,10 @@ ASPIRATIONS_KEYWORDS = {
     'UNA-BOTANIQUE':['botanique','plantes','agriculture','agronomie','végétaux','nature','CNRA'],
     'UNA-ZOOLOGIE': ['zoologie','animaux','élevage','production animale','vétérinaire'],
     'UNA-ENVIR':    ['environnement','écologie','développement durable','nature','ressources naturelles'],
-    'UNA-INFO':     ['informatique','développeur','code','tech','numérique','réseau','IA'],
-    'UNA-MIAGE':    ['informatique','gestion','systèmes information','ERP','développement','MIAGE'],
+    'UNA-MATHINFO-L12': ['informatique','mathématiques','maths','développeur','code','tech','IA','sciences'],
+    'UNA-L3-MATHS':     ['mathématiques','maths','calcul','statistiques','analyse','actuariat','enseignant maths'],
+    'UNA-L3-GENIE-INFO':['informatique','développeur','réseau','logiciel','IA','data','ingénieur info'],
+    'UNA-L3-MIAGE':     ['MIAGE','gestion informatique','ERP','systèmes information','informatique de gestion'],
     'UNA-MATHS':    ['mathématiques','maths','calcul','statistiques','analyse','actuariat'],
     'UNA-PHYSIQUE': ['physique','sciences','recherche','ingénieur','technologie'],
     'UNA-CHIMIE':   ['chimie','laboratoire','chimiste','analyse chimique','industrie'],
@@ -60,7 +101,10 @@ ASPIRATIONS_KEYWORDS = {
     'UFHB-PHARMA':  ['pharmacie','pharmacien','médicament','pharma','laboratoire'],
     'UFHB-ODONTO':  ['dentiste','odontologie','chirurgie dentaire','dents','orthodontie'],
     'UFHB-MATHS':   ['mathématiques','maths','calcul','statistiques','actuariat','analyse'],
-    'UFHB-INFO':    ['informatique','développeur','réseau','tech','numérique','IA','data'],
+    'UFHB-MATHINFO-L12':  ['informatique','mathématiques','maths','développeur','code','tech','IA'],
+    'UFHB-L3-MATHS':      ['mathématiques','maths','calcul','statistiques','analyse','actuariat'],
+    'UFHB-L3-GENIE-INFO': ['informatique','développeur','réseau','logiciel','IA','cybersécurité','data'],
+    'UFHB-MIAGE-L1-M2':   ['MIAGE','gestion informatique','ERP','systèmes information','DSI','informatique gestion'],
     'UFHB-PHYSIQUE':['physique','sciences','ingénieur','recherche','technologie'],
     'UFHB-CHIMIE':  ['chimie','laboratoire','chimiste','industrie','analyse'],
     'UFHB-GEO':     ['géologie','mines','minéraux','pétrole','ressources minières','géologue'],
@@ -77,7 +121,9 @@ ASPIRATIONS_KEYWORDS = {
     'UAO-DROIT':    ['droit','avocat','juriste','loi','justice','notaire','magistrat','administration'],
     'UAO-ECO':      ['économie','finance','comptabilité','banque','gestion','marketing','commerce'],
     'UAO-LETTRES':  ['lettres','littérature','français','auteur','enseignement','linguistique','culture'],
-    'UAO-INFO':     ['informatique','développeur','code','tech','numérique','réseau','IA','data'],
+    'UAO-MATHINFO-L12':  ['informatique','mathématiques','maths','développeur','code','tech','IA','sciences'],
+    'UAO-L3-MATHS':      ['mathématiques','maths','calcul','statistiques','analyse','actuariat'],
+    'UAO-L3-GENIE-INFO': ['informatique','développeur','réseau','logiciel','IA','data','ingénieur info'],
     'UAO-BIO':      ['biologie','agronomie','agriculture','CNRA','ANADER','végétaux','nature','recherche'],
     'UAO-CHIMIE':   ['chimie','biochimie','laboratoire','chimiste','analyse chimique','industrie','qualité'],
     'UAO-PSYCHO':   ['psychologie','éducation','conseil','orientation','social','thérapeute','enfants'],
@@ -129,8 +175,10 @@ COMPAT_SERIE = {
     'UNA-BOTANIQUE':['C','D'],
     'UNA-ZOOLOGIE': ['C','D'],
     'UNA-ENVIR':    ['C','D','E'],
-    'UNA-INFO':     ['C','D','E'],
-    'UNA-MIAGE':    ['C','D','E','G1','G2'],
+    'UNA-MATHINFO-L12':  ['C','D','E','TI'],
+    'UNA-L3-MATHS':      ['C','D'],
+    'UNA-L3-GENIE-INFO': ['C','D','E','TI'],
+    'UNA-L3-MIAGE':      ['C','D','E','G1','G2','TI'],
     'UNA-MATHS':    ['C','D','E'],
     'UNA-PHYSIQUE': ['C','D','E'],
     'UNA-CHIMIE':   ['C','D'],
@@ -141,7 +189,10 @@ COMPAT_SERIE = {
     'UFHB-PHARMA':  ['C','D'],
     'UFHB-ODONTO':  ['C','D'],
     'UFHB-MATHS':   ['C','D','E'],
-    'UFHB-INFO':    ['C','D','E'],
+    'UFHB-MATHINFO-L12':  ['C','D','E','TI'],
+    'UFHB-L3-MATHS':      ['C','D'],
+    'UFHB-L3-GENIE-INFO': ['C','D','E','TI'],
+    'UFHB-MIAGE-L1-M2':   ['C','D','G1','G2','TI'],
     'UFHB-PHYSIQUE':['C','D','E'],
     'UFHB-CHIMIE':  ['C','D'],
     'UFHB-GEO':     ['C','D'],
@@ -158,7 +209,9 @@ COMPAT_SERIE = {
     'UAO-DROIT':    ['A1','A2','C','D','G1','G2'],
     'UAO-ECO':      ['A1','C','D','G1','G2'],
     'UAO-LETTRES':  ['A1','A2'],
-    'UAO-INFO':     ['C','D','E','TI'],
+    'UAO-MATHINFO-L12':  ['C','D','E','TI'],
+    'UAO-L3-MATHS':      ['C','D'],
+    'UAO-L3-GENIE-INFO': ['C','D','E','TI'],
     'UAO-BIO':      ['C','D'],
     'UAO-CHIMIE':   ['C','D'],
     'UAO-PSYCHO':   ['A1','A2','C','D'],
@@ -415,7 +468,9 @@ def profil(request):
         'notes_bac_exist': json.dumps(notes_bac_exist),
         'notes_trim_exist': json.dumps(notes_trim_exist),
         'bulletins_exist': json.dumps(bulletins_exist),
-        'matieres_par_serie': json.dumps(MATIERES_PAR_SERIE),
+        'matieres_par_serie':      json.dumps(MATIERES_PAR_SERIE),
+        'matieres_2nde_par_serie': json.dumps(MATIERES_2NDE_PAR_SERIE),
+        'matieres_1ere_par_serie': json.dumps(MATIERES_1ERE_PAR_SERIE),
         'toutes_matieres': json.dumps(toutes_matieres),
     })
 
@@ -572,8 +627,8 @@ def resultats(request):
         n.matiere_id: float(n.note_bac)
         for n in profil_bac.notes.all() if n.note_bac
     }
-    # Seules les filières universitaires publiques — les écoles à concours sont dans la page Concours
-    CODES_UNIVERSITE = ('UNA-', 'UFHB-', 'UAO-', 'MED-', 'PHAR-', 'INFO-', 'DROIT-', 'ECO-', 'GEST-')
+    # Uniquement les filières précises avec université — on exclut les génériques (MED-001, INFO-001, etc.)
+    CODES_UNIVERSITE = ('UNA-', 'UFHB-', 'UAO-')
     from django.db.models import Q
     filtre_univ = Q()
     for prefix in CODES_UNIVERSITE:

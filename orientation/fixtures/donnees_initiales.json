@@ -1,27 +1,155 @@
 [
-  {"model": "orientation.matiere", "pk": 1, "fields": {"nom_matiere": "Mathématiques", "categorie_matiere": "scientifique", "coeff_default": "4.0"}},
-  {"model": "orientation.matiere", "pk": 2, "fields": {"nom_matiere": "Physique-Chimie", "categorie_matiere": "scientifique", "coeff_default": "3.0"}},
-  {"model": "orientation.matiere", "pk": 3, "fields": {"nom_matiere": "SVT", "categorie_matiere": "scientifique", "coeff_default": "3.0"}},
-  {"model": "orientation.matiere", "pk": 4, "fields": {"nom_matiere": "Français", "categorie_matiere": "litteraire", "coeff_default": "3.0"}},
-  {"model": "orientation.matiere", "pk": 5, "fields": {"nom_matiere": "Anglais", "categorie_matiere": "linguistique", "coeff_default": "2.0"}},
-  {"model": "orientation.matiere", "pk": 6, "fields": {"nom_matiere": "Histoire-Géographie", "categorie_matiere": "litteraire", "coeff_default": "2.0"}},
-  {"model": "orientation.matiere", "pk": 7, "fields": {"nom_matiere": "Philosophie", "categorie_matiere": "litteraire", "coeff_default": "2.0"}},
-  {"model": "orientation.matiere", "pk": 8, "fields": {"nom_matiere": "Économie-Gestion", "categorie_matiere": "generale", "coeff_default": "2.0"}},
-  {"model": "orientation.matiere", "pk": 9, "fields": {"nom_matiere": "Informatique", "categorie_matiere": "scientifique", "coeff_default": "2.0"}},
-
-  {"model": "orientation.filiereorientation", "pk": 1, "fields": {"code_filiere": "MED-001", "nom_filiere": "Médecine", "type_profil_filiere": "bachelier", "niveau_minimum": "BAC", "duree_etudes": "7 ans", "description_filiere": "Études médicales pour devenir médecin généraliste ou spécialiste", "debouches": "Médecin, chirurgien, pédiatre, cardiologue", "conditions_acces": "BAC C ou D, mention Assez bien minimum, moyenne ≥ 12/20", "competences_requises": "Sciences, rigueur, empathie", "actif_filiere": true}},
-  {"model": "orientation.filiereorientation", "pk": 2, "fields": {"code_filiere": "PHAR-001", "nom_filiere": "Pharmacie", "type_profil_filiere": "bachelier", "niveau_minimum": "BAC", "duree_etudes": "5 ans", "description_filiere": "Études pharmaceutiques", "debouches": "Pharmacien, industrie pharmaceutique", "conditions_acces": "BAC C ou D, moyenne ≥ 11/20", "competences_requises": "Chimie, biologie, rigueur", "actif_filiere": true}},
-  {"model": "orientation.filiereorientation", "pk": 3, "fields": {"code_filiere": "INFO-001", "nom_filiere": "Informatique", "type_profil_filiere": "bachelier", "niveau_minimum": "BAC", "duree_etudes": "3 à 5 ans", "description_filiere": "Développement, IA, cybersécurité, data science", "debouches": "Développeur, data scientist, architecte logiciel", "conditions_acces": "BAC C, D, G, TI — moyenne maths ≥ 10/20", "competences_requises": "Logique, mathématiques, curiosité", "actif_filiere": true}},
-  {"model": "orientation.filiereorientation", "pk": 4, "fields": {"code_filiere": "DROIT-001", "nom_filiere": "Droit", "type_profil_filiere": "bachelier", "niveau_minimum": "BAC", "duree_etudes": "3 à 5 ans", "description_filiere": "Droit des affaires, droit civil, droit pénal", "debouches": "Avocat, juriste, notaire, magistrat", "conditions_acces": "BAC A, A1, A2, G — bon niveau en français", "competences_requises": "Rédaction, argumentation, mémoire", "actif_filiere": true}},
-  {"model": "orientation.filiereorientation", "pk": 5, "fields": {"code_filiere": "ECO-001", "nom_filiere": "Sciences Économiques", "type_profil_filiere": "bachelier", "niveau_minimum": "BAC", "duree_etudes": "3 à 5 ans", "description_filiere": "Économie, finance, gestion", "debouches": "Économiste, analyste financier, banque", "conditions_acces": "BAC C, D, G — moyenne maths/éco ≥ 10/20", "competences_requises": "Analyse, chiffres, économie", "actif_filiere": true}},
-  {"model": "orientation.filiereorientation", "pk": 6, "fields": {"code_filiere": "GEST-001", "nom_filiere": "Gestion", "type_profil_filiere": "bachelier", "niveau_minimum": "BAC", "duree_etudes": "3 ans", "description_filiere": "Management, marketing, ressources humaines", "debouches": "Manager, chef de projet, entrepreneur", "conditions_acces": "BAC G, A2, C, D", "competences_requises": "Organisation, leadership, communication", "actif_filiere": true}},
-
-  {"model": "orientation.ponderationmatiere", "pk": 1, "fields": {"filiere": 1, "matiere": 1, "coeff_importance": "1.8"}},
-  {"model": "orientation.ponderationmatiere", "pk": 2, "fields": {"filiere": 1, "matiere": 3, "coeff_importance": "1.9"}},
-  {"model": "orientation.ponderationmatiere", "pk": 3, "fields": {"filiere": 1, "matiere": 2, "coeff_importance": "1.6"}},
-  {"model": "orientation.ponderationmatiere", "pk": 4, "fields": {"filiere": 3, "matiere": 1, "coeff_importance": "1.9"}},
-  {"model": "orientation.ponderationmatiere", "pk": 5, "fields": {"filiere": 3, "matiere": 9, "coeff_importance": "1.8"}},
-  {"model": "orientation.ponderationmatiere", "pk": 6, "fields": {"filiere": 4, "matiere": 4, "coeff_importance": "1.7"}},
-  {"model": "orientation.ponderationmatiere", "pk": 7, "fields": {"filiere": 4, "matiere": 5, "coeff_importance": "1.5"}},
-  {"model": "orientation.ponderationmatiere", "pk": 8, "fields": {"filiere": 5, "matiere": 1, "coeff_importance": "1.6"}}
+  {
+    "model": "orientation.matiere",
+    "pk": 1,
+    "fields": {
+      "nom_matiere": "Mathématiques",
+      "categorie_matiere": "scientifique",
+      "coeff_default": "4.0"
+    }
+  },
+  {
+    "model": "orientation.matiere",
+    "pk": 2,
+    "fields": {
+      "nom_matiere": "Physique-Chimie",
+      "categorie_matiere": "scientifique",
+      "coeff_default": "3.0"
+    }
+  },
+  {
+    "model": "orientation.matiere",
+    "pk": 3,
+    "fields": {
+      "nom_matiere": "SVT",
+      "categorie_matiere": "scientifique",
+      "coeff_default": "3.0"
+    }
+  },
+  {
+    "model": "orientation.matiere",
+    "pk": 4,
+    "fields": {
+      "nom_matiere": "Français",
+      "categorie_matiere": "litteraire",
+      "coeff_default": "3.0"
+    }
+  },
+  {
+    "model": "orientation.matiere",
+    "pk": 5,
+    "fields": {
+      "nom_matiere": "Anglais",
+      "categorie_matiere": "linguistique",
+      "coeff_default": "2.0"
+    }
+  },
+  {
+    "model": "orientation.matiere",
+    "pk": 6,
+    "fields": {
+      "nom_matiere": "Histoire-Géographie",
+      "categorie_matiere": "litteraire",
+      "coeff_default": "2.0"
+    }
+  },
+  {
+    "model": "orientation.matiere",
+    "pk": 7,
+    "fields": {
+      "nom_matiere": "Philosophie",
+      "categorie_matiere": "litteraire",
+      "coeff_default": "2.0"
+    }
+  },
+  {
+    "model": "orientation.matiere",
+    "pk": 8,
+    "fields": {
+      "nom_matiere": "Économie-Gestion",
+      "categorie_matiere": "generale",
+      "coeff_default": "2.0"
+    }
+  },
+  {
+    "model": "orientation.matiere",
+    "pk": 9,
+    "fields": {
+      "nom_matiere": "Informatique",
+      "categorie_matiere": "scientifique",
+      "coeff_default": "2.0"
+    }
+  },
+  {
+    "model": "orientation.ponderationmatiere",
+    "pk": 1,
+    "fields": {
+      "filiere": 1,
+      "matiere": 1,
+      "coeff_importance": "1.8"
+    }
+  },
+  {
+    "model": "orientation.ponderationmatiere",
+    "pk": 2,
+    "fields": {
+      "filiere": 1,
+      "matiere": 3,
+      "coeff_importance": "1.9"
+    }
+  },
+  {
+    "model": "orientation.ponderationmatiere",
+    "pk": 3,
+    "fields": {
+      "filiere": 1,
+      "matiere": 2,
+      "coeff_importance": "1.6"
+    }
+  },
+  {
+    "model": "orientation.ponderationmatiere",
+    "pk": 4,
+    "fields": {
+      "filiere": 3,
+      "matiere": 1,
+      "coeff_importance": "1.9"
+    }
+  },
+  {
+    "model": "orientation.ponderationmatiere",
+    "pk": 5,
+    "fields": {
+      "filiere": 3,
+      "matiere": 9,
+      "coeff_importance": "1.8"
+    }
+  },
+  {
+    "model": "orientation.ponderationmatiere",
+    "pk": 6,
+    "fields": {
+      "filiere": 4,
+      "matiere": 4,
+      "coeff_importance": "1.7"
+    }
+  },
+  {
+    "model": "orientation.ponderationmatiere",
+    "pk": 7,
+    "fields": {
+      "filiere": 4,
+      "matiere": 5,
+      "coeff_importance": "1.5"
+    }
+  },
+  {
+    "model": "orientation.ponderationmatiere",
+    "pk": 8,
+    "fields": {
+      "filiere": 5,
+      "matiere": 1,
+      "coeff_importance": "1.6"
+    }
+  }
 ]

@@ -81,38 +81,6 @@
   },
   {
     "model": "orientation.filiereorientation",
-    "pk": 15,
-    "fields": {
-      "code_filiere": "UNA-INFO",
-      "nom_filiere": "Informatique — Université Nangui Abrogoua",
-      "type_profil_filiere": "bachelier",
-      "niveau_minimum": "Bac C, D ou E",
-      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
-      "description_filiere": "Développement logiciel, réseaux, systèmes d'information, IA à l'UNA.",
-      "debouches": "Développeur, ingénieur réseau, data scientist, administrateur systèmes",
-      "conditions_acces": "BAC C, D ou E — Moyenne ≥ 12/20",
-      "competences_requises": "Mathématiques, Logique, Algorithmique",
-      "actif_filiere": true
-    }
-  },
-  {
-    "model": "orientation.filiereorientation",
-    "pk": 16,
-    "fields": {
-      "code_filiere": "UNA-MIAGE",
-      "nom_filiere": "MIAGE — Méthodes Informatiques Appliquées à la Gestion — UNA",
-      "type_profil_filiere": "bachelier",
-      "niveau_minimum": "Bac C, D, E ou G",
-      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
-      "description_filiere": "Informatique de gestion, systèmes d'information, ERP, développement web et mobile à l'UNA.",
-      "debouches": "Chef de projet SI, analyste programmeur, consultant ERP, DSI",
-      "conditions_acces": "BAC C, D, E ou G1/G2",
-      "competences_requises": "Mathématiques, Informatique, Gestion",
-      "actif_filiere": true
-    }
-  },
-  {
-    "model": "orientation.filiereorientation",
     "pk": 17,
     "fields": {
       "code_filiere": "UNA-MATHS",
@@ -252,22 +220,6 @@
       "debouches": "Enseignant, actuaire, statisticien, data analyst, chercheur, ingénieur",
       "conditions_acces": "BAC C, D ou E",
       "competences_requises": "Mathématiques, Physique",
-      "actif_filiere": true
-    }
-  },
-  {
-    "model": "orientation.filiereorientation",
-    "pk": 34,
-    "fields": {
-      "code_filiere": "UFHB-INFO",
-      "nom_filiere": "Informatique — Université Félix Houphouët-Boigny",
-      "type_profil_filiere": "bachelier",
-      "niveau_minimum": "Bac C, D ou E",
-      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
-      "description_filiere": "Développement logiciel, IA, cybersécurité, data science, réseaux à la UFHB.",
-      "debouches": "Développeur senior, data scientist, ingénieur IA, architecte systèmes, DSI",
-      "conditions_acces": "BAC C, D ou E — Moyenne ≥ 12/20",
-      "competences_requises": "Mathématiques, Algorithmique, Logique",
       "actif_filiere": true
     }
   },
@@ -721,22 +673,6 @@
   },
   {
     "model": "orientation.filiereorientation",
-    "pk": 83,
-    "fields": {
-      "code_filiere": "UAO-INFO",
-      "nom_filiere": "Informatique et Mathématiques Appliquées — UAO Bouaké",
-      "type_profil_filiere": "bachelier",
-      "niveau_minimum": "Bac C, D ou E",
-      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
-      "description_filiere": "Informatique, développement logiciel, mathématiques appliquées, systèmes d'information à l'UAO de Bouaké.",
-      "debouches": "Développeur, ingénieur systèmes, data analyst, enseignant, chercheur en informatique",
-      "conditions_acces": "BAC C, D, E ou TI — Moyenne ≥ 11/20",
-      "competences_requises": "Mathématiques, Physique, Logique, Algorithmique",
-      "actif_filiere": true
-    }
-  },
-  {
-    "model": "orientation.filiereorientation",
     "pk": 84,
     "fields": {
       "code_filiere": "UAO-BIO",
@@ -796,6 +732,182 @@
       "debouches": "Professeur d'EPS, entraîneur, kinésithérapeute, manager sportif, animateur sportif",
       "conditions_acces": "Toutes séries — bonne condition physique requise",
       "competences_requises": "SVT, Physique, Sport",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 88,
+    "fields": {
+      "code_filiere": "UNA-MATHINFO-L12",
+      "nom_filiere": "Licence 1 & 2 Mathématiques-Informatique — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "2 ans (tronc commun avant spécialisation)",
+      "description_filiere": "Tronc commun Maths-Info pendant 2 ans à l'UNA. En L3 l'étudiant choisit entre Mathématiques pures ou Informatique (Génie Informatique ou MIAGE).",
+      "debouches": "Mathématicien, informaticien, développeur, enseignant, statisticien (selon spécialisation L3)",
+      "conditions_acces": "BAC C ou D — Moy. Maths ≥ 10/20",
+      "competences_requises": "Mathématiques, Physique, Logique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 89,
+    "fields": {
+      "code_filiere": "UNA-L3-MATHS",
+      "nom_filiere": "Licence 3 Mathématiques — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D + L2 Maths-Info UNA",
+      "duree_etudes": "1 an (L3) + 2 ans (Master Maths)",
+      "description_filiere": "Spécialisation Mathématiques en L3 après le tronc commun Maths-Info. Accès au Master Mathématiques à l'UNA.",
+      "debouches": "Enseignant, chercheur, statisticien, actuaire, professeur de lycée",
+      "conditions_acces": "L2 Maths-Info UNA validée",
+      "competences_requises": "Mathématiques, Analyse, Algèbre",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 90,
+    "fields": {
+      "code_filiere": "UNA-L3-GENIE-INFO",
+      "nom_filiere": "Licence 3 Génie Informatique — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D + L2 Maths-Info UNA",
+      "duree_etudes": "1 an (L3) + 2 ans (Master Génie Informatique)",
+      "description_filiere": "Spécialisation Génie Informatique en L3 après le tronc commun à l'UNA. Développement, réseaux, systèmes, IA.",
+      "debouches": "Développeur, ingénieur logiciel, architecte systèmes, data engineer, DevOps",
+      "conditions_acces": "L2 Maths-Info UNA validée",
+      "competences_requises": "Algorithmique, Programmation, Bases de données",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 91,
+    "fields": {
+      "code_filiere": "UNA-L3-MIAGE",
+      "nom_filiere": "Licence 3 MIAGE (Méthodes Informatiques Appliquées à la Gestion) — UNA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou G + L2 Maths-Info UNA",
+      "duree_etudes": "1 an (L3) + 2 ans (Master MIAGE)",
+      "description_filiere": "Spécialisation MIAGE à l'UNA : informatique de gestion, ERP, systèmes d'information, SI d'entreprise.",
+      "debouches": "Chef de projet SI, consultant ERP, analyste fonctionnel, responsable informatique d'entreprise",
+      "conditions_acces": "L2 Maths-Info UNA validée",
+      "competences_requises": "Informatique, Gestion, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 92,
+    "fields": {
+      "code_filiere": "UAO-MATHINFO-L12",
+      "nom_filiere": "Licence 1 & 2 Mathématiques-Informatique — Université Alassane Ouattara de Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "2 ans (tronc commun avant spécialisation)",
+      "description_filiere": "Tronc commun Maths-Info à l'UAO Bouaké pendant 2 ans. En L3 l'étudiant choisit Mathématiques ou Génie Informatique.",
+      "debouches": "Mathématicien, développeur, ingénieur, enseignant (selon spécialisation)",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "Mathématiques, Physique, Logique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 93,
+    "fields": {
+      "code_filiere": "UAO-L3-MATHS",
+      "nom_filiere": "Licence 3 Mathématiques — Université Alassane Ouattara de Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D + L2 Maths-Info UAO",
+      "duree_etudes": "1 an (L3) + 2 ans (Master Maths)",
+      "description_filiere": "Spécialisation Mathématiques en L3 à l'UAO après le tronc commun. Accès au Master Mathématiques.",
+      "debouches": "Enseignant, chercheur, statisticien, actuaire, professeur de lycée",
+      "conditions_acces": "L2 Maths-Info UAO validée",
+      "competences_requises": "Mathématiques, Analyse, Algèbre",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 94,
+    "fields": {
+      "code_filiere": "UAO-L3-GENIE-INFO",
+      "nom_filiere": "Licence 3 Génie Informatique — Université Alassane Ouattara de Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D + L2 Maths-Info UAO",
+      "duree_etudes": "1 an (L3) + 2 ans (Master Génie Informatique)",
+      "description_filiere": "Spécialisation Génie Informatique en L3 à l'UAO : développement, réseaux, intelligence artificielle, systèmes embarqués.",
+      "debouches": "Développeur, ingénieur réseau, data scientist, administrateur systèmes",
+      "conditions_acces": "L2 Maths-Info UAO validée",
+      "competences_requises": "Algorithmique, Programmation, Réseaux",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 95,
+    "fields": {
+      "code_filiere": "UFHB-MATHINFO-L12",
+      "nom_filiere": "Licence 1 & 2 Mathématiques-Informatique — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "2 ans (tronc commun avant spécialisation)",
+      "description_filiere": "Tronc commun Maths-Info à l'UFHB (Cocody) pendant 2 ans. En L3 spécialisation en Mathématiques ou Génie Informatique.",
+      "debouches": "Mathématicien, informaticien, développeur, data scientist (selon spécialisation)",
+      "conditions_acces": "BAC C ou D — Moy. Maths ≥ 12/20 recommandée",
+      "competences_requises": "Mathématiques, Physique, Logique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 96,
+    "fields": {
+      "code_filiere": "UFHB-L3-MATHS",
+      "nom_filiere": "Licence 3 Mathématiques — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "L2 Maths-Info UFHB validée",
+      "duree_etudes": "1 an (L3) + 2 ans (Master Maths)",
+      "description_filiere": "Spécialisation Mathématiques à l'UFHB : analyse, algèbre, probabilités, statistiques avancées.",
+      "debouches": "Chercheur, enseignant-chercheur, actuaire, ingénieur en statistiques",
+      "conditions_acces": "L2 Maths-Info UFHB validée",
+      "competences_requises": "Mathématiques avancées, Analyse, Algèbre",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 97,
+    "fields": {
+      "code_filiere": "UFHB-L3-GENIE-INFO",
+      "nom_filiere": "Licence 3 Génie Informatique — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "L2 Maths-Info UFHB validée",
+      "duree_etudes": "1 an (L3) + 2 ans (Master Génie Informatique)",
+      "description_filiere": "Spécialisation Génie Informatique à l'UFHB : développement logiciel, intelligence artificielle, cybersécurité, réseaux.",
+      "debouches": "Ingénieur logiciel, architecte SI, data engineer, expert cybersécurité",
+      "conditions_acces": "L2 Maths-Info UFHB validée",
+      "competences_requises": "Programmation, Bases de données, Réseaux",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 98,
+    "fields": {
+      "code_filiere": "UFHB-MIAGE-L1-M2",
+      "nom_filiere": "MIAGE de Licence 1 à Master 2 — Université Félix Houphouët-Boigny (Filière spéciale)",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou G — Sélection sur dossier",
+      "duree_etudes": "5 ans (L1 → M2, filière intégrée)",
+      "description_filiere": "Filière MIAGE spéciale à l'UFHB : parcours intégré de Licence 1 jusqu'au Master 2 sans rupture. Formation coûteuse mais très complète en informatique de gestion, systèmes d'information, management des SI. Sélection sur dossier dès le BAC.",
+      "debouches": "Directeur des systèmes d'information (DSI), chef de projet IT, consultant SI, architecte fonctionnel, manager IT",
+      "conditions_acces": "BAC C, D ou G — Sélection sur dossier — Frais élevés (filière privée/partenariat)",
+      "competences_requises": "Mathématiques, Informatique, Gestion, Anglais",
       "actif_filiere": true
     }
   }
