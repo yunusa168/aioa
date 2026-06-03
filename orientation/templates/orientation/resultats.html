@@ -15,10 +15,16 @@
                 Voici tes 10 filières les plus compatibles avec ton profil, classées par score.
             </p>
         </div>
-        <a href="{% url 'concours' %}" class="btn"
-           style="background:#f6ad55; color:#1a1a1a; font-weight:700; flex-shrink:0;">
-            🎯 Voir mes concours
-        </a>
+        <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+            <a href="{% url 'concours' %}" class="btn"
+               style="background:#f6ad55; color:#1a1a1a; font-weight:700; flex-shrink:0;">
+                🎯 Voir mes concours
+            </a>
+            <a href="{% url 'telecharger_fiche' %}" class="btn"
+               style="background:#38a169; color:white; font-weight:700; flex-shrink:0;" target="_blank">
+                📄 Télécharger ma fiche
+            </a>
+        </div>
     </div>
 </div>
 

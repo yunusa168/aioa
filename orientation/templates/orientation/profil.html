@@ -8,7 +8,7 @@
     <!-- ══ BARRE DE PROGRESSION ══ -->
     <div style="margin-bottom:2rem;">
         <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
-            <span id="label-etape" style="font-weight:700; color:var(--orange); font-size:0.95rem;">Étape 1 sur 7 — Série BAC</span>
+            <span id="label-etape" style="font-weight:700; color:var(--orange); font-size:0.95rem;">Étape 1 sur 6 — Série BAC</span>
             <span id="pct-etape" style="color:#718096; font-size:0.9rem;">14%</span>
         </div>
         <div style="background:var(--border); border-radius:999px; height:8px;">
@@ -25,23 +25,19 @@
             </div>
             <div id="dot-3" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
                 <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">3</div>
-                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">Term.</span>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">2nde</span>
             </div>
             <div id="dot-4" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
                 <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">4</div>
-                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">BAC</span>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">1ère</span>
             </div>
             <div id="dot-5" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
                 <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">5</div>
-                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">2nde T1</span>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">Tle</span>
             </div>
             <div id="dot-6" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
                 <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">6</div>
-                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">2nde T2-T3</span>
-            </div>
-            <div id="dot-7" style="display:flex; flex-direction:column; align-items:center; gap:0.25rem;">
-                <div style="width:26px; height:26px; border-radius:50%; background:var(--border); color:#718096; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem; transition:all 0.3s;">7</div>
-                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">1ère</span>
+                <span style="font-size:0.65rem; color:#718096; text-align:center; line-height:1.2;">BAC</span>
             </div>
         </div>
     </div>
@@ -127,12 +123,130 @@
             <textarea name="aspirations_bac" rows="3" placeholder="Ex : Je veux être médecin, ou travailler dans l'informatique...">{{ profil.aspirations_bac|default:'' }}</textarea>
             <div style="display:flex; gap:1rem; margin-top:0.5rem;">
                 <button type="button" onclick="allerEtape(1)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="button" onclick="allerEtape(3)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Notes Terminale</button>
+                <button type="button" onclick="allerEtape(5)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Notes Terminale</button>
             </div>
         </div>
 
-        <!-- ÉTAPE 3 — BULLETINS TERMINALE T1 T2 T3 -->
+        <!-- ÉTAPE 3 — BULLETINS 2NDE T1 -->
         <div id="etape-3" style="display:none;">
+            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#6b46c1;">2nde</span> — Trimestre 1</h1>
+            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge le bulletin T1 de 2nde — l'IA extrait les moyennes par matière. <em>(Optionnel mais recommandé pour les concours sur dossier)</em></p>
+            <div style="background:var(--orange-light); border-left:4px solid var(--orange); padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#5a3e00;">
+                <strong>📌 Pourquoi ces bulletins ?</strong> Les concours INPHB, ESCAE... demandent tes bulletins de 2nde et 1ère en plus du BAC.
+            </div>
+            <div style="background:linear-gradient(135deg,#44337a,#6b46c1); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
+                <div style="font-weight:700; font-size:1rem; margin-bottom:0.6rem;">🤖 Remplissage automatique — 2nde Trimestre 1</div>
+                <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center; max-width:320px; margin:0 auto;">
+                    <div style="font-size:0.88rem; font-weight:700; margin-bottom:0.6rem; color:#e9d8fd;">📋 Bulletin 2nde — T1</div>
+                    <label for="upload-2nde-T1" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.6rem 1rem; border-radius:8px; cursor:pointer; font-size:0.88rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger bulletin 2nde T1</label>
+                    <input type="file" id="upload-2nde-T1" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T1')">
+                    <div id="nom-fichier-2nde-T1" style="font-size:0.72rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                    <div id="status-2nde-T1" style="display:none; margin-top:0.4rem; font-size:0.78rem;">
+                        <div id="loading-2nde-T1" style="color:#b794f4;">⏳ Analyse...</div>
+                        <div id="success-2nde-T1" style="color:#68d391; display:none;"></div>
+                        <div id="error-2nde-T1" style="color:#fc8181; display:none;"></div>
+                    </div>
+                </div>
+                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center; margin-top:0.8rem;">📎 JPG, PNG, PDF · Max 10 Mo</div>
+            </div>
+            <div id="grille-bulletins-2nde-T1"></div>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button type="button" onclick="allerEtape(2)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
+                <button type="button" onclick="allerEtape(3)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → 2nde T2 & T3 →</button>
+            </div>
+        </div>
+
+<!-- ÉTAPE 3b — BULLETINS 2NDE T2 & T3 -->
+        <div id="etape-3b" style="display:none;">
+            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#6b46c1;">2nde</span> — Trimestres 2 & 3</h1>
+            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge les bulletins T2 et T3 de 2nde.</p>
+            <div style="background:linear-gradient(135deg,#44337a,#6b46c1); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
+                <div style="font-weight:700; font-size:1rem; margin-bottom:0.8rem;">🤖 Remplissage automatique — 2nde T2 & T3</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.9rem; text-align:center;">
+                        <div style="font-size:0.82rem; font-weight:700; margin-bottom:0.5rem; color:#e9d8fd;">📋 2nde — T2</div>
+                        <label for="upload-2nde-T2" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T2</label>
+                        <input type="file" id="upload-2nde-T2" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T2')">
+                        <div id="nom-fichier-2nde-T2" style="font-size:0.7rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-2nde-T2" style="display:none; margin-top:0.4rem; font-size:0.76rem;">
+                            <div id="loading-2nde-T2" style="color:#b794f4;">⏳ Analyse...</div>
+                            <div id="success-2nde-T2" style="color:#68d391; display:none;"></div>
+                            <div id="error-2nde-T2" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.9rem; text-align:center;">
+                        <div style="font-size:0.82rem; font-weight:700; margin-bottom:0.5rem; color:#e9d8fd;">📋 2nde — T3</div>
+                        <label for="upload-2nde-T3" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T3</label>
+                        <input type="file" id="upload-2nde-T3" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T3')">
+                        <div id="nom-fichier-2nde-T3" style="font-size:0.7rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-2nde-T3" style="display:none; margin-top:0.4rem; font-size:0.76rem;">
+                            <div id="loading-2nde-T3" style="color:#b794f4;">⏳ Analyse...</div>
+                            <div id="success-2nde-T3" style="color:#68d391; display:none;"></div>
+                            <div id="error-2nde-T3" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">📎 JPG, PNG, PDF · Max 10 Mo</div>
+            </div>
+            <div id="grille-bulletins-2nde-T2T3"></div>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button type="button" onclick="allerEtape(3)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
+                <button type="button" onclick="allerEtape(4)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Bulletins 1ère →</button>
+            </div>
+        </div>
+
+<!-- ÉTAPE 4 — BULLETINS 1ÈRE T1 T2 T3 -->
+        <div id="etape-4" style="display:none;">
+            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#c05621;">1ère</span> — T1, T2 & T3</h1>
+            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge tes bulletins de 1ère (<span id="serie-label-1ere" style="font-weight:700;"></span>) — les matières s'adaptent à ta série.</p>
+            <div style="background:linear-gradient(135deg,#7b341e,#c05621); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
+                <div style="font-weight:700; font-size:1rem; margin-bottom:0.8rem;">🤖 Remplissage automatique — 1ère T1, T2 & T3</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem; margin-bottom:0.8rem;">
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
+                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T1</div>
+                        <label for="upload-1ere-T1" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T1</label>
+                        <input type="file" id="upload-1ere-T1" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T1')">
+                        <div id="nom-fichier-1ere-T1" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-1ere-T1" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
+                            <div id="loading-1ere-T1" style="color:#fbd38d;">⏳ Analyse...</div>
+                            <div id="success-1ere-T1" style="color:#68d391; display:none;"></div>
+                            <div id="error-1ere-T1" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
+                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T2</div>
+                        <label for="upload-1ere-T2" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T2</label>
+                        <input type="file" id="upload-1ere-T2" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T2')">
+                        <div id="nom-fichier-1ere-T2" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-1ere-T2" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
+                            <div id="loading-1ere-T2" style="color:#fbd38d;">⏳ Analyse...</div>
+                            <div id="success-1ere-T2" style="color:#68d391; display:none;"></div>
+                            <div id="error-1ere-T2" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
+                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T3</div>
+                        <label for="upload-1ere-T3" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T3</label>
+                        <input type="file" id="upload-1ere-T3" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T3')">
+                        <div id="nom-fichier-1ere-T3" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
+                        <div id="status-1ere-T3" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
+                            <div id="loading-1ere-T3" style="color:#fbd38d;">⏳ Analyse...</div>
+                            <div id="success-1ere-T3" style="color:#68d391; display:none;"></div>
+                            <div id="error-1ere-T3" style="color:#fc8181; display:none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">📎 JPG, PNG, PDF · Max 10 Mo par fichier</div>
+            </div>
+            <div id="grille-bulletins-1ere"></div>
+            <div style="display:flex; gap:1rem; margin-top:1rem;">
+                <button type="button" onclick="allerEtape_3b()" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
+                <button onclick="allerEtape(5)" class="btn btn-primary" type="button" style="flex:2; padding:0.9rem; font-size:1rem;">🤖 Obtenir mes recommandations →</button>
+            </div>
+        </div>
+
+<!-- ÉTAPE 5 — BULLETINS TERMINALE T1 T2 T3 -->
+        <div id="etape-5" style="display:none;">
             <h1 style="margin-bottom:0.3rem;">📊 Bulletins Terminale (T1, T2, T3)</h1>
             <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge tes 3 bulletins de Terminale — l'IA remplit les notes automatiquement.</p>
             <div style="background:var(--orange-light); border-left:4px solid var(--orange); padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#5a3e00;">
@@ -180,13 +294,13 @@
             </div>
             <div id="grille-notes"></div>
             <div style="display:flex; gap:1rem; margin-top:1rem;">
-                <button type="button" onclick="allerEtape(2)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="button" onclick="allerEtape(4)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Relevé BAC →</button>
+                <button type="button" onclick="allerEtape(4)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
+                <button type="button" onclick="allerEtape(6)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Relevé BAC →</button>
             </div>
         </div>
 
-        <!-- ÉTAPE 4 — NOTES BAC -->
-        <div id="etape-4" style="display:none;">
+<!-- ÉTAPE 6 — RELEVÉ BAC -->
+        <div id="etape-6" style="display:none;">
             <h1 style="margin-bottom:0.3rem;">🎓 Relevé de notes du BAC</h1>
             <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge ton relevé BAC — l'IA calcule <strong>note obtenue ÷ coefficient</strong> automatiquement.</p>
             <div style="background:linear-gradient(135deg,#2E7D32,#1B5E20); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
@@ -210,126 +324,8 @@
             </div>
             <div id="grille-notes-bac"></div>
             <div style="display:flex; gap:1rem; margin-top:1rem;">
-                <button type="button" onclick="allerEtape(3)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="button" onclick="allerEtape(5)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Bulletin 2nde T1 →</button>
-            </div>
-        </div>
-
-        <!-- ÉTAPE 5 — BULLETINS 2NDE T1 -->
-        <div id="etape-5" style="display:none;">
-            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#6b46c1;">2nde</span> — Trimestre 1</h1>
-            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge le bulletin T1 de 2nde — l'IA extrait les moyennes par matière. <em>(Optionnel mais recommandé pour les concours sur dossier)</em></p>
-            <div style="background:var(--orange-light); border-left:4px solid var(--orange); padding:0.8rem 1rem; border-radius:8px; margin-bottom:1.2rem; font-size:0.85rem; color:#5a3e00;">
-                <strong>📌 Pourquoi ces bulletins ?</strong> Les concours INPHB, ESCAE... demandent tes bulletins de 2nde et 1ère en plus du BAC.
-            </div>
-            <div style="background:linear-gradient(135deg,#44337a,#6b46c1); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
-                <div style="font-weight:700; font-size:1rem; margin-bottom:0.6rem;">🤖 Remplissage automatique — 2nde Trimestre 1</div>
-                <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center; max-width:320px; margin:0 auto;">
-                    <div style="font-size:0.88rem; font-weight:700; margin-bottom:0.6rem; color:#e9d8fd;">📋 Bulletin 2nde — T1</div>
-                    <label for="upload-2nde-T1" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.6rem 1rem; border-radius:8px; cursor:pointer; font-size:0.88rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger bulletin 2nde T1</label>
-                    <input type="file" id="upload-2nde-T1" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T1')">
-                    <div id="nom-fichier-2nde-T1" style="font-size:0.72rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
-                    <div id="status-2nde-T1" style="display:none; margin-top:0.4rem; font-size:0.78rem;">
-                        <div id="loading-2nde-T1" style="color:#b794f4;">⏳ Analyse...</div>
-                        <div id="success-2nde-T1" style="color:#68d391; display:none;"></div>
-                        <div id="error-2nde-T1" style="color:#fc8181; display:none;"></div>
-                    </div>
-                </div>
-                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center; margin-top:0.8rem;">📎 JPG, PNG, PDF · Max 10 Mo</div>
-            </div>
-            <div id="grille-bulletins-2nde-T1"></div>
-            <div style="display:flex; gap:1rem; margin-top:1rem;">
-                <button type="button" onclick="allerEtape(4)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="button" onclick="allerEtape(6)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → 2nde T2 & T3 →</button>
-            </div>
-        </div>
-
-        <!-- ÉTAPE 6 — BULLETINS 2NDE T2 & T3 -->
-        <div id="etape-6" style="display:none;">
-            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#6b46c1;">2nde</span> — Trimestres 2 & 3</h1>
-            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge les bulletins T2 et T3 de 2nde.</p>
-            <div style="background:linear-gradient(135deg,#44337a,#6b46c1); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
-                <div style="font-weight:700; font-size:1rem; margin-bottom:0.8rem;">🤖 Remplissage automatique — 2nde T2 & T3</div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; margin-bottom:0.8rem;">
-                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.9rem; text-align:center;">
-                        <div style="font-size:0.82rem; font-weight:700; margin-bottom:0.5rem; color:#e9d8fd;">📋 2nde — T2</div>
-                        <label for="upload-2nde-T2" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T2</label>
-                        <input type="file" id="upload-2nde-T2" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T2')">
-                        <div id="nom-fichier-2nde-T2" style="font-size:0.7rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
-                        <div id="status-2nde-T2" style="display:none; margin-top:0.4rem; font-size:0.76rem;">
-                            <div id="loading-2nde-T2" style="color:#b794f4;">⏳ Analyse...</div>
-                            <div id="success-2nde-T2" style="color:#68d391; display:none;"></div>
-                            <div id="error-2nde-T2" style="color:#fc8181; display:none;"></div>
-                        </div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.9rem; text-align:center;">
-                        <div style="font-size:0.82rem; font-weight:700; margin-bottom:0.5rem; color:#e9d8fd;">📋 2nde — T3</div>
-                        <label for="upload-2nde-T3" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.8rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T3</label>
-                        <input type="file" id="upload-2nde-T3" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '2nde', 'T3')">
-                        <div id="nom-fichier-2nde-T3" style="font-size:0.7rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
-                        <div id="status-2nde-T3" style="display:none; margin-top:0.4rem; font-size:0.76rem;">
-                            <div id="loading-2nde-T3" style="color:#b794f4;">⏳ Analyse...</div>
-                            <div id="success-2nde-T3" style="color:#68d391; display:none;"></div>
-                            <div id="error-2nde-T3" style="color:#fc8181; display:none;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">📎 JPG, PNG, PDF · Max 10 Mo</div>
-            </div>
-            <div id="grille-bulletins-2nde-T2T3"></div>
-            <div style="display:flex; gap:1rem; margin-top:1rem;">
                 <button type="button" onclick="allerEtape(5)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="button" onclick="allerEtape(7)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Bulletins 1ère →</button>
-            </div>
-        </div>
-
-        <!-- ÉTAPE 7 — BULLETINS 1ÈRE T1 T2 T3 -->
-        <div id="etape-7" style="display:none;">
-            <h1 style="margin-bottom:0.3rem;">📋 Bulletins de <span style="color:#c05621;">1ère</span> — T1, T2 & T3</h1>
-            <p style="color:#718096; margin-bottom:1rem; font-size:0.92rem;">Charge tes bulletins de 1ère (<span id="serie-label-1ere" style="font-weight:700;"></span>) — les matières s'adaptent à ta série.</p>
-            <div style="background:linear-gradient(135deg,#7b341e,#c05621); border-radius:12px; padding:1.4rem; margin-bottom:1.4rem; color:white;">
-                <div style="font-weight:700; font-size:1rem; margin-bottom:0.8rem;">🤖 Remplissage automatique — 1ère T1, T2 & T3</div>
-                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.6rem; margin-bottom:0.8rem;">
-                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
-                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T1</div>
-                        <label for="upload-1ere-T1" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T1</label>
-                        <input type="file" id="upload-1ere-T1" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T1')">
-                        <div id="nom-fichier-1ere-T1" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
-                        <div id="status-1ere-T1" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
-                            <div id="loading-1ere-T1" style="color:#fbd38d;">⏳ Analyse...</div>
-                            <div id="success-1ere-T1" style="color:#68d391; display:none;"></div>
-                            <div id="error-1ere-T1" style="color:#fc8181; display:none;"></div>
-                        </div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
-                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T2</div>
-                        <label for="upload-1ere-T2" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T2</label>
-                        <input type="file" id="upload-1ere-T2" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T2')">
-                        <div id="nom-fichier-1ere-T2" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
-                        <div id="status-1ere-T2" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
-                            <div id="loading-1ere-T2" style="color:#fbd38d;">⏳ Analyse...</div>
-                            <div id="success-1ere-T2" style="color:#68d391; display:none;"></div>
-                            <div id="error-1ere-T2" style="color:#fc8181; display:none;"></div>
-                        </div>
-                    </div>
-                    <div style="background:rgba(255,255,255,0.1); border-radius:10px; padding:0.8rem; text-align:center;">
-                        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.5rem; color:#fbd38d;">📋 1ère — T3</div>
-                        <label for="upload-1ere-T3" style="display:block; background:rgba(255,255,255,0.2); color:white; padding:0.5rem; border-radius:8px; cursor:pointer; font-size:0.78rem; font-weight:600; margin-bottom:0.4rem;">📷 Charger T3</label>
-                        <input type="file" id="upload-1ere-T3" accept="image/*,.pdf" style="display:none;" onchange="analyserBulletin(this, '1ere', 'T3')">
-                        <div id="nom-fichier-1ere-T3" style="font-size:0.68rem; color:rgba(255,255,255,0.6); min-height:1rem;"></div>
-                        <div id="status-1ere-T3" style="display:none; margin-top:0.4rem; font-size:0.74rem;">
-                            <div id="loading-1ere-T3" style="color:#fbd38d;">⏳ Analyse...</div>
-                            <div id="success-1ere-T3" style="color:#68d391; display:none;"></div>
-                            <div id="error-1ere-T3" style="color:#fc8181; display:none;"></div>
-                        </div>
-                    </div>
-                </div>
-                <div style="font-size:0.78rem; color:rgba(255,255,255,0.6); text-align:center;">📎 JPG, PNG, PDF · Max 10 Mo par fichier</div>
-            </div>
-            <div id="grille-bulletins-1ere"></div>
-            <div style="display:flex; gap:1rem; margin-top:1rem;">
-                <button type="button" onclick="allerEtape(6)" class="btn btn-secondary" style="flex:1; padding:0.9rem;">← Retour</button>
-                <button type="submit" class="btn btn-primary" style="flex:2; padding:0.9rem; font-size:1rem;">🤖 Obtenir mes recommandations →</button>
+                <button type="button" onclick="allerEtape(3)" class="btn btn-primary" style="flex:2; padding:0.9rem;">Continuer → Bulletin 2nde T1 →</button>
             </div>
         </div>
 
@@ -357,15 +353,14 @@ const DESC_SERIES = {
     "TI":"Série Techniques de l'Informatique — développement, réseaux, systèmes.",
 };
 
-const NB_ETAPES = 7;
+const NB_ETAPES = 6;
 const LABELS_ETAPES = {
-    1:'Étape 1/7 — Série BAC',
-    2:'Étape 2/7 — Informations',
-    3:'Étape 3/7 — Bulletins Terminale (T1 T2 T3)',
-    4:'Étape 4/7 — Relevé BAC',
-    5:'Étape 5/7 — Bulletins 2nde T1',
-    6:'Étape 6/7 — Bulletins 2nde T2 & T3',
-    7:'Étape 7/7 — Bulletins 1ère (T1 T2 T3)',
+    1:'Étape 1/6 — Série BAC',
+    2:'Étape 2/6 — Informations',
+    3:'Étape 3/6 — Bulletins 2nde',
+    4:'Étape 4/6 — Bulletins 1ère',
+    5:'Étape 5/6 — Bulletins Terminale',
+    6:'Étape 6/6 — Relevé BAC',
 };
 
 let etapeActuelle = 1;
@@ -401,6 +396,18 @@ function afficherDescSerie(serie) {
     if (DESC_SERIES[serie]) { el.textContent = '📚 ' + DESC_SERIES[serie]; el.style.display = 'block'; }
 }
 
+
+function allerEtape_3b() {
+    // Navigate to etape-3b (2nde T2 & T3 sub-step)
+    for (let i = 1; i <= NB_ETAPES; i++) {
+        const el = document.getElementById('etape-' + i);
+        if (el) el.style.display = 'none';
+    }
+    const el3b = document.getElementById('etape-3b');
+    if (el3b) el3b.style.display = 'block';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
 function allerEtape(num) {
     if (num === 2 && !serieChoisie) { alert('⚠️ Veuillez choisir une série BAC !'); return; }
     if (num === 3) {
@@ -431,14 +438,14 @@ function allerEtape(num) {
         text.style.fontWeight   = actif ? '600' : 'normal';
     }
 
-    if (num === 4) genererNotesBac(serieChoisie);
-    if (num === 5) genererGrilleBulletin('grille-bulletins-2nde-T1', '2nde', 'T1');
-    if (num === 6) genererGrilleBulletin('grille-bulletins-2nde-T2T3', '2nde', 'T2', 'T3');
-    if (num === 7) {
+    if (num === 3) genererGrilleBulletin('grille-bulletins-2nde-T1', '2nde', 'T1');
+    if (num === 4) {
         const label = document.getElementById('serie-label-1ere');
         if (label) label.textContent = 'série ' + serieChoisie;
         genererGrilleBulletin('grille-bulletins-1ere', '1ere', 'T1', 'T2', 'T3');
     }
+    if (num === 5) genererNotesTle(serieChoisie);
+    if (num === 6) genererNotesBac(serieChoisie);
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
 

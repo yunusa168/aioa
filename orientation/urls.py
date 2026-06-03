@@ -12,4 +12,5 @@ urlpatterns = [
     path('resultats/', views.resultats, name='resultats'),
     path('filiere/<int:filiere_id>/', views.detail_filiere, name='detail_filiere'),
     path('analyser-bulletin/', views.analyser_bulletin, name='analyser_bulletin'),
+    path('fiche/', views.telecharger_fiche, name='telecharger_fiche'),
 ]

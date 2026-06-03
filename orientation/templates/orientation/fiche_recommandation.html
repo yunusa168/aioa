@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche de recommandation — AIOA — {{ utilisateur.prenom_util }} {{ utilisateur.nom_util }}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #f7fafc; color: #2d3748; font-size: 13px; }
+  .page { max-width: 800px; margin: 0 auto; background: white; padding: 2rem; }
+  
+  /* Header */
+  .header { background: linear-gradient(135deg, #1a365d, #2b6cb0); color: white; border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.2rem; }
+  .header p  { color: rgba(255,255,255,0.8); font-size: 0.85rem; }
+  .logo { font-size: 2rem; font-weight: 900; color: #f6ad55; letter-spacing: -1px; }
+  
+  /* Section title */
+  .section-title { font-size: 0.9rem; font-weight: 700; color: #4a5568; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.4rem; margin: 1.2rem 0 0.8rem; }
+  
+  /* Profil card */
+  .profil-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; margin-bottom: 1rem; }
+  .profil-card { background: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.7rem; text-align: center; }
+  .profil-card .val { font-size: 1.3rem; font-weight: 800; color: #2b6cb0; }
+  .profil-card .lbl { font-size: 0.72rem; color: #718096; margin-top: 0.15rem; }
+  
+  /* Reco row */
+  .reco-row { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1rem; border-radius: 8px; border-left: 4px solid #e2e8f0; margin-bottom: 0.6rem; background: #f7fafc; }
+  .reco-rank { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; flex-shrink: 0; }
+  .reco-main { flex: 1; min-width: 0; }
+  .reco-main .name { font-weight: 700; font-size: 0.9rem; color: #1a365d; }
+  .reco-main .meta { font-size: 0.75rem; color: #718096; margin-top: 0.15rem; }
+  .reco-score { font-size: 1.4rem; font-weight: 800; flex-shrink: 0; }
+  .bar-wrap { background: #e2e8f0; border-radius: 999px; height: 4px; margin-top: 0.4rem; }
+  .bar { height: 4px; border-radius: 999px; }
+  
+  /* Color helpers */
+  .excellent  { color: #38a169; }
+  .bon        { color: #3182ce; }
+  .possible   { color: #dd6b20; }
+  .faible     { color: #e53e3e; }
+  .bg-excellent { background: #38a169; }
+  .bg-bon       { background: #3182ce; }
+  .bg-possible  { background: #dd6b20; }
+  .bg-faible    { background: #e53e3e; }
+  .border-excellent { border-left-color: #48bb78; }
+  .border-bon       { border-left-color: #4299e1; }
+  .border-possible  { border-left-color: #ed8936; }
+  .border-faible    { border-left-color: #fc8181; }
+  
+  /* Concours */
+  .concours-row { display: flex; align-items: center; gap: 0.8rem; padding: 0.7rem 1rem; border-radius: 8px; background: #fffbeb; border: 1px solid #f6e05e; margin-bottom: 0.5rem; }
+  .concours-etablissement { font-size: 0.7rem; font-weight: 700; background: #f6ad55; color: #1a1a1a; padding: 0.15rem 0.5rem; border-radius: 999px; flex-shrink: 0; }
+  
+  /* Footer */
+  .footer { margin-top: 2rem; padding-top: 1rem; border-top: 2px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; color: #a0aec0; font-size: 0.75rem; }
+  .footer strong { color: #f6ad55; }
+  
+  /* Print button */
+  .print-btn { display: block; margin: 1.5rem auto 0; padding: 0.9rem 2.5rem; background: #2b6cb0; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; border-radius: 999px; }
+  @media print {
+    .print-btn { display: none; }
+    body { background: white; }
+    .page { padding: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- En-tête -->
+  <div class="header">
+    <div>
+      <div class="logo">AIOA</div>
+      <h1>Fiche de recommandation d'orientation</h1>
+      <p>Application Intelligente d'Orientation Académique — Côte d'Ivoire</p>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:1.2rem; font-weight:700;">{{ utilisateur.prenom_util }} {{ utilisateur.nom_util }}</div>
+      <div style="color:rgba(255,255,255,0.75); font-size:0.82rem; margin-top:0.3rem;">Générée le {% now "d/m/Y" %}</div>
+    </div>
+  </div>
+
+  <!-- Profil -->
+  <div class="section-title">📋 Profil bachelier</div>
+  <div class="profil-grid">
+    <div class="profil-card">
+      <div class="val">{{ profil.serie_bac }}</div>
+      <div class="lbl">Série BAC</div>
+    </div>
+    <div class="profil-card">
+      <div class="val">{{ profil.moyenne_bac }}/20</div>
+      <div class="lbl">Moyenne BAC</div>
+    </div>
+    <div class="profil-card">
+      <div class="val">{{ profil.mention_bac|default:"—" }}</div>
+      <div class="lbl">Mention</div>
+    </div>
+    <div class="profil-card">
+      <div class="val">{{ profil.annee_bac }}</div>
+      <div class="lbl">Année BAC</div>
+    </div>
+  </div>
+
+  <!-- Top 10 filières -->
+  <div class="section-title">🎓 Top 10 — Filières recommandées</div>
+  {% for reco in recommandations %}
+  {% with score=reco.score_compatibilite|floatformat:0 %}
+  <div class="reco-row
+    {% if reco.niveau_reco == 'Excellente' %}border-excellent
+    {% elif reco.niveau_reco == 'Bonne' %}border-bon
+    {% elif reco.niveau_reco == 'Moyenne' %}border-possible
+    {% else %}border-faible{% endif %}">
+    <div class="reco-rank" style="background:
+      {% if forloop.counter == 1 %}#f6c90e; color:#1a1a1a;
+      {% elif forloop.counter == 2 %}#a0aec0; color:white;
+      {% elif forloop.counter == 3 %}#cd7f32; color:white;
+      {% else %}#e2e8f0; color:#4a5568;{% endif %}">
+      {{ forloop.counter }}
+    </div>
+    <div class="reco-main">
+      <div class="name">{{ reco.filiere.nom_filiere }}</div>
+      <div class="meta">{{ reco.filiere.code_filiere }} · {{ reco.filiere.duree_etudes|default:"N/A" }} · {{ reco.filiere.conditions_acces|default:""|truncatechars:60 }}</div>
+      <div class="bar-wrap">
+        <div class="bar {% if reco.niveau_reco == 'Excellente' %}bg-excellent{% elif reco.niveau_reco == 'Bonne' %}bg-bon{% elif reco.niveau_reco == 'Moyenne' %}bg-possible{% else %}bg-faible{% endif %}"
+             style="width:{{ score }}%"></div>
+      </div>
+    </div>
+    <div>
+      <div class="reco-score {% if reco.niveau_reco == 'Excellente' %}excellent{% elif reco.niveau_reco == 'Bonne' %}bon{% elif reco.niveau_reco == 'Moyenne' %}possible{% else %}faible{% endif %}">
+        {{ score }}%
+      </div>
+      <div style="font-size:0.7rem; color:#718096; text-align:right;">{{ reco.niveau_reco }}</div>
+    </div>
+  </div>
+  {% endwith %}
+  {% empty %}
+  <p style="color:#718096; padding:1rem; text-align:center;">Aucune recommandation de filière disponible.</p>
+  {% endfor %}
+
+  <!-- Top 5 concours -->
+  {% if recommandations_concours %}
+  <div class="section-title">🏆 Top 5 — Concours recommandés</div>
+  {% for reco in recommandations_concours %}
+  <div class="concours-row">
+    <div style="font-size:1.1rem; font-weight:800; color:
+      {% if reco.niveau_chance == 'Excellente' %}#38a169{% elif reco.niveau_chance == 'Bonne' %}#3182ce{% elif reco.niveau_chance == 'Possible' %}#dd6b20{% else %}#e53e3e{% endif %};">
+      {{ reco.score_admission|floatformat:0 }}%
+    </div>
+    <span class="concours-etablissement">{{ reco.concours.etablissement }}</span>
+    <div style="flex:1;">
+      <div style="font-weight:700; font-size:0.88rem;">{{ reco.concours.nom_concours }}</div>
+      <div style="font-size:0.73rem; color:#718096;">{{ reco.concours.ecole }} · {{ reco.concours.duree_formation }}</div>
+    </div>
+    <div style="text-align:right; font-size:0.75rem; color:#718096;">
+      Séries : {{ reco.concours.series_requises }}<br>
+      Moy. min : {{ reco.concours.moyenne_min }}/20
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <!-- Légende -->
+  <div style="margin-top:1.2rem; display:flex; gap:0.8rem; flex-wrap:wrap; font-size:0.75rem;">
+    <span style="color:#38a169; font-weight:600;">🟢 Excellente ≥ 80%</span>
+    <span style="color:#3182ce; font-weight:600;">🔵 Bonne ≥ 60%</span>
+    <span style="color:#dd6b20; font-weight:600;">🟡 Moyenne ≥ 40%</span>
+    <span style="color:#e53e3e; font-weight:600;">🔴 Faible &lt; 40%</span>
+  </div>
+
+  <!-- Pied de page -->
+  <div class="footer">
+    <div><strong>AIOA</strong> © {% now "Y" %} — Application Intelligente d'Orientation Académique | Côte d'Ivoire</div>
+    <div>Document confidentiel — Usage personnel uniquement</div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ Imprimer / Télécharger en PDF</button>
+</div>
+</body>
+</html>

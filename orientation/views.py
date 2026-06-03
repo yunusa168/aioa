@@ -9,6 +9,8 @@ from .models import (
     Concours, RecommandationConcours
 )
 import json
+from decimal import Decimal
+from django.http import HttpResponse
 # Ajouter ces imports en haut de views.py
 from .services.mistral_service import analyser_document_mistral
 import magic
@@ -33,15 +35,64 @@ MATIERES_PAR_SERIE = {
 }
 
 ASPIRATIONS_KEYWORDS = {
-    'MED-001':  ['médecin','médecine','chirurgie','santé','hôpital','docteur','pédiatre','cardiologue'],
+    # Filières génériques
+    'MED-001':  ['médecin','médecine','chirurgie','santé','hôpital','docteur','pédiatre'],
     'PHAR-001': ['pharmacie','pharmacien','médicament','laboratoire','pharma'],
-    'INFO-001': ['informatique','développeur','programmeur','code','logiciel','data','ia','cybersécurité','tech','numérique'],
-    'DROIT-001':['droit','avocat','juriste','justice','loi','notaire','magistrat','tribunal'],
-    'ECO-001':  ['économie','finance','banque','économiste','analyste','investissement','bourse'],
+    'INFO-001': ['informatique','développeur','programmeur','code','logiciel','data','ia','tech','numérique'],
+    'DROIT-001':['droit','avocat','juriste','justice','loi','notaire','magistrat'],
+    'ECO-001':  ['économie','finance','banque','économiste','analyste','investissement'],
     'GEST-001': ['gestion','management','manager','entreprise','marketing','rh','commerce','entrepreneur'],
+    # UNA
+    'UNA-BIO':      ['biologie','biologiste','sciences naturelles','laboratoire','recherche','SVT'],
+    'UNA-BIOCHIM':  ['biochimie','biochimiste','laboratoire','chimie','analyse','pharmacie'],
+    'UNA-BOTANIQUE':['botanique','plantes','agriculture','agronomie','végétaux','nature','CNRA'],
+    'UNA-ZOOLOGIE': ['zoologie','animaux','élevage','production animale','vétérinaire'],
+    'UNA-ENVIR':    ['environnement','écologie','développement durable','nature','ressources naturelles'],
+    'UNA-INFO':     ['informatique','développeur','code','tech','numérique','réseau','IA'],
+    'UNA-MIAGE':    ['informatique','gestion','systèmes information','ERP','développement','MIAGE'],
+    'UNA-MATHS':    ['mathématiques','maths','calcul','statistiques','analyse','actuariat'],
+    'UNA-PHYSIQUE': ['physique','sciences','recherche','ingénieur','technologie'],
+    'UNA-CHIMIE':   ['chimie','laboratoire','chimiste','analyse chimique','industrie'],
+    'UNA-STA':      ['alimentation','agroalimentaire','nutrition','qualité','technologie alimentaire'],
+    'UNA-EPSS':     ['médecine','pharmacie','santé','chirurgie','santé publique','EPSS'],
+    # UFHB
+    'UFHB-MEDECINE':['médecin','médecine','chirurgie','santé','hôpital','docteur','chirurgien'],
+    'UFHB-PHARMA':  ['pharmacie','pharmacien','médicament','pharma','laboratoire'],
+    'UFHB-ODONTO':  ['dentiste','odontologie','chirurgie dentaire','dents','orthodontie'],
+    'UFHB-MATHS':   ['mathématiques','maths','calcul','statistiques','actuariat','analyse'],
+    'UFHB-INFO':    ['informatique','développeur','réseau','tech','numérique','IA','data'],
+    'UFHB-PHYSIQUE':['physique','sciences','ingénieur','recherche','technologie'],
+    'UFHB-CHIMIE':  ['chimie','laboratoire','chimiste','industrie','analyse'],
+    'UFHB-GEO':     ['géologie','mines','minéraux','pétrole','ressources minières','géologue'],
+    'UFHB-BIOSCI':  ['biologie','microbiologie','biotechnologie','laboratoire','recherche'],
+    'UFHB-ECO':     ['économie','finance','comptabilité','banque','gestion','marketing','commerce'],
+    'UFHB-DROIT':   ['droit','avocat','juriste','justice','loi','notaire','magistrat','tribunal'],
+    'UFHB-SCIPO':   ['sciences politiques','diplomatie','politique','relations internationales','ONU'],
+    'UFHB-LETTRES': ['lettres','littérature','français','auteur','enseignement','culture'],
+    'UFHB-LANGUES': ['langues','traduction','interprète','anglais','espagnol','allemand','linguistique'],
+    'UFHB-COMM':    ['communication','journalisme','médias','publicité','presse','relations publiques'],
+    'UFHB-PSYCHO':  ['psychologie','psychologue','sociologie','conseil','accompagnement','social'],
+    'UFHB-CRIMI':   ['criminologie','crime','justice','victime','réinsertion','sécurité'],
+    # UIB
+    'UIB-INFO':     ['informatique','développeur','réseau','télécoms','logiciel','tech'],
+    'UIB-FINANCE':  ['finance','comptabilité','banque','audit','gestion','économie'],
+    'UIB-GESTION':  ['gestion','management','marketing','RH','ressources humaines','entreprise'],
+    'UIB-DROIT':    ['droit','avocat','juriste','loi','justice','administration'],
+    # Pigier
+    'PIGIER-COMPTA':  ['comptabilité','finance','audit','gestion','fiscalité','expert-comptable'],
+    'PIGIER-MARKET':  ['marketing','communication','publicité','commerce','vente','digital'],
+    'PIGIER-RH':      ['ressources humaines','RH','management','assistanat','gestion','direction'],
+    'PIGIER-INFO':    ['informatique','développeur','réseau','web','logiciel','tech'],
+    'PIGIER-TOURISME':['tourisme','hôtellerie','voyage','accueil','hôtel','restauration'],
+    # IIPEA
+    'IIPEA-INFO':      ['informatique','IA','intelligence artificielle','cybersécurité','réseau','développeur'],
+    'IIPEA-GESTION':   ['gestion','comptabilité','finance','marketing','ressources humaines','entreprise'],
+    'IIPEA-DROIT':     ['droit','administration','juriste','loi','fonctionnaire','justice'],
+    'IIPEA-LOGISTIQUE':['logistique','supply chain','commerce international','douane','transport','import'],
 }
 
 COMPAT_SERIE = {
+    # ── Filières génériques ──
     'MED-001':  ['C','D'],
     'PHAR-001': ['C','D'],
     'INFO-001': ['C','D','G1','G2','TI','E'],
@@ -63,7 +114,56 @@ COMPAT_SERIE = {
     'BTS-BANK':     ['G1','G2','C','D'],
     'ESC-ABIDJAN':  ['G1','G2','A2','C','D'],
     'INFAS':        ['C','D'],
+    # ── UNA — Université Nangui Abrogoua ──
+    'UNA-BIO':      ['C','D'],
+    'UNA-BIOCHIM':  ['C','D'],
+    'UNA-BOTANIQUE':['C','D'],
+    'UNA-ZOOLOGIE': ['C','D'],
+    'UNA-ENVIR':    ['C','D','E'],
+    'UNA-INFO':     ['C','D','E'],
+    'UNA-MIAGE':    ['C','D','E','G1','G2'],
+    'UNA-MATHS':    ['C','D','E'],
+    'UNA-PHYSIQUE': ['C','D','E'],
+    'UNA-CHIMIE':   ['C','D'],
+    'UNA-STA':      ['C','D'],
+    'UNA-EPSS':     ['C','D'],
+    # ── UFHB — Université Félix Houphouët-Boigny ──
+    'UFHB-MEDECINE':['C','D'],
+    'UFHB-PHARMA':  ['C','D'],
+    'UFHB-ODONTO':  ['C','D'],
+    'UFHB-MATHS':   ['C','D','E'],
+    'UFHB-INFO':    ['C','D','E'],
+    'UFHB-PHYSIQUE':['C','D','E'],
+    'UFHB-CHIMIE':  ['C','D'],
+    'UFHB-GEO':     ['C','D'],
+    'UFHB-BIOSCI':  ['C','D'],
+    'UFHB-ECO':     ['A1','C','D','G1','G2'],
+    'UFHB-DROIT':   ['A1','A2'],
+    'UFHB-SCIPO':   ['A1','A2'],
+    'UFHB-LETTRES': ['A1','A2'],
+    'UFHB-LANGUES': ['A1','A2'],
+    'UFHB-COMM':    ['A1','A2'],
+    'UFHB-PSYCHO':  ['A1','A2'],
+    'UFHB-CRIMI':   ['A1','A2'],
+    # ── UIB — Université Internationale de Bouaké ──
+    'UIB-INFO':     ['A1','A2','C','D','G1','G2'],
+    'UIB-FINANCE':  ['A1','A2','C','D','G1','G2'],
+    'UIB-GESTION':  ['A1','A2','C','D','G1','G2'],
+    'UIB-DROIT':    ['A1','A2','C','D','G1','G2'],
+    # ── Pigier Côte d'Ivoire ──
+    'PIGIER-COMPTA':  ['A1','A2','C','D','G1','G2','F1','F2','F3'],
+    'PIGIER-MARKET':  ['A1','A2','C','D','G1','G2'],
+    'PIGIER-RH':      ['A1','A2','C','D','G1','G2'],
+    'PIGIER-INFO':    ['A1','A2','C','D','G1','G2','F1','F2'],
+    'PIGIER-TOURISME':['A1','A2','C','D','G1','G2'],
+    # ── IIPEA ──
+    'IIPEA-INFO':      ['A1','A2','C','D','E','F1','F2','G1','G2'],
+    'IIPEA-GESTION':   ['A1','A2','C','D','G1','G2'],
+    'IIPEA-DROIT':     ['A1','A2','C','D','G1','G2'],
+    'IIPEA-LOGISTIQUE':['A1','A2','C','D','G1','G2'],
 }
+
+# Familles
 
 # Familles de séries — définies une seule fois
 SERIES_SCIENTIFIQUES = ['C','D','E','F1','F2','F3','F4']
@@ -680,3 +780,35 @@ def analyser_bulletin(request):
     # Appel Mistral (la validation de cohérence série est dans le service)
     resultat = analyser_document_mistral(fichier, type_document, serie_bac)
     return JsonResponse(resultat)
+
+def telecharger_fiche(request):
+    """Génère et télécharge la fiche de recommandation en HTML imprimable."""
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('connexion')
+
+    utilisateur = Utilisateur.objects.get(id=user_id)
+    try:
+        profil_bac = ProfilBachelier.objects.get(utilisateur=utilisateur)
+    except ProfilBachelier.DoesNotExist:
+        return redirect('profil')
+
+    recommandations = list(
+        Recommandation.objects.filter(utilisateur=utilisateur)
+        .order_by('-score_compatibilite')[:10]
+    )
+    recommandations_concours = list(
+        RecommandationConcours.objects.filter(utilisateur=utilisateur)
+        .order_by('-score_admission')[:5]
+    )
+
+    from django.template.loader import render_to_string
+    html = render_to_string('orientation/fiche_recommandation.html', {
+        'utilisateur': utilisateur,
+        'profil': profil_bac,
+        'recommandations': recommandations,
+        'recommandations_concours': recommandations_concours,
+    })
+    response = HttpResponse(html, content_type='text/html; charset=utf-8')
+    response['Content-Disposition'] = f'inline; filename="fiche_AIOA_{utilisateur.username}.html"'
+    return response
