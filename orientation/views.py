@@ -73,6 +73,15 @@ ASPIRATIONS_KEYWORDS = {
     'UFHB-COMM':    ['communication','journalisme','médias','publicité','presse','relations publiques'],
     'UFHB-PSYCHO':  ['psychologie','psychologue','sociologie','conseil','accompagnement','social'],
     'UFHB-CRIMI':   ['criminologie','crime','justice','victime','réinsertion','sécurité'],
+    # UAO — Université Alassane Ouattara de Bouaké
+    'UAO-DROIT':    ['droit','avocat','juriste','loi','justice','notaire','magistrat','administration'],
+    'UAO-ECO':      ['économie','finance','comptabilité','banque','gestion','marketing','commerce'],
+    'UAO-LETTRES':  ['lettres','littérature','français','auteur','enseignement','linguistique','culture'],
+    'UAO-INFO':     ['informatique','développeur','code','tech','numérique','réseau','IA','data'],
+    'UAO-BIO':      ['biologie','agronomie','agriculture','CNRA','ANADER','végétaux','nature','recherche'],
+    'UAO-CHIMIE':   ['chimie','biochimie','laboratoire','chimiste','analyse chimique','industrie','qualité'],
+    'UAO-PSYCHO':   ['psychologie','éducation','conseil','orientation','social','thérapeute','enfants'],
+    'UAO-STAPS':    ['sport','EPS','éducation physique','entraîneur','kinésithérapie','sportif','coach'],
     # UIB
     'UIB-INFO':     ['informatique','développeur','réseau','télécoms','logiciel','tech'],
     'UIB-FINANCE':  ['finance','comptabilité','banque','audit','gestion','économie'],
@@ -145,6 +154,15 @@ COMPAT_SERIE = {
     'UFHB-COMM':    ['A1','A2'],
     'UFHB-PSYCHO':  ['A1','A2'],
     'UFHB-CRIMI':   ['A1','A2'],
+    # ── UAO — Université Alassane Ouattara de Bouaké ──
+    'UAO-DROIT':    ['A1','A2','C','D','G1','G2'],
+    'UAO-ECO':      ['A1','C','D','G1','G2'],
+    'UAO-LETTRES':  ['A1','A2'],
+    'UAO-INFO':     ['C','D','E','TI'],
+    'UAO-BIO':      ['C','D'],
+    'UAO-CHIMIE':   ['C','D'],
+    'UAO-PSYCHO':   ['A1','A2','C','D'],
+    'UAO-STAPS':    ['A1','A2','C','D','E','F1','F2','F3','F4','G1','G2','TI'],
     # ── UIB — Université Internationale de Bouaké ──
     'UIB-INFO':     ['A1','A2','C','D','G1','G2'],
     'UIB-FINANCE':  ['A1','A2','C','D','G1','G2'],
@@ -554,7 +572,13 @@ def resultats(request):
         n.matiere_id: float(n.note_bac)
         for n in profil_bac.notes.all() if n.note_bac
     }
-    filieres = FiliereOrientation.objects.filter(actif_filiere=True)
+    # Seules les filières universitaires publiques — les écoles à concours sont dans la page Concours
+    CODES_UNIVERSITE = ('UNA-', 'UFHB-', 'UAO-', 'MED-', 'PHAR-', 'INFO-', 'DROIT-', 'ECO-', 'GEST-')
+    from django.db.models import Q
+    filtre_univ = Q()
+    for prefix in CODES_UNIVERSITE:
+        filtre_univ |= Q(code_filiere__startswith=prefix)
+    filieres = FiliereOrientation.objects.filter(actif_filiere=True).filter(filtre_univ)
     Recommandation.objects.filter(utilisateur=utilisateur).delete()
     aspirations_text = (profil_bac.aspirations_bac or '').lower()
 
@@ -782,7 +806,7 @@ def analyser_bulletin(request):
     return JsonResponse(resultat)
 
 def telecharger_fiche(request):
-    """Génère et télécharge la fiche de recommandation en HTML imprimable."""
+    """Génère et télécharge la fiche de recommandation en PDF."""
     user_id = request.session.get('user_id')
     if not user_id:
         return redirect('connexion')
@@ -803,12 +827,23 @@ def telecharger_fiche(request):
     )
 
     from django.template.loader import render_to_string
-    html = render_to_string('orientation/fiche_recommandation.html', {
+    html_string = render_to_string('orientation/fiche_recommandation.html', {
         'utilisateur': utilisateur,
         'profil': profil_bac,
         'recommandations': recommandations,
         'recommandations_concours': recommandations_concours,
-    })
-    response = HttpResponse(html, content_type='text/html; charset=utf-8')
-    response['Content-Disposition'] = f'inline; filename="fiche_AIOA_{utilisateur.username}.html"'
-    return response
+        'is_pdf': True,
+    }, request=request)
+
+    try:
+        from weasyprint import HTML as WeasyHTML
+        pdf_bytes = WeasyHTML(string=html_string, base_url=request.build_absolute_uri('/')).write_pdf()
+        response = HttpResponse(pdf_bytes, content_type='application/pdf')
+        nom_fichier = f"fiche_orientation_AIOA_{utilisateur.username}.pdf"
+        response['Content-Disposition'] = f'attachment; filename="{nom_fichier}"'
+        return response
+    except Exception:
+        # Fallback HTML si WeasyPrint échoue
+        response = HttpResponse(html_string, content_type='text/html; charset=utf-8')
+        response['Content-Disposition'] = f'inline; filename="fiche_AIOA_{utilisateur.username}.html"'
+        return response

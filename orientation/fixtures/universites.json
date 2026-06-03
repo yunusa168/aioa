@@ -1,48 +1,802 @@
 [
-  {"model":"orientation.filiereorientation","pk":10,"fields":{"code_filiere":"UNA-BIO","nom_filiere":"Biologie — Université Nangui Abrogoua","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Biologie générale, biochimie, génétique, microbiologie à l'UNA d'Abidjan.","debouches":"Biologiste, chercheur, enseignant, technicien de laboratoire, agronome","conditions_acces":"BAC C ou D — Moyenne ≥ 10/20","competences_requises":"SVT, Chimie, Physique, Mathématiques","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":11,"fields":{"code_filiere":"UNA-BIOCHIM","nom_filiere":"Biochimie — Université Nangui Abrogoua","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Biochimie, chimie organique, enzymologie, biologie moléculaire à l'UNA.","debouches":"Biochimiste, laborantin, chercheur, contrôle qualité agroalimentaire","conditions_acces":"BAC C ou D — Bonne maîtrise en SVT et Chimie","competences_requises":"Chimie, SVT, Physique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":12,"fields":{"code_filiere":"UNA-BOTANIQUE","nom_filiere":"Botanique / Protection des Végétaux — UNA","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Botanique, phytopathologie, agronomie, protection et production végétale à l'UNA.","debouches":"Agronome, botaniste, conseiller agricole, chercheur CNRA, fonctionnaire MINADER","conditions_acces":"BAC C ou D","competences_requises":"SVT, Chimie, Sciences naturelles","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":13,"fields":{"code_filiere":"UNA-ZOOLOGIE","nom_filiere":"Zoologie / Production Animale — UNA","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Zoologie, élevage, production animale, écologie animale à l'Université Nangui Abrogoua.","debouches":"Zootechnicien, vétérinaire (cycle prépa), chercheur, producteur animal","conditions_acces":"BAC C ou D","competences_requises":"SVT, Sciences naturelles","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":14,"fields":{"code_filiere":"UNA-ENVIR","nom_filiere":"Gestion de l'Environnement — UNA","type_profil_filiere":"bachelier","niveau_minimum":"Bac C, D ou E","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Environnement, écologie, gestion des ressources naturelles, développement durable à l'UNA.","debouches":"Expert environnement, consultant développement durable, ONG, fonctionnaire MINEF","conditions_acces":"BAC C, D ou E","competences_requises":"SVT, Géographie, Chimie","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":15,"fields":{"code_filiere":"UNA-INFO","nom_filiere":"Informatique — Université Nangui Abrogoua","type_profil_filiere":"bachelier","niveau_minimum":"Bac C, D ou E","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Développement logiciel, réseaux, systèmes d'information, IA à l'UNA.","debouches":"Développeur, ingénieur réseau, data scientist, administrateur systèmes","conditions_acces":"BAC C, D ou E — Moyenne ≥ 12/20","competences_requises":"Mathématiques, Logique, Algorithmique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":16,"fields":{"code_filiere":"UNA-MIAGE","nom_filiere":"MIAGE — Méthodes Informatiques Appliquées à la Gestion — UNA","type_profil_filiere":"bachelier","niveau_minimum":"Bac C, D, E ou G","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Informatique de gestion, systèmes d'information, ERP, développement web et mobile à l'UNA.","debouches":"Chef de projet SI, analyste programmeur, consultant ERP, DSI","conditions_acces":"BAC C, D, E ou G1/G2","competences_requises":"Mathématiques, Informatique, Gestion","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":17,"fields":{"code_filiere":"UNA-MATHS","nom_filiere":"Mathématiques — Université Nangui Abrogoua","type_profil_filiere":"bachelier","niveau_minimum":"Bac C, D ou E","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Mathématiques pures et appliquées, statistiques, probabilités, analyse à l'UNA.","debouches":"Enseignant, actuaire, statisticien, data analyst, chercheur, ingénieur financier","conditions_acces":"BAC C, D ou E — Bonne maîtrise des mathématiques","competences_requises":"Mathématiques, Physique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":18,"fields":{"code_filiere":"UNA-PHYSIQUE","nom_filiere":"Physique — Université Nangui Abrogoua","type_profil_filiere":"bachelier","niveau_minimum":"Bac C, D ou E","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Physique fondamentale et appliquée, électronique, optique, mécanique à l'UNA.","debouches":"Enseignant, physicien, ingénieur, chercheur, technicien industriel","conditions_acces":"BAC C, D ou E","competences_requises":"Physique-Chimie, Mathématiques","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":19,"fields":{"code_filiere":"UNA-CHIMIE","nom_filiere":"Chimie — Université Nangui Abrogoua","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Chimie organique, inorganique, analytique et industrielle à l'UNA.","debouches":"Chimiste industriel, laborantin, enseignant-chercheur, contrôle qualité","conditions_acces":"BAC C ou D","competences_requises":"Chimie, Physique, Mathématiques","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":20,"fields":{"code_filiere":"UNA-STA","nom_filiere":"Sciences et Technologies des Aliments — UNA","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Technologie alimentaire, nutrition, contrôle qualité agroalimentaire, sécurité sanitaire à l'UNA.","debouches":"Ingénieur agroalimentaire, technicien qualité, nutritionniste, consultant IAA","conditions_acces":"BAC C ou D — Profil SVT/Chimie recommandé","competences_requises":"SVT, Chimie, Physique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":21,"fields":{"code_filiere":"UNA-EPSS","nom_filiere":"EPSS — École Préparatoire aux Sciences de la Santé — UNA","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D — Excellentes notes","duree_etudes":"1 an prépa + 6-7 ans médecine/pharmacie","description_filiere":"Classe préparatoire intégrée à l'UNA pour l'accès aux études de médecine, pharmacie et odontologie.","debouches":"Médecin, pharmacien, chirurgien-dentiste (après réussite au concours EPSS)","conditions_acces":"BAC C ou D — Moyenne ≥ 14/20 recommandée — Concours d'entrée très sélectif","competences_requises":"SVT, Chimie, Physique, Mathématiques","actif_filiere":true}},
-
-  {"model":"orientation.filiereorientation","pk":30,"fields":{"code_filiere":"UFHB-MEDECINE","nom_filiere":"Médecine — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"7 ans minimum","description_filiere":"Formation médicale complète à la UFHB d'Abidjan — référence nationale en Afrique de l'Ouest. UFR des Sciences Médicales.","debouches":"Médecin généraliste, spécialiste, chirurgien, chercheur médical, santé publique","conditions_acces":"BAC C ou D — Moyenne ≥ 14/20 recommandée — Concours d'entrée très sélectif","competences_requises":"SVT, Chimie, Physique-Chimie, Mathématiques","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":31,"fields":{"code_filiere":"UFHB-PHARMA","nom_filiere":"Pharmacie — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"6 ans","description_filiere":"Formation en pharmacologie, chimie pharmaceutique, biologie à la UFHB. UFR des Sciences Pharmaceutiques et Biologiques.","debouches":"Pharmacien officinal, hospitalier, industriel, biologiste, chercheur","conditions_acces":"BAC C ou D — Moyenne ≥ 13/20 recommandée — Concours d'entrée","competences_requises":"Chimie, SVT, Physique, Mathématiques","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":32,"fields":{"code_filiere":"UFHB-ODONTO","nom_filiere":"Odontostomatologie — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"6 ans","description_filiere":"Chirurgie dentaire, soins bucco-dentaires, orthodontie à la UFHB. UFR d'Odontostomatologie.","debouches":"Chirurgien-dentiste, orthodontiste, praticien hospitalier","conditions_acces":"BAC C ou D — Moyenne ≥ 13/20 recommandée","competences_requises":"SVT, Chimie, Physique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":33,"fields":{"code_filiere":"UFHB-MATHS","nom_filiere":"Mathématiques — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C, D ou E","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Mathématiques pures et appliquées, statistiques, analyse numérique, algèbre à la UFHB.","debouches":"Enseignant, actuaire, statisticien, data analyst, chercheur, ingénieur","conditions_acces":"BAC C, D ou E","competences_requises":"Mathématiques, Physique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":34,"fields":{"code_filiere":"UFHB-INFO","nom_filiere":"Informatique — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C, D ou E","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Développement logiciel, IA, cybersécurité, data science, réseaux à la UFHB.","debouches":"Développeur senior, data scientist, ingénieur IA, architecte systèmes, DSI","conditions_acces":"BAC C, D ou E — Moyenne ≥ 12/20","competences_requises":"Mathématiques, Algorithmique, Logique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":35,"fields":{"code_filiere":"UFHB-PHYSIQUE","nom_filiere":"Physique — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C, D ou E","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Physique fondamentale, électronique, mécanique, optique, physique des matériaux à la UFHB.","debouches":"Enseignant, ingénieur, chercheur, physicien industriel","conditions_acces":"BAC C, D ou E","competences_requises":"Physique-Chimie, Mathématiques","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":36,"fields":{"code_filiere":"UFHB-CHIMIE","nom_filiere":"Chimie — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Chimie organique, inorganique, analytique, chimie industrielle et environnementale à la UFHB.","debouches":"Chimiste, laborantin, ingénieur chimiste, contrôle qualité","conditions_acces":"BAC C ou D","competences_requises":"Chimie, Physique, Mathématiques","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":37,"fields":{"code_filiere":"UFHB-GEO","nom_filiere":"Géologie / Mines — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Géologie, minéralogie, pétrographie, génie minier, ressources minérales à la UFHB.","debouches":"Géologue, ingénieur minier, hydrogéologue, expert pétrolier, fonctionnaire SODEMI","conditions_acces":"BAC C ou D","competences_requises":"SVT, Physique, Chimie, Mathématiques","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":38,"fields":{"code_filiere":"UFHB-BIOSCI","nom_filiere":"Biosciences — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac C ou D","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Biologie animale, végétale, microbiologie, biotechnologies à la UFHB.","debouches":"Biologiste, enseignant, chercheur, agronome, laborantin","conditions_acces":"BAC C ou D","competences_requises":"SVT, Chimie, Physique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":39,"fields":{"code_filiere":"UFHB-ECO","nom_filiere":"Sciences Économiques et Gestion — UFHB","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Économie, finance, comptabilité, marketing, banque, gestion d'entreprise à la UFHB.","debouches":"Économiste, gestionnaire, analyste financier, comptable, banquier, consultant","conditions_acces":"BAC A1, B, C, D ou G2","competences_requises":"Économie, Mathématiques, Comptabilité","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":40,"fields":{"code_filiere":"UFHB-DROIT","nom_filiere":"Droit — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master) / 8 ans (Doctorat)","description_filiere":"Droit public, privé, des affaires, international, sciences politiques à la UFHB — référence nationale.","debouches":"Avocat, magistrat, notaire, juriste d'entreprise, huissier, fonctionnaire","conditions_acces":"BAC A1, A2 ou B — Très bonne expression écrite","competences_requises":"Français, Histoire-Géographie, Logique juridique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":41,"fields":{"code_filiere":"UFHB-SCIPO","nom_filiere":"Sciences Politiques — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac A ou B","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Sciences politiques, relations internationales, administration publique, diplomatie à la UFHB.","debouches":"Diplomate, politologue, fonctionnaire international, consultant politique, journaliste","conditions_acces":"BAC A1, A2 ou B","competences_requises":"Histoire, Français, Philosophie, Géographie","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":42,"fields":{"code_filiere":"UFHB-LETTRES","nom_filiere":"Lettres Modernes — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac A1 ou A2","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Littérature française et africaine, linguistique, grammaire, stylistique à la UFHB.","debouches":"Enseignant de français, auteur, correcteur, traducteur, communicant","conditions_acces":"BAC A1 ou A2 — Excellente maîtrise du français","competences_requises":"Français, Philosophie, Histoire","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":43,"fields":{"code_filiere":"UFHB-LANGUES","nom_filiere":"Langues Étrangères (Anglais, Espagnol, Allemand) — UFHB","type_profil_filiere":"bachelier","niveau_minimum":"Bac A1 ou A2","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Langues vivantes (anglais, espagnol, allemand, portugais), traduction, interprétation à la UFHB.","debouches":"Traducteur, interprète, professeur de langues, guide touristique, diplomate","conditions_acces":"BAC A1 ou A2 — Bon niveau en langue cible","competences_requises":"Langues étrangères, Français, Littérature","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":44,"fields":{"code_filiere":"UFHB-COMM","nom_filiere":"Communication et Journalisme — UFHB","type_profil_filiere":"bachelier","niveau_minimum":"Bac A ou B","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Journalisme, communication d'entreprise, marketing publicitaire, médias numériques à la UFHB.","debouches":"Journaliste, communicant, attaché de presse, responsable communication, publicitaire","conditions_acces":"BAC A1, A2 ou B — Bonne expression et culture générale","competences_requises":"Français, Philosophie, Histoire","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":45,"fields":{"code_filiere":"UFHB-PSYCHO","nom_filiere":"Psychologie / Sociologie — Université Félix Houphouët-Boigny","type_profil_filiere":"bachelier","niveau_minimum":"Bac A ou B","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Psychologie clinique, sociale, sociologie, anthropologie à la UFHB.","debouches":"Psychologue, conseiller, sociologue, travailleur social, RH, chercheur","conditions_acces":"BAC A1, A2 ou B","competences_requises":"Philosophie, Français, Sciences humaines","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":46,"fields":{"code_filiere":"UFHB-CRIMI","nom_filiere":"Criminologie / Réinsertion Sociale — UFHB","type_profil_filiere":"bachelier","niveau_minimum":"Bac A ou B","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Criminologie, victimologie, réinsertion sociale, prise en charge des victimes à la UFHB.","debouches":"Criminologue, conseiller pénitentiaire, assistant social, expert judiciaire, ONG","conditions_acces":"BAC A1, A2 ou B","competences_requises":"Philosophie, Droit, Psychologie, Sociologie","actif_filiere":true}},
-
-  {"model":"orientation.filiereorientation","pk":50,"fields":{"code_filiere":"UIB-INFO","nom_filiere":"Informatique / Réseaux & Télécommunications — UIB Bouaké","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Développement logiciel, réseaux, télécommunications, génie logiciel à l'Université Internationale de Bouaké.","debouches":"Développeur, ingénieur réseau, technicien télécoms, architecte logiciel","conditions_acces":"BAC A1, A2, B, C, D, G1 ou G2","competences_requises":"Mathématiques, Logique, Informatique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":51,"fields":{"code_filiere":"UIB-FINANCE","nom_filiere":"Finance-Comptabilité / Banque — UIB Bouaké","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Finance d'entreprise, comptabilité, contrôle de gestion, banque à l'UIB.","debouches":"Comptable, auditeur, contrôleur de gestion, banquier, analyste financier","conditions_acces":"BAC A1, A2, B, C, D, G1 ou G2","competences_requises":"Mathématiques, Économie, Comptabilité","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":52,"fields":{"code_filiere":"UIB-GESTION","nom_filiere":"Marketing / Gestion des Entreprises / RH — UIB Bouaké","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Management, marketing, ressources humaines, gestion de projet à l'Université Internationale de Bouaké.","debouches":"Manager, responsable RH, chef de projet, marketeur, entrepreneur","conditions_acces":"BAC A1, A2, B, C, D, G1 ou G2","competences_requises":"Économie, Mathématiques, Gestion","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":53,"fields":{"code_filiere":"UIB-DROIT","nom_filiere":"Droit — Université Internationale de Bouaké","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Droit public, privé et des affaires à l'UIB Bouaké.","debouches":"Juriste, avocat, notaire, fonctionnaire, conseiller juridique","conditions_acces":"Toutes séries — bonne expression écrite","competences_requises":"Français, Histoire, Logique","actif_filiere":true}},
-
-  {"model":"orientation.filiereorientation","pk":60,"fields":{"code_filiere":"PIGIER-COMPTA","nom_filiere":"Comptabilité Finance / Audit — Pigier Côte d'Ivoire","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"2 à 3 ans (BTS/Licence)","description_filiere":"Comptabilité générale, finance d'entreprise, audit, contrôle de gestion, fiscalité à Pigier CI.","debouches":"Comptable, auditeur, contrôleur de gestion, expert-comptable (après expérience)","conditions_acces":"BAC A1, A2, B, C, D, G1, G2 ou F","competences_requises":"Mathématiques, Économie, Comptabilité","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":61,"fields":{"code_filiere":"PIGIER-MARKET","nom_filiere":"Marketing / Communication — Pigier Côte d'Ivoire","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"2 à 3 ans (BTS/Licence)","description_filiere":"Marketing, communication d'entreprise, publicité, commerce, gestion de la clientèle à Pigier.","debouches":"Responsable marketing, chargé de communication, commercial, chef de produit","conditions_acces":"BAC A1, A2, B, C, D, G1 ou G2","competences_requises":"Français, Économie, Marketing","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":62,"fields":{"code_filiere":"PIGIER-RH","nom_filiere":"Gestion des Entreprises / Ressources Humaines — Pigier","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"2 à 3 ans (BTS/Licence)","description_filiere":"Management, ressources humaines, assistanat de direction, gestion de projet à Pigier CI.","debouches":"Responsable RH, assistant de direction, gestionnaire, chef de projet","conditions_acces":"BAC A1, A2, B, C, D, G1 ou G2","competences_requises":"Français, Économie, Gestion","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":63,"fields":{"code_filiere":"PIGIER-INFO","nom_filiere":"Réseaux et Génie Logiciel — Pigier Côte d'Ivoire","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"2 à 3 ans (BTS/Licence)","description_filiere":"Développement web et mobile, réseaux informatiques, génie logiciel à Pigier CI.","debouches":"Développeur, technicien réseau, webmaster, administrateur systèmes","conditions_acces":"BAC A1, A2, B, C, D, G1, G2 ou F","competences_requises":"Mathématiques, Logique, Informatique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":64,"fields":{"code_filiere":"PIGIER-TOURISME","nom_filiere":"Tourisme et Hôtellerie — Pigier Côte d'Ivoire","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"2 à 3 ans (BTS/Licence)","description_filiere":"Tourisme, hôtellerie, restauration, gestion d'établissements touristiques à Pigier CI.","debouches":"Manager hôtelier, agent de voyage, responsable tourisme, guide touristique","conditions_acces":"BAC A1, A2, B, C, D, G1 ou G2 — Bon niveau en langues","competences_requises":"Langues étrangères, Français, Géographie","actif_filiere":true}},
-
-  {"model":"orientation.filiereorientation","pk":70,"fields":{"code_filiere":"IIPEA-INFO","nom_filiere":"Informatique / IA / Cybersécurité / Réseaux — IIPEA","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Intelligence artificielle, cybersécurité, développement logiciel, réseaux et télécommunications à l'IIPEA.","debouches":"Ingénieur IA, expert cybersécurité, développeur, ingénieur réseau, data scientist","conditions_acces":"BAC A1, A2, B, C, D, E, F, G1 ou G2","competences_requises":"Mathématiques, Logique, Algorithmique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":71,"fields":{"code_filiere":"IIPEA-GESTION","nom_filiere":"Gestion / Comptabilité / Finance / Marketing — IIPEA","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Gestion d'entreprise, comptabilité, finance, marketing, ressources humaines à l'IIPEA.","debouches":"Gestionnaire, comptable, analyste financier, responsable marketing, DRH","conditions_acces":"BAC A1, A2, B, C, D, G1 ou G2","competences_requises":"Économie, Mathématiques, Gestion","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":72,"fields":{"code_filiere":"IIPEA-DROIT","nom_filiere":"Droit / Administration — IIPEA","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Droit privé, public, des affaires, administration et sciences politiques à l'IIPEA.","debouches":"Juriste, avocat, conseiller juridique, administrateur, fonctionnaire","conditions_acces":"Toutes séries — Bonne expression écrite","competences_requises":"Français, Histoire, Logique juridique","actif_filiere":true}},
-  {"model":"orientation.filiereorientation","pk":73,"fields":{"code_filiere":"IIPEA-LOGISTIQUE","nom_filiere":"Logistique et Commerce International — IIPEA","type_profil_filiere":"bachelier","niveau_minimum":"Bac","duree_etudes":"3 ans (Licence) / 5 ans (Master)","description_filiere":"Supply chain, logistique internationale, commerce extérieur, douane, transport à l'IIPEA.","debouches":"Responsable logistique, commissionnaire en douane, directeur supply chain, trader","conditions_acces":"BAC A1, A2, B, C, D, G1 ou G2","competences_requises":"Économie, Géographie, Mathématiques, Anglais","actif_filiere":true}}
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 10,
+    "fields": {
+      "code_filiere": "UNA-BIO",
+      "nom_filiere": "Biologie — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Biologie générale, biochimie, génétique, microbiologie à l'UNA d'Abidjan.",
+      "debouches": "Biologiste, chercheur, enseignant, technicien de laboratoire, agronome",
+      "conditions_acces": "BAC C ou D — Moyenne ≥ 10/20",
+      "competences_requises": "SVT, Chimie, Physique, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 11,
+    "fields": {
+      "code_filiere": "UNA-BIOCHIM",
+      "nom_filiere": "Biochimie — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Biochimie, chimie organique, enzymologie, biologie moléculaire à l'UNA.",
+      "debouches": "Biochimiste, laborantin, chercheur, contrôle qualité agroalimentaire",
+      "conditions_acces": "BAC C ou D — Bonne maîtrise en SVT et Chimie",
+      "competences_requises": "Chimie, SVT, Physique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 12,
+    "fields": {
+      "code_filiere": "UNA-BOTANIQUE",
+      "nom_filiere": "Botanique / Protection des Végétaux — UNA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Botanique, phytopathologie, agronomie, protection et production végétale à l'UNA.",
+      "debouches": "Agronome, botaniste, conseiller agricole, chercheur CNRA, fonctionnaire MINADER",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "SVT, Chimie, Sciences naturelles",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 13,
+    "fields": {
+      "code_filiere": "UNA-ZOOLOGIE",
+      "nom_filiere": "Zoologie / Production Animale — UNA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Zoologie, élevage, production animale, écologie animale à l'Université Nangui Abrogoua.",
+      "debouches": "Zootechnicien, vétérinaire (cycle prépa), chercheur, producteur animal",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "SVT, Sciences naturelles",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 14,
+    "fields": {
+      "code_filiere": "UNA-ENVIR",
+      "nom_filiere": "Gestion de l'Environnement — UNA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou E",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Environnement, écologie, gestion des ressources naturelles, développement durable à l'UNA.",
+      "debouches": "Expert environnement, consultant développement durable, ONG, fonctionnaire MINEF",
+      "conditions_acces": "BAC C, D ou E",
+      "competences_requises": "SVT, Géographie, Chimie",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 15,
+    "fields": {
+      "code_filiere": "UNA-INFO",
+      "nom_filiere": "Informatique — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou E",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Développement logiciel, réseaux, systèmes d'information, IA à l'UNA.",
+      "debouches": "Développeur, ingénieur réseau, data scientist, administrateur systèmes",
+      "conditions_acces": "BAC C, D ou E — Moyenne ≥ 12/20",
+      "competences_requises": "Mathématiques, Logique, Algorithmique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 16,
+    "fields": {
+      "code_filiere": "UNA-MIAGE",
+      "nom_filiere": "MIAGE — Méthodes Informatiques Appliquées à la Gestion — UNA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D, E ou G",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Informatique de gestion, systèmes d'information, ERP, développement web et mobile à l'UNA.",
+      "debouches": "Chef de projet SI, analyste programmeur, consultant ERP, DSI",
+      "conditions_acces": "BAC C, D, E ou G1/G2",
+      "competences_requises": "Mathématiques, Informatique, Gestion",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 17,
+    "fields": {
+      "code_filiere": "UNA-MATHS",
+      "nom_filiere": "Mathématiques — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou E",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Mathématiques pures et appliquées, statistiques, probabilités, analyse à l'UNA.",
+      "debouches": "Enseignant, actuaire, statisticien, data analyst, chercheur, ingénieur financier",
+      "conditions_acces": "BAC C, D ou E — Bonne maîtrise des mathématiques",
+      "competences_requises": "Mathématiques, Physique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 18,
+    "fields": {
+      "code_filiere": "UNA-PHYSIQUE",
+      "nom_filiere": "Physique — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou E",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Physique fondamentale et appliquée, électronique, optique, mécanique à l'UNA.",
+      "debouches": "Enseignant, physicien, ingénieur, chercheur, technicien industriel",
+      "conditions_acces": "BAC C, D ou E",
+      "competences_requises": "Physique-Chimie, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 19,
+    "fields": {
+      "code_filiere": "UNA-CHIMIE",
+      "nom_filiere": "Chimie — Université Nangui Abrogoua",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Chimie organique, inorganique, analytique et industrielle à l'UNA.",
+      "debouches": "Chimiste industriel, laborantin, enseignant-chercheur, contrôle qualité",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "Chimie, Physique, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 20,
+    "fields": {
+      "code_filiere": "UNA-STA",
+      "nom_filiere": "Sciences et Technologies des Aliments — UNA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Technologie alimentaire, nutrition, contrôle qualité agroalimentaire, sécurité sanitaire à l'UNA.",
+      "debouches": "Ingénieur agroalimentaire, technicien qualité, nutritionniste, consultant IAA",
+      "conditions_acces": "BAC C ou D — Profil SVT/Chimie recommandé",
+      "competences_requises": "SVT, Chimie, Physique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 21,
+    "fields": {
+      "code_filiere": "UNA-EPSS",
+      "nom_filiere": "EPSS — École Préparatoire aux Sciences de la Santé — UNA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D — Excellentes notes",
+      "duree_etudes": "1 an prépa + 6-7 ans médecine/pharmacie",
+      "description_filiere": "Classe préparatoire intégrée à l'UNA pour l'accès aux études de médecine, pharmacie et odontologie.",
+      "debouches": "Médecin, pharmacien, chirurgien-dentiste (après réussite au concours EPSS)",
+      "conditions_acces": "BAC C ou D — Moyenne ≥ 14/20 recommandée — Concours d'entrée très sélectif",
+      "competences_requises": "SVT, Chimie, Physique, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 30,
+    "fields": {
+      "code_filiere": "UFHB-MEDECINE",
+      "nom_filiere": "Médecine — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "7 ans minimum",
+      "description_filiere": "Formation médicale complète à la UFHB d'Abidjan — référence nationale en Afrique de l'Ouest. UFR des Sciences Médicales.",
+      "debouches": "Médecin généraliste, spécialiste, chirurgien, chercheur médical, santé publique",
+      "conditions_acces": "BAC C ou D — Moyenne ≥ 14/20 recommandée — Concours d'entrée très sélectif",
+      "competences_requises": "SVT, Chimie, Physique-Chimie, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 31,
+    "fields": {
+      "code_filiere": "UFHB-PHARMA",
+      "nom_filiere": "Pharmacie — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "6 ans",
+      "description_filiere": "Formation en pharmacologie, chimie pharmaceutique, biologie à la UFHB. UFR des Sciences Pharmaceutiques et Biologiques.",
+      "debouches": "Pharmacien officinal, hospitalier, industriel, biologiste, chercheur",
+      "conditions_acces": "BAC C ou D — Moyenne ≥ 13/20 recommandée — Concours d'entrée",
+      "competences_requises": "Chimie, SVT, Physique, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 32,
+    "fields": {
+      "code_filiere": "UFHB-ODONTO",
+      "nom_filiere": "Odontostomatologie — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "6 ans",
+      "description_filiere": "Chirurgie dentaire, soins bucco-dentaires, orthodontie à la UFHB. UFR d'Odontostomatologie.",
+      "debouches": "Chirurgien-dentiste, orthodontiste, praticien hospitalier",
+      "conditions_acces": "BAC C ou D — Moyenne ≥ 13/20 recommandée",
+      "competences_requises": "SVT, Chimie, Physique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 33,
+    "fields": {
+      "code_filiere": "UFHB-MATHS",
+      "nom_filiere": "Mathématiques — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou E",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Mathématiques pures et appliquées, statistiques, analyse numérique, algèbre à la UFHB.",
+      "debouches": "Enseignant, actuaire, statisticien, data analyst, chercheur, ingénieur",
+      "conditions_acces": "BAC C, D ou E",
+      "competences_requises": "Mathématiques, Physique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 34,
+    "fields": {
+      "code_filiere": "UFHB-INFO",
+      "nom_filiere": "Informatique — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou E",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Développement logiciel, IA, cybersécurité, data science, réseaux à la UFHB.",
+      "debouches": "Développeur senior, data scientist, ingénieur IA, architecte systèmes, DSI",
+      "conditions_acces": "BAC C, D ou E — Moyenne ≥ 12/20",
+      "competences_requises": "Mathématiques, Algorithmique, Logique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 35,
+    "fields": {
+      "code_filiere": "UFHB-PHYSIQUE",
+      "nom_filiere": "Physique — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou E",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Physique fondamentale, électronique, mécanique, optique, physique des matériaux à la UFHB.",
+      "debouches": "Enseignant, ingénieur, chercheur, physicien industriel",
+      "conditions_acces": "BAC C, D ou E",
+      "competences_requises": "Physique-Chimie, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 36,
+    "fields": {
+      "code_filiere": "UFHB-CHIMIE",
+      "nom_filiere": "Chimie — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Chimie organique, inorganique, analytique, chimie industrielle et environnementale à la UFHB.",
+      "debouches": "Chimiste, laborantin, ingénieur chimiste, contrôle qualité",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "Chimie, Physique, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 37,
+    "fields": {
+      "code_filiere": "UFHB-GEO",
+      "nom_filiere": "Géologie / Mines — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Géologie, minéralogie, pétrographie, génie minier, ressources minérales à la UFHB.",
+      "debouches": "Géologue, ingénieur minier, hydrogéologue, expert pétrolier, fonctionnaire SODEMI",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "SVT, Physique, Chimie, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 38,
+    "fields": {
+      "code_filiere": "UFHB-BIOSCI",
+      "nom_filiere": "Biosciences — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Biologie animale, végétale, microbiologie, biotechnologies à la UFHB.",
+      "debouches": "Biologiste, enseignant, chercheur, agronome, laborantin",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "SVT, Chimie, Physique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 39,
+    "fields": {
+      "code_filiere": "UFHB-ECO",
+      "nom_filiere": "Sciences Économiques et Gestion — UFHB",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Économie, finance, comptabilité, marketing, banque, gestion d'entreprise à la UFHB.",
+      "debouches": "Économiste, gestionnaire, analyste financier, comptable, banquier, consultant",
+      "conditions_acces": "BAC A1, B, C, D ou G2",
+      "competences_requises": "Économie, Mathématiques, Comptabilité",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 40,
+    "fields": {
+      "code_filiere": "UFHB-DROIT",
+      "nom_filiere": "Droit — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master) / 8 ans (Doctorat)",
+      "description_filiere": "Droit public, privé, des affaires, international, sciences politiques à la UFHB — référence nationale.",
+      "debouches": "Avocat, magistrat, notaire, juriste d'entreprise, huissier, fonctionnaire",
+      "conditions_acces": "BAC A1, A2 ou B — Très bonne expression écrite",
+      "competences_requises": "Français, Histoire-Géographie, Logique juridique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 41,
+    "fields": {
+      "code_filiere": "UFHB-SCIPO",
+      "nom_filiere": "Sciences Politiques — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac A ou B",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Sciences politiques, relations internationales, administration publique, diplomatie à la UFHB.",
+      "debouches": "Diplomate, politologue, fonctionnaire international, consultant politique, journaliste",
+      "conditions_acces": "BAC A1, A2 ou B",
+      "competences_requises": "Histoire, Français, Philosophie, Géographie",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 42,
+    "fields": {
+      "code_filiere": "UFHB-LETTRES",
+      "nom_filiere": "Lettres Modernes — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac A1 ou A2",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Littérature française et africaine, linguistique, grammaire, stylistique à la UFHB.",
+      "debouches": "Enseignant de français, auteur, correcteur, traducteur, communicant",
+      "conditions_acces": "BAC A1 ou A2 — Excellente maîtrise du français",
+      "competences_requises": "Français, Philosophie, Histoire",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 43,
+    "fields": {
+      "code_filiere": "UFHB-LANGUES",
+      "nom_filiere": "Langues Étrangères (Anglais, Espagnol, Allemand) — UFHB",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac A1 ou A2",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Langues vivantes (anglais, espagnol, allemand, portugais), traduction, interprétation à la UFHB.",
+      "debouches": "Traducteur, interprète, professeur de langues, guide touristique, diplomate",
+      "conditions_acces": "BAC A1 ou A2 — Bon niveau en langue cible",
+      "competences_requises": "Langues étrangères, Français, Littérature",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 44,
+    "fields": {
+      "code_filiere": "UFHB-COMM",
+      "nom_filiere": "Communication et Journalisme — UFHB",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac A ou B",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Journalisme, communication d'entreprise, marketing publicitaire, médias numériques à la UFHB.",
+      "debouches": "Journaliste, communicant, attaché de presse, responsable communication, publicitaire",
+      "conditions_acces": "BAC A1, A2 ou B — Bonne expression et culture générale",
+      "competences_requises": "Français, Philosophie, Histoire",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 45,
+    "fields": {
+      "code_filiere": "UFHB-PSYCHO",
+      "nom_filiere": "Psychologie / Sociologie — Université Félix Houphouët-Boigny",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac A ou B",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Psychologie clinique, sociale, sociologie, anthropologie à la UFHB.",
+      "debouches": "Psychologue, conseiller, sociologue, travailleur social, RH, chercheur",
+      "conditions_acces": "BAC A1, A2 ou B",
+      "competences_requises": "Philosophie, Français, Sciences humaines",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 46,
+    "fields": {
+      "code_filiere": "UFHB-CRIMI",
+      "nom_filiere": "Criminologie / Réinsertion Sociale — UFHB",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac A ou B",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Criminologie, victimologie, réinsertion sociale, prise en charge des victimes à la UFHB.",
+      "debouches": "Criminologue, conseiller pénitentiaire, assistant social, expert judiciaire, ONG",
+      "conditions_acces": "BAC A1, A2 ou B",
+      "competences_requises": "Philosophie, Droit, Psychologie, Sociologie",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 50,
+    "fields": {
+      "code_filiere": "UIB-INFO",
+      "nom_filiere": "Informatique / Réseaux & Télécommunications — UIB Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Développement logiciel, réseaux, télécommunications, génie logiciel à l'Université Internationale de Bouaké.",
+      "debouches": "Développeur, ingénieur réseau, technicien télécoms, architecte logiciel",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1 ou G2",
+      "competences_requises": "Mathématiques, Logique, Informatique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 51,
+    "fields": {
+      "code_filiere": "UIB-FINANCE",
+      "nom_filiere": "Finance-Comptabilité / Banque — UIB Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Finance d'entreprise, comptabilité, contrôle de gestion, banque à l'UIB.",
+      "debouches": "Comptable, auditeur, contrôleur de gestion, banquier, analyste financier",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1 ou G2",
+      "competences_requises": "Mathématiques, Économie, Comptabilité",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 52,
+    "fields": {
+      "code_filiere": "UIB-GESTION",
+      "nom_filiere": "Marketing / Gestion des Entreprises / RH — UIB Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Management, marketing, ressources humaines, gestion de projet à l'Université Internationale de Bouaké.",
+      "debouches": "Manager, responsable RH, chef de projet, marketeur, entrepreneur",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1 ou G2",
+      "competences_requises": "Économie, Mathématiques, Gestion",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 53,
+    "fields": {
+      "code_filiere": "UIB-DROIT",
+      "nom_filiere": "Droit — Université Internationale de Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Droit public, privé et des affaires à l'UIB Bouaké.",
+      "debouches": "Juriste, avocat, notaire, fonctionnaire, conseiller juridique",
+      "conditions_acces": "Toutes séries — bonne expression écrite",
+      "competences_requises": "Français, Histoire, Logique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 60,
+    "fields": {
+      "code_filiere": "PIGIER-COMPTA",
+      "nom_filiere": "Comptabilité Finance / Audit — Pigier Côte d'Ivoire",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "2 à 3 ans (BTS/Licence)",
+      "description_filiere": "Comptabilité générale, finance d'entreprise, audit, contrôle de gestion, fiscalité à Pigier CI.",
+      "debouches": "Comptable, auditeur, contrôleur de gestion, expert-comptable (après expérience)",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1, G2 ou F",
+      "competences_requises": "Mathématiques, Économie, Comptabilité",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 61,
+    "fields": {
+      "code_filiere": "PIGIER-MARKET",
+      "nom_filiere": "Marketing / Communication — Pigier Côte d'Ivoire",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "2 à 3 ans (BTS/Licence)",
+      "description_filiere": "Marketing, communication d'entreprise, publicité, commerce, gestion de la clientèle à Pigier.",
+      "debouches": "Responsable marketing, chargé de communication, commercial, chef de produit",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1 ou G2",
+      "competences_requises": "Français, Économie, Marketing",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 62,
+    "fields": {
+      "code_filiere": "PIGIER-RH",
+      "nom_filiere": "Gestion des Entreprises / Ressources Humaines — Pigier",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "2 à 3 ans (BTS/Licence)",
+      "description_filiere": "Management, ressources humaines, assistanat de direction, gestion de projet à Pigier CI.",
+      "debouches": "Responsable RH, assistant de direction, gestionnaire, chef de projet",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1 ou G2",
+      "competences_requises": "Français, Économie, Gestion",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 63,
+    "fields": {
+      "code_filiere": "PIGIER-INFO",
+      "nom_filiere": "Réseaux et Génie Logiciel — Pigier Côte d'Ivoire",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "2 à 3 ans (BTS/Licence)",
+      "description_filiere": "Développement web et mobile, réseaux informatiques, génie logiciel à Pigier CI.",
+      "debouches": "Développeur, technicien réseau, webmaster, administrateur systèmes",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1, G2 ou F",
+      "competences_requises": "Mathématiques, Logique, Informatique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 64,
+    "fields": {
+      "code_filiere": "PIGIER-TOURISME",
+      "nom_filiere": "Tourisme et Hôtellerie — Pigier Côte d'Ivoire",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "2 à 3 ans (BTS/Licence)",
+      "description_filiere": "Tourisme, hôtellerie, restauration, gestion d'établissements touristiques à Pigier CI.",
+      "debouches": "Manager hôtelier, agent de voyage, responsable tourisme, guide touristique",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1 ou G2 — Bon niveau en langues",
+      "competences_requises": "Langues étrangères, Français, Géographie",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 70,
+    "fields": {
+      "code_filiere": "IIPEA-INFO",
+      "nom_filiere": "Informatique / IA / Cybersécurité / Réseaux — IIPEA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Intelligence artificielle, cybersécurité, développement logiciel, réseaux et télécommunications à l'IIPEA.",
+      "debouches": "Ingénieur IA, expert cybersécurité, développeur, ingénieur réseau, data scientist",
+      "conditions_acces": "BAC A1, A2, B, C, D, E, F, G1 ou G2",
+      "competences_requises": "Mathématiques, Logique, Algorithmique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 71,
+    "fields": {
+      "code_filiere": "IIPEA-GESTION",
+      "nom_filiere": "Gestion / Comptabilité / Finance / Marketing — IIPEA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Gestion d'entreprise, comptabilité, finance, marketing, ressources humaines à l'IIPEA.",
+      "debouches": "Gestionnaire, comptable, analyste financier, responsable marketing, DRH",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1 ou G2",
+      "competences_requises": "Économie, Mathématiques, Gestion",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 72,
+    "fields": {
+      "code_filiere": "IIPEA-DROIT",
+      "nom_filiere": "Droit / Administration — IIPEA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Droit privé, public, des affaires, administration et sciences politiques à l'IIPEA.",
+      "debouches": "Juriste, avocat, conseiller juridique, administrateur, fonctionnaire",
+      "conditions_acces": "Toutes séries — Bonne expression écrite",
+      "competences_requises": "Français, Histoire, Logique juridique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 73,
+    "fields": {
+      "code_filiere": "IIPEA-LOGISTIQUE",
+      "nom_filiere": "Logistique et Commerce International — IIPEA",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Supply chain, logistique internationale, commerce extérieur, douane, transport à l'IIPEA.",
+      "debouches": "Responsable logistique, commissionnaire en douane, directeur supply chain, trader",
+      "conditions_acces": "BAC A1, A2, B, C, D, G1 ou G2",
+      "competences_requises": "Économie, Géographie, Mathématiques, Anglais",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 80,
+    "fields": {
+      "code_filiere": "UAO-DROIT",
+      "nom_filiere": "Droit — Université Alassane Ouattara de Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master) / 8 ans (Doctorat)",
+      "description_filiere": "Droit public, droit privé, droit des affaires, droit international à l'Université Alassane Ouattara de Bouaké. Référence juridique dans le centre du pays.",
+      "debouches": "Avocat, magistrat, notaire, juriste d'entreprise, fonctionnaire, huissier de justice",
+      "conditions_acces": "BAC A1, A2 ou toutes séries — bonne expression écrite",
+      "competences_requises": "Français, Histoire-Géographie, Philosophie, Logique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 81,
+    "fields": {
+      "code_filiere": "UAO-ECO",
+      "nom_filiere": "Sciences Économiques et Gestion — Université Alassane Ouattara",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Économie, finance, comptabilité, marketing, management et gestion d'entreprise à l'UAO Bouaké.",
+      "debouches": "Économiste, gestionnaire, comptable, analyste financier, banquier, consultant",
+      "conditions_acces": "BAC A1, C, D, G1 ou G2 — Bon niveau en mathématiques et économie",
+      "competences_requises": "Mathématiques, Économie, Comptabilité",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 82,
+    "fields": {
+      "code_filiere": "UAO-LETTRES",
+      "nom_filiere": "Lettres Modernes et Sciences du Langage — UAO Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac A1 ou A2",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Lettres françaises, littérature africaine, linguistique, sciences du langage à l'Université Alassane Ouattara.",
+      "debouches": "Enseignant de français, auteur, correcteur, traducteur, communicant, journaliste",
+      "conditions_acces": "BAC A1 ou A2 — Excellente maîtrise du français",
+      "competences_requises": "Français, Philosophie, Histoire, Littérature",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 83,
+    "fields": {
+      "code_filiere": "UAO-INFO",
+      "nom_filiere": "Informatique et Mathématiques Appliquées — UAO Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C, D ou E",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Informatique, développement logiciel, mathématiques appliquées, systèmes d'information à l'UAO de Bouaké.",
+      "debouches": "Développeur, ingénieur systèmes, data analyst, enseignant, chercheur en informatique",
+      "conditions_acces": "BAC C, D, E ou TI — Moyenne ≥ 11/20",
+      "competences_requises": "Mathématiques, Physique, Logique, Algorithmique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 84,
+    "fields": {
+      "code_filiere": "UAO-BIO",
+      "nom_filiere": "Biologie et Physiologie Végétales — UAO Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Biologie végétale, agronomie, physiologie, biotechnologies végétales à l'Université Alassane Ouattara. Fort lien avec l'agriculture ivoirienne.",
+      "debouches": "Agronome, chercheur, biologiste, enseignant, agent CNRA/ANADER",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "SVT, Chimie, Physique",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 85,
+    "fields": {
+      "code_filiere": "UAO-CHIMIE",
+      "nom_filiere": "Chimie et Biochimie — UAO Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac C ou D",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Chimie organique, biochimie, chimie analytique, chimie de l'environnement à l'UAO Bouaké.",
+      "debouches": "Chimiste, laborantin, chercheur, enseignant, ingénieur qualité, contrôle alimentaire",
+      "conditions_acces": "BAC C ou D",
+      "competences_requises": "Chimie, Physique, SVT, Mathématiques",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 86,
+    "fields": {
+      "code_filiere": "UAO-PSYCHO",
+      "nom_filiere": "Psychologie et Sciences de l'Éducation — UAO Bouaké",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Psychologie clinique, psychologie de l'éducation, sciences de l'éducation, conseil et orientation à l'UAO.",
+      "debouches": "Psychologue, conseiller d'orientation, éducateur, travailleur social, chercheur",
+      "conditions_acces": "BAC A1, A2, C ou D",
+      "competences_requises": "Philosophie, Biologie, Sciences humaines, Français",
+      "actif_filiere": true
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 87,
+    "fields": {
+      "code_filiere": "UAO-STAPS",
+      "nom_filiere": "STAPS — Sciences et Techniques des Activités Physiques et Sportives — UAO",
+      "type_profil_filiere": "bachelier",
+      "niveau_minimum": "Bac",
+      "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
+      "description_filiere": "Sport, éducation physique, management sportif, kinésithérapie, entraînement sportif à l'Université Alassane Ouattara.",
+      "debouches": "Professeur d'EPS, entraîneur, kinésithérapeute, manager sportif, animateur sportif",
+      "conditions_acces": "Toutes séries — bonne condition physique requise",
+      "competences_requises": "SVT, Physique, Sport",
+      "actif_filiere": true
+    }
+  }
 ]
