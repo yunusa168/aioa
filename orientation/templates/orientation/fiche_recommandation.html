@@ -293,7 +293,7 @@
     <div>Document confidentiel — Usage personnel uniquement</div>
   </div>
 
-  <div class="btn-bar" style="text-align:center; margin-top:1.5rem; display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap;">
+  <div class="btn-bar" style="text-align:center; margin-top:1.5rem; display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; align-items:center;">
     <button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
     <button class="dl-btn" id="btn-pdf" onclick="telechargerPDF()">⬇️ Télécharger en PDF</button>
   </div>
@@ -303,42 +303,34 @@
 function telechargerPDF() {
   const btn = document.getElementById('btn-pdf');
   btn.disabled = true;
-  btn.textContent = '⏳ Génération...';
+  btn.textContent = '⏳ Génération du PDF...';
 
-  // Essai 1 : téléchargement serveur (WeasyPrint)
-  const url = window.location.href.replace('/fiche/', '/telecharger-fiche/');
-  fetch(url, { method: 'GET', credentials: 'same-origin' })
-    .then(r => {
-      if (r.ok && r.headers.get('content-type') && r.headers.get('content-type').includes('pdf')) {
-        return r.blob().then(blob => {
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = 'fiche_orientation_AIOA_{{ utilisateur.username }}.pdf';
-          a.click();
-          btn.disabled = false;
-          btn.textContent = '✅ Téléchargé !';
-          setTimeout(() => btn.textContent = '⬇️ Télécharger en PDF', 3000);
-        });
-      }
-      throw new Error('fallback');
+  const element = document.querySelector('.page');
+  const nom = '{{ utilisateur.prenom_util|default:utilisateur.username }}_{{ utilisateur.nom_util|default:"" }}'.trim();
+  const opt = {
+    margin: [10, 14],
+    filename: 'fiche_orientation_AIOA_' + nom + '.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, logging: false },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+
+  // Masquer les boutons pendant la génération
+  document.querySelector('.btn-bar').style.display = 'none';
+
+  html2pdf().set(opt).from(element).save()
+    .then(() => {
+      document.querySelector('.btn-bar').style.display = 'flex';
+      btn.disabled = false;
+      btn.textContent = '✅ Téléchargé !';
+      setTimeout(() => { btn.textContent = '⬇️ Télécharger en PDF'; }, 3000);
     })
     .catch(() => {
-      // Essai 2 : html2pdf côté client
-      const element = document.querySelector('.page');
-      const opt = {
-        margin: [10, 14],
-        filename: 'fiche_orientation_AIOA_{{ utilisateur.username }}.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-      };
-      html2pdf().set(opt).from(element).save()
-        .then(() => {
-          btn.disabled = false;
-          btn.textContent = '✅ Téléchargé !';
-          setTimeout(() => btn.textContent = '⬇️ Télécharger en PDF', 3000);
-        });
+      document.querySelector('.btn-bar').style.display = 'flex';
+      btn.disabled = false;
+      btn.textContent = '❌ Erreur — réessayer';
+      setTimeout(() => { btn.textContent = '⬇️ Télécharger en PDF'; }, 3000);
     });
 }
 </script></body>

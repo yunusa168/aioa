@@ -769,6 +769,12 @@ function _analyserBulletinClasse(input, classe, trimestre) {
                     input.value = '';
                     return;
                 }
+                // ── Générer la grille si elle n'existe pas encore ──
+                const idGrille = 'grille-bulletins-' + classe;
+                const grilleEl = document.getElementById(idGrille);
+                if (grilleEl && grilleEl.children.length === 0) {
+                    genererGrilleBulletin(idGrille, classe, 'T1', 'T2', 'T3');
+                }
                 let nbRemplis = 0;
                 Object.entries(data.notes).forEach(function(entry) {
                     const mat = entry[0]; const note = entry[1];

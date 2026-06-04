@@ -888,22 +888,29 @@ def analyser_bulletin(request):
                 return ''
             return unicodedata.normalize("NFD", str(s)).encode("ascii", "ignore").decode("ascii").lower().strip()
 
+        def _mots(s):
+            """Retourne l'ensemble des mots significatifs (>= 2 lettres)."""
+            return {w for w in _clean_id(s).split() if len(w) >= 2}
+
         etudiant = resultat['etudiant']
-        nom_doc     = _clean_id(etudiant.get('nom', ''))
-        prenom_doc  = _clean_id(etudiant.get('prenoms', '') or etudiant.get('prenom', ''))
+        nom_doc    = etudiant.get('nom', '') or ''
+        prenom_doc = etudiant.get('prenoms', '') or etudiant.get('prenom', '') or ''
 
         utilisateur_obj = Utilisateur.objects.get(id=user_id)
-        nom_compte    = _clean_id(utilisateur_obj.nom_util)
-        prenom_compte = _clean_id(utilisateur_obj.prenom_util)
+        nom_compte    = utilisateur_obj.nom_util or ''
+        prenom_compte = utilisateur_obj.prenom_util or ''
 
-        # On ne bloque que si le document contient bien un nom lisible
-        if nom_doc and prenom_doc:
-            nom_ok    = nom_doc in nom_compte or nom_compte in nom_doc
-            prenom_ok = prenom_doc in prenom_compte or prenom_compte in prenom_doc
+        # On construit un "sac de mots" des deux côtés pour ignorer l'ordre
+        mots_doc     = _mots(nom_doc) | _mots(prenom_doc)
+        mots_compte  = _mots(nom_compte) | _mots(prenom_compte)
 
-            if not nom_ok or not prenom_ok:
-                nom_attendu  = f"{utilisateur_obj.prenom_util.upper()} {utilisateur_obj.nom_util.upper()}"
-                nom_detecte  = f"{etudiant.get('prenoms', '?').upper()} {etudiant.get('nom', '?').upper()}"
+        # On ne bloque que si le document contient bien un nom lisible (au moins 2 mots)
+        if len(mots_doc) >= 2 and len(mots_compte) >= 2:
+            # Au moins 1 mot en commun suffit pour valider (gère prénoms composés, abréviations)
+            commun = mots_doc & mots_compte
+            if not commun:
+                nom_detecte  = f"{prenom_doc.upper()} {nom_doc.upper()}".strip()
+                nom_attendu  = f"{prenom_compte.upper()} {nom_compte.upper()}".strip()
                 resultat['identite_warning'] = True
                 resultat['identite_message'] = (
                     f"⚠️ Le nom sur le document ({nom_detecte}) "
@@ -912,7 +919,6 @@ def analyser_bulletin(request):
                 )
 
     return JsonResponse(resultat)
-
 def telecharger_fiche(request):
     """Génère et télécharge la fiche de recommandation en PDF."""
     user_id = request.session.get('user_id')
