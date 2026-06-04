@@ -256,9 +256,29 @@ def inscription(request):
         pwd      = request.POST.get('password','')
         pwd_confirm = request.POST.get('password_confirm','')
 
+        import unicodedata
+
+        def _clean(s):
+            """Normalise : minuscules, sans accents, sans espaces."""
+            return unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode("ascii").lower().replace(" ", "").replace("-", "")
+
         erreurs = []
         if not nom or not prenom or not username or not email:
             erreurs.append("Tous les champs obligatoires doivent être remplis.")
+
+        # Vérification de conformité : le username doit contenir prénom + nom (ordre quelconque)
+        if nom and prenom and username:
+            nom_clean    = _clean(nom)
+            prenom_clean = _clean(prenom)
+            user_clean   = _clean(username)
+            attendu_1    = prenom_clean + nom_clean   # prenomnom
+            attendu_2    = nom_clean + prenom_clean   # nomprenom
+            if user_clean not in (attendu_1, attendu_2) and not (prenom_clean in user_clean and nom_clean in user_clean):
+                erreurs.append(
+                    f"Le nom d'utilisateur « {username} » doit être dérivé de ton prénom et ton nom "
+                    f"(ex : {prenom_clean}{nom_clean}). Il doit correspondre aux informations de tes bulletins."
+                )
+
         if len(pwd) < 8:
             erreurs.append("Le mot de passe doit contenir au moins 8 caractères.")
         if pwd != pwd_confirm:
@@ -891,14 +911,22 @@ def telecharger_fiche(request):
     }, request=request)
 
     try:
-        from weasyprint import HTML as WeasyHTML
-        pdf_bytes = WeasyHTML(string=html_string, base_url=request.build_absolute_uri('/')).write_pdf()
+        from weasyprint import HTML as WeasyHTML, CSS
+        pdf_bytes = WeasyHTML(
+            string=html_string,
+            base_url=request.build_absolute_uri('/')
+        ).write_pdf()
         response = HttpResponse(pdf_bytes, content_type='application/pdf')
         nom_fichier = f"fiche_orientation_AIOA_{utilisateur.username}.pdf"
         response['Content-Disposition'] = f'attachment; filename="{nom_fichier}"'
         return response
-    except Exception:
-        # Fallback HTML si WeasyPrint échoue
+    except ImportError:
+        # WeasyPrint pas installé — retourne HTML pour fallback html2pdf côté client
         response = HttpResponse(html_string, content_type='text/html; charset=utf-8')
-        response['Content-Disposition'] = f'inline; filename="fiche_AIOA_{utilisateur.username}.html"'
+        return response
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).error(f"WeasyPrint PDF error: {e}")
+        # Retourne HTML pour que le JS côté client prenne le relais
+        response = HttpResponse(html_string, content_type='text/html; charset=utf-8')
         return response

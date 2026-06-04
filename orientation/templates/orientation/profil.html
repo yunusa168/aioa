@@ -418,12 +418,45 @@ function afficherDescSerie(serie) {
 
 
 
+function afficherErreurEtape(msg) {
+    let box = document.getElementById('etape-err-box');
+    if (!box) {
+        box = document.createElement('div');
+        box.id = 'etape-err-box';
+        box.style.cssText = 'background:#fff5f5;border:1.5px solid #fc8181;color:#c53030;border-radius:8px;padding:0.7rem 1rem;margin-bottom:1rem;font-size:0.88rem;font-weight:600;';
+        document.getElementById('etape-' + etapeActuelle).prepend(box);
+    }
+    box.textContent = '⚠️ ' + msg;
+    box.style.display = 'block';
+    setTimeout(() => { if (box) box.style.display = 'none'; }, 4000);
+}
+
 function allerEtape(num) {
-    if (num === 2 && !serieChoisie) { alert('⚠️ Veuillez choisir une série BAC !'); return; }
-    if (num === 3) {
-        const moy   = document.querySelector('[name="moyenne_bac"]').value;
-        const annee = document.querySelector('[name="annee_bac"]').value;
-        if (!moy || !annee) { alert("⚠️ Veuillez remplir la moyenne et l'année d'obtention !"); return; }
+    // Étape 1 → 2 : série obligatoire
+    if (num === 2 && etapeActuelle === 1 && !serieChoisie) {
+        afficherErreurEtape('Veuillez choisir une série BAC pour continuer.');
+        return;
+    }
+    // Étape 2 → 3 : moyenne + année obligatoires
+    if (num === 3 && etapeActuelle === 2) {
+        const moy   = document.querySelector('[name="moyenne_bac"]').value.trim();
+        const annee = document.querySelector('[name="annee_bac"]').value.trim();
+        const errors = [];
+        if (!moy)   errors.push("la moyenne BAC");
+        if (!annee) errors.push("l'année d'obtention");
+        if (errors.length) {
+            afficherErreurEtape("Veuillez renseigner : " + errors.join(" et ") + " avant de continuer.");
+            // Surligner les champs manquants
+            if (!moy)   { const f = document.querySelector('[name="moyenne_bac"]'); f.style.borderColor='#fc8181'; f.focus(); }
+            if (!annee) { document.querySelector('[name="annee_bac"]').style.borderColor='#fc8181'; }
+            return;
+        }
+        // Vérifier la cohérence de la moyenne
+        const moyNum = parseFloat(moy);
+        if (isNaN(moyNum) || moyNum < 0 || moyNum > 20) {
+            afficherErreurEtape("La moyenne BAC doit être un nombre entre 0 et 20.");
+            return;
+        }
     }
     for (let i = 1; i <= NB_ETAPES; i++) {
         const el = document.getElementById('etape-' + i);

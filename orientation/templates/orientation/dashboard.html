@@ -108,9 +108,12 @@
     </div>
     {% endfor %}
 
-    <div style="text-align:center; margin-top:1rem;">
+    <div style="text-align:center; margin-top:1rem; display:flex; gap:0.7rem; justify-content:center; flex-wrap:wrap;">
         <a href="{% url 'resultats' %}" class="btn btn-primary">
             Voir toutes mes recommandations →
+        </a>
+        <a href="{% url 'telecharger_fiche' %}" class="btn" style="background:#38a169; color:white; font-weight:700;" target="_blank">
+            📄 Télécharger ma fiche PDF
         </a>
     </div>
 </div>

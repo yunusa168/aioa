@@ -169,12 +169,24 @@
     font-weight: 700;
     cursor: pointer;
   }
+  .dl-btn {
+    display: block;
+    margin: 0.5rem auto 0;
+    padding: 0.85rem 2.5rem;
+    background: #38a169;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
   @media print {
-    .print-btn { display: none; }
+    .print-btn, .dl-btn, .btn-bar { display: none; }
     body { background: white; }
     .page { padding: 0; }
   }
-  {% if is_pdf %}.print-btn { display: none; }{% endif %}
+  {% if is_pdf %}.print-btn, .dl-btn, .btn-bar { display: none; }{% endif %}
 </style>
 </head>
 <body>
@@ -281,7 +293,53 @@
     <div>Document confidentiel — Usage personnel uniquement</div>
   </div>
 
-  <button class="print-btn" onclick="window.print()">Imprimer / Sauvegarder en PDF</button>
+  <div class="btn-bar" style="text-align:center; margin-top:1.5rem; display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap;">
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+    <button class="dl-btn" id="btn-pdf" onclick="telechargerPDF()">⬇️ Télécharger en PDF</button>
+  </div>
 </div>
-</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+function telechargerPDF() {
+  const btn = document.getElementById('btn-pdf');
+  btn.disabled = true;
+  btn.textContent = '⏳ Génération...';
+
+  // Essai 1 : téléchargement serveur (WeasyPrint)
+  const url = window.location.href.replace('/fiche/', '/telecharger-fiche/');
+  fetch(url, { method: 'GET', credentials: 'same-origin' })
+    .then(r => {
+      if (r.ok && r.headers.get('content-type') && r.headers.get('content-type').includes('pdf')) {
+        return r.blob().then(blob => {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'fiche_orientation_AIOA_{{ utilisateur.username }}.pdf';
+          a.click();
+          btn.disabled = false;
+          btn.textContent = '✅ Téléchargé !';
+          setTimeout(() => btn.textContent = '⬇️ Télécharger en PDF', 3000);
+        });
+      }
+      throw new Error('fallback');
+    })
+    .catch(() => {
+      // Essai 2 : html2pdf côté client
+      const element = document.querySelector('.page');
+      const opt = {
+        margin: [10, 14],
+        filename: 'fiche_orientation_AIOA_{{ utilisateur.username }}.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+      };
+      html2pdf().set(opt).from(element).save()
+        .then(() => {
+          btn.disabled = false;
+          btn.textContent = '✅ Téléchargé !';
+          setTimeout(() => btn.textContent = '⬇️ Télécharger en PDF', 3000);
+        });
+    });
+}
+</script></body>
 </html>

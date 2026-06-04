@@ -86,12 +86,37 @@ function genUsername() {
     const prenom = document.getElementById('prenom').value.trim().toLowerCase();
     const nom = document.getElementById('nom').value.trim().toLowerCase();
     if (prenom && nom) {
-        const clean = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "");
+        const clean = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").replace(/-/g, "");
         document.getElementById('username').value = clean(prenom) + clean(nom);
+        verifierUsername();
     }
 }
 document.getElementById('prenom').addEventListener('input', genUsername);
 document.getElementById('nom').addEventListener('input', genUsername);
+
+// Vérification conformité username
+function verifierUsername() {
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom = document.getElementById('nom').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const err = document.getElementById('err-username');
+    const inp = document.getElementById('username');
+
+    if (!prenom || !nom || !username) return;
+
+    const clean = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").replace(/-/g, "").toLowerCase();
+    const pc = clean(prenom), nc = clean(nom), uc = clean(username);
+    const conforme = (uc === pc + nc) || (uc === nc + pc) || (uc.includes(pc) && uc.includes(nc));
+
+    if (!conforme) {
+        inp.classList.add('invalid'); inp.classList.remove('valid');
+        err.textContent = `⚠️ Doit contenir ton prénom et ton nom (ex : ${pc}${nc}). Doit correspondre à tes bulletins.`;
+    } else {
+        inp.classList.remove('invalid'); inp.classList.add('valid');
+        err.textContent = '';
+    }
+}
+document.getElementById('username').addEventListener('input', verifierUsername);
 
 // Force du mot de passe
 document.getElementById('password').addEventListener('input', function() {
@@ -134,7 +159,23 @@ document.getElementById('formInscription').addEventListener('submit', function(e
 
     valider('nom', 'err-nom', !document.getElementById('nom').value.trim(), 'Le nom est obligatoire.');
     valider('prenom', 'err-prenom', !document.getElementById('prenom').value.trim(), 'Le prénom est obligatoire.');
-    valider('username', 'err-username', !document.getElementById('username').value.trim(), "Le nom d'utilisateur est obligatoire.");
+
+    // Vérification conformité username
+    const prenomV = document.getElementById('prenom').value.trim();
+    const nomV = document.getElementById('nom').value.trim();
+    const usernameV = document.getElementById('username').value.trim();
+    const cleanV = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").replace(/-/g, "").toLowerCase();
+    const pcV = cleanV(prenomV), ncV = cleanV(nomV), ucV = cleanV(usernameV);
+    const conformeV = usernameV && prenomV && nomV && ((ucV === pcV + ncV) || (ucV === ncV + pcV) || (ucV.includes(pcV) && ucV.includes(ncV)));
+    valider('username', 'err-username',
+        !usernameV,
+        "Le nom d'utilisateur est obligatoire."
+    );
+    if (usernameV && prenomV && nomV && !conformeV) {
+        document.getElementById('username').classList.add('invalid');
+        document.getElementById('err-username').textContent = `⚠️ Le nom d'utilisateur doit correspondre à tes bulletins (ex : ${pcV}${ncV}).`;
+        ok = false;
+    }
 
     const email = document.getElementById('email').value;
     valider('email', 'err-email', !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), 'Email invalide.');
