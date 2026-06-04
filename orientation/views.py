@@ -878,6 +878,39 @@ def analyser_bulletin(request):
 
     # Appel Mistral (la validation de cohérence série est dans le service)
     resultat = analyser_document_mistral(fichier, type_document, serie_bac)
+
+    # ─ Vérification identité : nom du document vs nom de l'utilisateur ─
+    if resultat.get('success') and resultat.get('etudiant'):
+        import unicodedata
+
+        def _clean_id(s):
+            if not s:
+                return ''
+            return unicodedata.normalize("NFD", str(s)).encode("ascii", "ignore").decode("ascii").lower().strip()
+
+        etudiant = resultat['etudiant']
+        nom_doc     = _clean_id(etudiant.get('nom', ''))
+        prenom_doc  = _clean_id(etudiant.get('prenoms', '') or etudiant.get('prenom', ''))
+
+        utilisateur_obj = Utilisateur.objects.get(id=user_id)
+        nom_compte    = _clean_id(utilisateur_obj.nom_util)
+        prenom_compte = _clean_id(utilisateur_obj.prenom_util)
+
+        # On ne bloque que si le document contient bien un nom lisible
+        if nom_doc and prenom_doc:
+            nom_ok    = nom_doc in nom_compte or nom_compte in nom_doc
+            prenom_ok = prenom_doc in prenom_compte or prenom_compte in prenom_doc
+
+            if not nom_ok or not prenom_ok:
+                nom_attendu  = f"{utilisateur_obj.prenom_util.upper()} {utilisateur_obj.nom_util.upper()}"
+                nom_detecte  = f"{etudiant.get('prenoms', '?').upper()} {etudiant.get('nom', '?').upper()}"
+                resultat['identite_warning'] = True
+                resultat['identite_message'] = (
+                    f"⚠️ Le nom sur le document ({nom_detecte}) "
+                    f"ne correspond pas à ton compte ({nom_attendu}). "
+                    f"Veuillez charger le document qui vous appartient."
+                )
+
     return JsonResponse(resultat)
 
 def telecharger_fiche(request):

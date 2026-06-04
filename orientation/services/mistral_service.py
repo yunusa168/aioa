@@ -463,6 +463,10 @@ Format de réponse :
   "trimestre": "{type_document}",
   "classe": null,
   "etablissement": null,
+  "etudiant": {{
+    "nom": null,
+    "prenoms": null
+  }},
   "matieres": [
     {{"matiere": "Mathématiques", "moyenne": 14.5}},
     {{"matiere": "Physique-Chimie", "moyenne": 12.0}},
@@ -734,7 +738,7 @@ def _parser_reponse(raw: str, type_document: str) -> dict:
                 'trimestre':        data.get('trimestre', type_document),
                 'moyenne_generale': _parse_float(data.get('moyenne_generale')),
                 'mention':          None,
-                'etudiant':         {},
+                'etudiant':         data.get('etudiant', {}),
             }
 
         nb_notes = len(result.get('notes', {}))

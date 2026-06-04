@@ -612,6 +612,14 @@ function _analyserTerminale(input, trimestre) {
         .then(function(data) {
             loadingEl.style.display = 'none';
             if (data.success) {
+                // ── Vérification identité ──
+                if (data.identite_warning) {
+                    errorEl.style.display = 'block';
+                    errorEl.style.color   = '#f6ad55';
+                    errorEl.textContent   = data.identite_message;
+                    input.value = '';
+                    return;
+                }
                 let nbRemplis = 0;
                 Object.entries(data.notes).forEach(function(entry) {
                     const mat = entry[0]; const note = entry[1];
@@ -658,6 +666,14 @@ function _analyserBAC(input) {
         .then(function(data) {
             loadingEl.style.display = 'none';
             if (data.success) {
+                // ── Vérification identité ──
+                if (data.identite_warning) {
+                    errorEl.style.display = 'block';
+                    errorEl.style.color   = '#f6ad55';
+                    errorEl.textContent   = data.identite_message;
+                    input.value = '';
+                    return;
+                }
                 let nbRemplis = 0;
                 Object.entries(data.notes).forEach(function(entry) {
                     const mat = entry[0]; const note = entry[1];
@@ -745,6 +761,14 @@ function _analyserBulletinClasse(input, classe, trimestre) {
         .then(function(data) {
             loadingEl.style.display = 'none';
             if (data.success) {
+                // ── Vérification identité ──
+                if (data.identite_warning) {
+                    errorEl.style.display = 'block';
+                    errorEl.style.color   = '#f6ad55';
+                    errorEl.textContent   = data.identite_message;
+                    input.value = '';
+                    return;
+                }
                 let nbRemplis = 0;
                 Object.entries(data.notes).forEach(function(entry) {
                     const mat = entry[0]; const note = entry[1];
