@@ -39,22 +39,23 @@ MATIERES_PAR_SERIE = {
 # En 2nde, la série correspond au parcours : 2ndeC → BAC C ou D, 2ndeA → BAC A1/A2, 2ndeG → BAC G1/G2
 MATIERES_2NDE_PAR_SERIE = {
     # Séries scientifiques (2nde C) → futurs BAC C, D, E
-    "C": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol/Allemand"],
-    "D": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol/Allemand"],
-    "E": ["Mathématiques","Physique-Chimie","Sciences Industrielles","Français","Histoire-Géographie","Anglais","Espagnol/Allemand"],
+    # Matières complètes des bulletins réels ivoiriens en 2nde C/D
+    "C": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol","Allemand","EPS","Culture Manuelle","Arts Plastiques","Musique"],
+    "D": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol","Allemand","EPS","Culture Manuelle","Arts Plastiques","Musique"],
+    "E": ["Mathématiques","Physique-Chimie","Sciences Industrielles","Français","Histoire-Géographie","Anglais","Espagnol","EPS","Culture Manuelle"],
     # Séries littéraires (2nde A) → futurs BAC A1, A2
-    "A1": ["Français","Histoire-Géographie","Anglais","Espagnol","Allemand","Mathématiques","Sciences Naturelles"],
-    "A2": ["Français","Histoire-Géographie","Anglais","Espagnol","Mathématiques","Sciences Naturelles"],
+    "A1": ["Français","Histoire-Géographie","Anglais","Espagnol","Allemand","Mathématiques","SVT","EPS","Culture Manuelle","Arts Plastiques","Musique"],
+    "A2": ["Français","Histoire-Géographie","Anglais","Espagnol","Mathématiques","SVT","EPS","Culture Manuelle","Arts Plastiques","Musique"],
     # Séries techniques (2nde G) → futurs BAC G1, G2
-    "G1": ["Comptabilité","Économie","Mathématiques","Français","Anglais","Histoire-Géographie"],
-    "G2": ["Économie","Gestion Commerciale","Mathématiques","Français","Anglais","Histoire-Géographie"],
+    "G1": ["Comptabilité","Économie-Gestion","Mathématiques","Français","Anglais","Histoire-Géographie","EPS","Culture Manuelle"],
+    "G2": ["Économie-Gestion","Gestion Commerciale","Mathématiques","Français","Anglais","Histoire-Géographie","EPS","Culture Manuelle"],
     # Série technique industrielle
-    "TI": ["Informatique","Mathématiques","Physique","Français","Anglais","Histoire-Géographie"],
+    "TI": ["Informatique","Mathématiques","Physique","Français","Anglais","Histoire-Géographie","EPS"],
     # Séries F (techniques industrielles)
-    "F1": ["Mathématiques","Physique","Dessin Technique","Construction Mécanique","Français","Anglais"],
-    "F2": ["Mathématiques","Physique","Électronique","Électrotechnique","Français","Anglais"],
-    "F3": ["Mathématiques","Physique","Génie Civil","Dessin Technique","Français","Anglais"],
-    "F4": ["Mathématiques","Physique","Topographie","Construction","Français","Anglais"],
+    "F1": ["Mathématiques","Physique","Dessin Technique","Construction Mécanique","Français","Anglais","EPS"],
+    "F2": ["Mathématiques","Physique","Électronique","Électrotechnique","Français","Anglais","EPS"],
+    "F3": ["Mathématiques","Physique","Génie Civil","Dessin Technique","Français","Anglais","EPS"],
+    "F4": ["Mathématiques","Physique","Topographie","Construction Mécanique","Français","Anglais","EPS"],
 }
 
 # ── Matières par série pour la PREMIERE (Philosophie apparaît en 1ère) ──
@@ -449,6 +450,37 @@ def profil(request):
                     coefficient_bac=float(matiere.coeff_default),
                 )
 
+            for classe in ['2nde', '1ere']:
+                for trim in ['T1', 'T2', 'T3']:
+                    val_b = request.POST.get(f'bulletin_{classe}_{trim}_{nom_mat}')
+                    if val_b and val_b.strip():
+                        MoyenneBulletin.objects.create(
+                            profil_bachelier=profil_bac,
+                            matiere=matiere,
+                            classe=classe,
+                            trimestre=trim,
+                            moyenne=float(val_b),
+                        )
+
+        # ── Sauvegarder les matières 2nde/1ère qui ne sont pas en Terminale ──
+        # (ex : EPS, Culture Manuelle, Conduite, Arts Plastiques, Musique)
+        matieres_tle = set(MATIERES_PAR_SERIE.get(serie, []))
+        matieres_2nde = set(MATIERES_2NDE_PAR_SERIE.get(serie, []))
+        matieres_1ere = set(MATIERES_1ERE_PAR_SERIE.get(serie, []))
+        matieres_extra = (matieres_2nde | matieres_1ere) - matieres_tle
+        for nom_mat in matieres_extra:
+            mat_id = toutes_matieres.get(nom_mat)
+            if not mat_id:
+                # Créer la matière si elle n'existe pas encore
+                mat_obj, _ = Matiere.objects.get_or_create(
+                    nom_matiere=nom_mat,
+                    defaults={'categorie_matiere': 'generale', 'coeff_default': '1.0'}
+                )
+                mat_id = mat_obj.id
+            try:
+                matiere = Matiere.objects.get(id=mat_id)
+            except Matiere.DoesNotExist:
+                continue
             for classe in ['2nde', '1ere']:
                 for trim in ['T1', 'T2', 'T3']:
                     val_b = request.POST.get(f'bulletin_{classe}_{trim}_{nom_mat}')

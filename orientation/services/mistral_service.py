@@ -38,6 +38,9 @@ CORRESPONDANCES = {
     "francais": "Français", "français": "Français",
     "langue française": "Français", "fr": "Français",
     "expression française": "Français", "littérature": "Français",
+    "composition français": "Français", "composition francais": "Français",
+    "composition de français": "Français", "composition de francais": "Français",
+    "rédaction": "Français", "redaction": "Français",
 
     # Philosophie
     "philosophie": "Philosophie", "philo": "Philosophie",
@@ -118,6 +121,15 @@ CORRESPONDANCES = {
     "éducation physique & sportive": "EPS",
     "ep&s": "EPS", "eps/sport": "EPS",
 
+    # Culture Manuelle
+    "culture manuelle": "Culture Manuelle", "cm": "Culture Manuelle",
+    "travaux manuels": "Culture Manuelle", "travail manuel": "Culture Manuelle",
+    "tech manuelle": "Culture Manuelle", "technique manuelle": "Culture Manuelle",
+
+    # Conduite (matière apparaissant dans certains bulletins ivoiriens)
+    "conduite": "Conduite", "discipline": "Conduite",
+    "conduite et discipline": "Conduite",
+
     # Arts
     "arts plastiques": "Arts Plastiques", "arts": "Arts Plastiques",
     "musique": "Musique",
@@ -136,6 +148,10 @@ _PRIORITES = [
     "construction mécanique", "construction mecanique",
     "dessin technique", "sciences industrielles",
     "génie civil", "genie civil",
+    "culture manuelle", "travaux manuels",
+    "composition français", "composition francais",
+    "composition de français", "composition de francais",
+    "conduite et discipline",
 ]
 
 def _normaliser_matiere(nom: str) -> str:
@@ -481,15 +497,14 @@ Règles STRICTES :
 - moyenne = la moyenne trimestrielle ou annuelle sur 20
 - N'invente PAS de notes, extrais uniquement ce qui est écrit
 - Si une matière a plusieurs notes (interros, exam...), prends la MOYENNE finale
-- Ignore : rang, appréciation du prof, absences, conduites
+- Inclure TOUTES les matières : EPS, Culture Manuelle (CM), Conduite, Arts Plastiques, Musique, etc.
 - Les coefficients ne doivent PAS avoir de zéro devant
 
 CAS SPÉCIAL — FRANÇAIS (oral et écrit séparés) :
-- Si le bulletin présente DEUX lignes distinctes "Français Écrit" et "Français Oral",
-  retourne-les comme deux entrées séparées :
+- Si le bulletin présente deux lignes distinctes "Français Écrit" et "Français Oral" (ou "Composition Français" et "Oral Français"), retourne-les comme deux entrées séparées :
   {{"matiere": "Français Écrit", "moyenne": 12.0}},
   {{"matiere": "Français Oral", "moyenne": 13.0}}
-- Si une seule ligne "Français" existe, retourne-la telle quelle :
+- Si une seule ligne "Français" ou "Composition Français" existe, retourne-la telle quelle :
   {{"matiere": "Français", "moyenne": 12.5}}
 - Ne fusionne JAMAIS toi-même oral et écrit : laisse le système calculer la moyenne."""
 
