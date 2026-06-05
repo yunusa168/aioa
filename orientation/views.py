@@ -40,12 +40,12 @@ MATIERES_PAR_SERIE = {
 MATIERES_2NDE_PAR_SERIE = {
     # Séries scientifiques (2nde C) → futurs BAC C, D, E
     # Matières complètes des bulletins réels ivoiriens en 2nde C/D
-    "C": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol","Allemand","EPS","Culture Manuelle","Arts Plastiques","Musique"],
-    "D": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol","Allemand","EPS","Culture Manuelle","Arts Plastiques","Musique"],
+    "C": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol","Allemand","EPS","Culture Manuelle"],
+    "D": ["Mathématiques","Physique-Chimie","SVT","Français","Histoire-Géographie","Anglais","Espagnol","Allemand","EPS","Culture Manuelle"],
     "E": ["Mathématiques","Physique-Chimie","Sciences Industrielles","Français","Histoire-Géographie","Anglais","Espagnol","EPS","Culture Manuelle"],
     # Séries littéraires (2nde A) → futurs BAC A1, A2
-    "A1": ["Français","Histoire-Géographie","Anglais","Espagnol","Allemand","Mathématiques","SVT","EPS","Culture Manuelle","Arts Plastiques","Musique"],
-    "A2": ["Français","Histoire-Géographie","Anglais","Espagnol","Mathématiques","SVT","EPS","Culture Manuelle","Arts Plastiques","Musique"],
+    "A1": ["Français","Histoire-Géographie","Anglais","Espagnol","Allemand","Mathématiques","SVT","EPS","Culture Manuelle"],
+    "A2": ["Français","Histoire-Géographie","Anglais","Espagnol","Mathématiques","SVT","EPS","Culture Manuelle"],
     # Séries techniques (2nde G) → futurs BAC G1, G2
     "G1": ["Comptabilité","Économie-Gestion","Mathématiques","Français","Anglais","Histoire-Géographie","EPS","Culture Manuelle"],
     "G2": ["Économie-Gestion","Gestion Commerciale","Mathématiques","Français","Anglais","Histoire-Géographie","EPS","Culture Manuelle"],
@@ -972,12 +972,20 @@ def telecharger_fiche(request):
         .order_by('-score_admission')[:5]
     )
 
+    # Notes BAC par matière triées par note décroissante
+    notes_bac = list(
+        profil_bac.notes.select_related('matiere')
+        .filter(note_bac__isnull=False)
+        .order_by('-note_bac')
+    )
+
     from django.template.loader import render_to_string
     html_string = render_to_string('orientation/fiche_recommandation.html', {
         'utilisateur': utilisateur,
         'profil': profil_bac,
         'recommandations': recommandations,
         'recommandations_concours': recommandations_concours,
+        'notes_bac': notes_bac,
         'is_pdf': True,
     }, request=request)
 

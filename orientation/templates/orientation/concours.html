@@ -3,343 +3,113 @@
 
 {% block content %}
 
-<!-- En-tête -->
-<div class="card" style="background:linear-gradient(135deg,#1a365d,#2b6cb0); color:white; padding:1.8rem;">
+{% if not inphb and not esatic and not etat %}
+
+<div class="card" style="text-align:center; padding:3rem 1.5rem;">
+    <div style="font-size:2.5rem; margin-bottom:1rem; color:var(--text-muted);">&#9888;</div>
+    <h2 style="color:var(--text); margin-bottom:0.5rem;">Aucun concours compatible trouvé</h2>
+    <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">
+        Ton profil actuel ne remplit pas les critères minimaux des concours disponibles.
+        Vérifie tes notes ou ta série BAC.
+    </p>
+    <a href="{% url 'profil' %}" class="btn btn-primary">Mettre à jour mon profil</a>
+</div>
+
+{% else %}
+
+<!-- En-tête profil -->
+<div class="card" style="border-left:4px solid var(--orange); padding:1.2rem 1.5rem;">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
         <div>
-            <h1 style="color:white; font-size:1.5rem; margin-bottom:0.3rem;">
-                🎯 Concours recommandés pour toi
-            </h1>
-            <p style="color:rgba(255,255,255,0.8); margin:0; font-size:0.88rem;">
-                BAC {{ profil.serie_bac }} &nbsp;·&nbsp;
-                Moyenne {{ profil.moyenne_bac }}/20 &nbsp;·&nbsp;
-                Maths {{ note_maths }}/20 &nbsp;·&nbsp;
-                Physique {{ note_physique }}/20
+            <h1 style="font-size:1.25rem; margin-bottom:0.3rem;">Concours recommandés</h1>
+            <p style="color:var(--text-muted); font-size:0.88rem; margin:0;">
+                BAC {{ profil.serie_bac }} &mdash; Moyenne {{ profil.moyenne_bac }}/20
+                &mdash; Maths {{ note_maths }}/20
+                &mdash; Physique {{ note_physique }}/20
             </p>
         </div>
         <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
-            <a href="#top3-concours" class="btn"
-               style="background:#f6ad55; color:#1a1a1a; font-weight:700; flex-shrink:0;">
-                🏆 Mon Top 3
-            </a>
-            <a href="{% url 'resultats' %}" class="btn"
-               style="background:white; color:#1a365d; font-weight:700; flex-shrink:0;">
-                Voir mes filières →
-            </a>
+            <a href="{% url 'resultats' %}" class="btn btn-secondary" style="font-size:0.85rem;">Mes filières</a>
+            <a href="{% url 'telecharger_fiche' %}" class="btn btn-vert" style="font-size:0.85rem;" target="_blank">Télécharger ma fiche</a>
         </div>
-    </div>
-</div>
-
-<!-- ══════ TOP 3 CONCOURS ══════ -->
-<div id="top3-concours" class="card"
-     style="border:2px solid #f6ad55; background:linear-gradient(135deg,#fffbeb,#fff8e1); padding:1.5rem;">
-    <h2 style="margin-bottom:0.2rem; font-size:1.15rem; color:#92400e;">
-        🏆 Tes 3 meilleurs concours
-    </h2>
-    <p style="color:#b7791f; font-size:0.85rem; margin-bottom:1.2rem;">
-        Les concours où tu as les meilleures chances d'admission, toutes écoles confondues.
-    </p>
-
-    <div style="display:flex; flex-direction:column; gap:0.8rem;">
-        {% for reco in top3_concours %}
-        <div style="display:flex; align-items:center; gap:1rem; background:white;
-                    border-radius:10px; padding:0.9rem 1.2rem;
-                    border-left:5px solid
-                    {% if forloop.counter == 1 %}#f6c90e
-                    {% elif forloop.counter == 2 %}#a0aec0
-                    {% else %}#cd7f32{% endif %};
-                    box-shadow:0 1px 4px rgba(0,0,0,0.07);">
-            <div style="font-size:2rem; flex-shrink:0;">
-                {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% else %}🥉{% endif %}
-            </div>
-            <div style="flex:1; min-width:0;">
-                <div style="font-weight:700; font-size:0.95rem; color:#1a1a1a; margin-bottom:0.1rem;">
-                    {{ reco.concours.nom_concours }}
-                </div>
-                <div style="font-size:0.8rem; color:#718096;">
-                    {{ reco.concours.etablissement }} · {{ reco.concours.ecole }} · {{ reco.concours.duree_formation }}
-                </div>
-                <div style="font-size:0.8rem; color:#276749; margin-top:0.2rem;">
-                    📋 {{ reco.concours.series_requises }} &nbsp;·&nbsp;
-                    📊 Moy. min {{ reco.concours.moyenne_min }}/20
-                </div>
-            </div>
-            <div style="text-align:right; flex-shrink:0;">
-                <div style="font-size:1.5rem; font-weight:800; color:
-                    {% if reco.niveau_chance == 'Excellente' %}#38a169
-                    {% elif reco.niveau_chance == 'Bonne' %}#3182ce
-                    {% elif reco.niveau_chance == 'Possible' %}#dd6b20
-                    {% else %}#e53e3e{% endif %};">
-                    {{ reco.score_admission }}%
-                </div>
-                <div style="font-size:0.75rem; font-weight:600; color:#718096;">{{ reco.niveau_chance }}</div>
-            </div>
-        </div>
-        {% empty %}
-        <div style="color:#718096; text-align:center; padding:1rem;">Aucun concours compatible pour l'instant.</div>
-        {% endfor %}
-    </div>
-
-    <div style="margin-top:1rem; text-align:right;">
-        <a href="#" onclick="document.querySelector('.card:nth-of-type(4)').scrollIntoView({behavior:'smooth'}); return false;"
-           style="color:#b7791f; font-size:0.85rem; text-decoration:none; font-weight:600;">
-            Voir tous les concours ↓
-        </a>
     </div>
 </div>
 
 <!-- Légende -->
-<div class="card" style="padding:1rem;">
-    <div style="display:flex; flex-wrap:wrap; gap:1rem; font-size:0.85rem; align-items:center;">
-        <strong style="color:#4a5568;">Chance d'admission :</strong>
-        <span style="background:#f0fff4; color:#276749; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #48bb78;">🟢 Excellente ≥ 75%</span>
-        <span style="background:#ebf8ff; color:#2b6cb0; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #4299e1;">🔵 Bonne ≥ 55%</span>
-        <span style="background:#fffbeb; color:#b7791f; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #f6ad55;">🟡 Possible ≥ 35%</span>
-        <span style="background:#fff5f5; color:#c53030; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #fc8181;">🔴 Faible</span>
-    </div>
+<div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.2rem; font-size:0.82rem;">
+    <span style="background:var(--vert-light); color:var(--vert-dark); padding:0.25rem 0.75rem; border-radius:6px; border:1px solid #a7d7a8; font-weight:500;">Excellente &ge; 75%</span>
+    <span style="background:#EFF6FF; color:#1E40AF; padding:0.25rem 0.75rem; border-radius:6px; border:1px solid #93C5FD; font-weight:500;">Bonne &ge; 55%</span>
+    <span style="background:#FFFBEB; color:#92400E; padding:0.25rem 0.75rem; border-radius:6px; border:1px solid #FCD34D; font-weight:500;">Possible &ge; 35%</span>
+    <span style="background:#FFF5F5; color:#991B1B; padding:0.25rem 0.75rem; border-radius:6px; border:1px solid #FCA5A5; font-weight:500;">Faible &lt; 35%</span>
 </div>
 
-<!-- ══════ INPHB ══════ -->
+<!-- Top 3 -->
+{% if top3_concours %}
+<div class="card" style="border:1px solid #FCD34D; background:#FFFBEB; padding:1.3rem;">
+    <h2 style="color:#92400E; font-size:0.95rem; font-weight:700; margin-bottom:1rem; text-transform:uppercase; letter-spacing:0.04em;">Top 3 — Meilleures chances d'admission</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem;">
+        {% for reco in top3_concours %}
+        <div style="display:flex; align-items:center; gap:1rem; background:white; border-radius:10px; padding:0.85rem 1.1rem;
+                    border-left:4px solid {% if forloop.counter == 1 %}#F59E0B{% elif forloop.counter == 2 %}#9CA3AF{% else %}#B45309{% endif %};">
+            <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); width:20px; text-align:center; flex-shrink:0;">
+                {% if forloop.counter == 1 %}1er{% elif forloop.counter == 2 %}2e{% else %}3e{% endif %}
+            </div>
+            <div style="flex:1; min-width:0;">
+                <div style="font-weight:700; font-size:0.95rem; color:var(--text); margin-bottom:0.1rem;">
+                    {{ reco.concours.nom_concours }}
+                </div>
+                <div style="font-size:0.78rem; color:var(--text-muted);">
+                    {{ reco.concours.etablissement }} &middot; {{ reco.concours.ecole }} &middot; {{ reco.concours.duree_formation }}
+                </div>
+                <div style="font-size:0.78rem; color:var(--vert-dark); margin-top:0.15rem;">
+                    Séries : {{ reco.concours.series_requises }} &middot; Moy. min {{ reco.concours.moyenne_min }}/20
+                </div>
+            </div>
+            <div style="text-align:right; flex-shrink:0;">
+                <div style="font-size:1.4rem; font-weight:800; color:
+                    {% if reco.niveau_chance == 'Excellente' %}var(--vert)
+                    {% elif reco.niveau_chance == 'Bonne' %}#1D4ED8
+                    {% elif reco.niveau_chance == 'Possible' %}#D97706
+                    {% else %}#DC2626{% endif %};">
+                    {{ reco.score_admission }}%
+                </div>
+                <div style="font-size:0.75rem; color:var(--text-muted);">{{ reco.niveau_chance }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
 {% if inphb %}
 <div class="card">
-    <h2 style="margin-bottom:0.3rem; font-size:1.2rem;">
-        🏛️ INP-HB — Institut National Polytechnique Félix Houphouët-Boigny
-    </h2>
-    <p style="color:#718096; font-size:0.85rem; margin-bottom:1.2rem;">
-        Yamoussoukro · Concours national · ~650 admis sur 6500 candidats ·
-        Frais : 15 000 FCFA + 3 000 FCFA dossier
-    </p>
-
-    {% for reco in inphb %}
-    <div style="border:1px solid var(--border); border-radius:10px; margin-bottom:1rem;
-                border-left:4px solid
-                {% if reco.niveau_chance == 'Excellente' %}#48bb78
-                {% elif reco.niveau_chance == 'Bonne' %}#4299e1
-                {% elif reco.niveau_chance == 'Possible' %}#ed8936
-                {% else %}#fc8181{% endif %};">
-
-        <!-- En-tête concours -->
-        <div style="display:flex; justify-content:space-between; align-items:start;
-                    padding:1rem; flex-wrap:wrap; gap:0.5rem;">
-            <div style="flex:1;">
-                <div style="font-weight:700; font-size:1rem; color:#1a1a1a; margin-bottom:0.2rem;">
-                    {{ reco.concours.nom_concours }}
-                </div>
-                <div style="font-size:0.82rem; color:#718096;">
-                    {{ reco.concours.ecole }} &nbsp;·&nbsp;
-                    {{ reco.concours.duree_formation }} &nbsp;·&nbsp;
-                    <span style="text-transform:uppercase; font-weight:600;">
-                        {% if reco.concours.type_acces == 'ecrit' %}✍️ Concours écrit
-                        {% elif reco.concours.type_acces == 'dossier' %}📁 Étude de dossier
-                        {% else %}✍️📁 Écrit + Dossier{% endif %}
-                    </span>
-                </div>
-            </div>
-            <div style="text-align:right; flex-shrink:0;">
-                <div style="font-size:1.4rem; font-weight:700; color:
-                    {% if reco.niveau_chance == 'Excellente' %}#38a169
-                    {% elif reco.niveau_chance == 'Bonne' %}#3182ce
-                    {% elif reco.niveau_chance == 'Possible' %}#dd6b20
-                    {% else %}#e53e3e{% endif %};">
-                    {{ reco.score_admission }}%
-                </div>
-                <div style="font-size:0.78rem; color:#718096;">{{ reco.niveau_chance }}</div>
-            </div>
-        </div>
-
-        <!-- Barre de progression -->
-        <div style="background:#e2e8f0; height:5px; margin:0 1rem;">
-            <div style="width:{{ reco.score_admission }}%;
-                        background:{% if reco.niveau_chance == 'Excellente' %}#48bb78{% elif reco.niveau_chance == 'Bonne' %}#4299e1{% elif reco.niveau_chance == 'Possible' %}#ed8936{% else %}#fc8181{% endif %};
-                        height:5px; border-radius:999px;"></div>
-        </div>
-
-        <!-- Détails -->
-        <div style="padding:0.8rem 1rem; display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; font-size:0.85rem;">
-            <div>
-                <div style="font-weight:600; color:#2d3748; margin-bottom:0.3rem;">✅ Points positifs</div>
-                {% for raison in reco.details.raisons %}
-                <div style="color:#276749; margin-bottom:0.2rem;">{{ raison }}</div>
-                {% empty %}
-                <div style="color:#718096;">—</div>
-                {% endfor %}
-            </div>
-            <div>
-                <div style="font-weight:600; color:#2d3748; margin-bottom:0.3rem;">⚠️ Points d'attention</div>
-                {% for blocage in reco.details.blocages %}
-                <div style="color:#c53030; margin-bottom:0.2rem;">{{ blocage }}</div>
-                {% empty %}
-                <div style="color:#718096;">Aucun blocage détecté</div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <!-- Conditions + Débouchés -->
-        <div style="padding:0 1rem 0.8rem; display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; font-size:0.82rem;">
-            <div style="background:#f7fafc; border-radius:8px; padding:0.6rem;">
-                <strong style="color:#2b6cb0;">📋 Séries requises :</strong>
-                {{ reco.concours.series_requises }}<br>
-                <strong style="color:#2b6cb0;">📊 Moyenne min :</strong>
-                {{ reco.concours.moyenne_min }}/20<br>
-                {% if reco.concours.note_maths_min > 0 %}
-                <strong style="color:#2b6cb0;">📐 Maths min :</strong>
-                {{ reco.concours.note_maths_min }}/20<br>
-                {% endif %}
-                {% if reco.concours.note_physique_min > 0 %}
-                <strong style="color:#2b6cb0;">⚗️ Physique min :</strong>
-                {{ reco.concours.note_physique_min }}/20
-                {% endif %}
-            </div>
-            <div style="background:#f7fafc; border-radius:8px; padding:0.6rem;">
-                <strong style="color:#2b6cb0;">💼 Débouchés :</strong><br>
-                {{ reco.concours.debouches|truncatechars:120 }}
-            </div>
-        </div>
-
-        <!-- Documents requis -->
-        <div style="padding:0 1rem 0.8rem; font-size:0.82rem;">
-            <div style="background:var(--orange-light); border-radius:8px; padding:0.6rem;">
-                <strong style="color:var(--orange);">📁 Documents requis :</strong>
-                {{ reco.concours.documents_requis }}
-            </div>
-        </div>
-
-        <!-- Frais -->
-        <div style="padding:0 1rem 1rem; font-size:0.82rem;">
-            <span style="background:#1a365d; color:white; padding:0.3rem 0.8rem;
-                         border-radius:999px; font-weight:600;">
-                💰 Frais d'inscription : {{ reco.concours.frais_inscription }}
-            </span>
-            <span style="margin-left:0.8rem; color:#718096;">
-                Âge max : {{ reco.concours.age_max }} ans
-            </span>
-        </div>
-    </div>
-    {% endfor %}
+    <h2 style="font-size:0.95rem; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.3rem;">INP-HB — Institut National Polytechnique Félix Houphouët-Boigny</h2>
+    <p style="color:var(--text-muted); font-size:0.83rem; margin-bottom:1.2rem;">Yamoussoukro &middot; Concours national &middot; Frais : 15 000 FCFA + 3 000 FCFA dossier</p>
+    {% for reco in inphb %}{% include 'orientation/_carte_concours.html' %}{% endfor %}
 </div>
 {% endif %}
 
-<!-- ══════ ESATIC ══════ -->
 {% if esatic %}
 <div class="card">
-    <h2 style="margin-bottom:0.3rem; font-size:1.2rem;">
-        💻 ESATIC — École Supérieure Africaine des TIC
-    </h2>
-    <p style="color:#718096; font-size:0.85rem; margin-bottom:1.2rem;">
-        Abidjan · Concours national TIC · Frais : 20 000 FCFA ·
-        Séries acceptées : A, C, D, E, F2
-    </p>
-
-    {% for reco in esatic %}
-    <div style="border:1px solid var(--border); border-radius:10px; margin-bottom:1rem;
-                border-left:4px solid
-                {% if reco.niveau_chance == 'Excellente' %}#48bb78
-                {% elif reco.niveau_chance == 'Bonne' %}#4299e1
-                {% elif reco.niveau_chance == 'Possible' %}#ed8936
-                {% else %}#fc8181{% endif %};">
-
-        <div style="display:flex; justify-content:space-between; align-items:start;
-                    padding:1rem; flex-wrap:wrap; gap:0.5rem;">
-            <div style="flex:1;">
-                <div style="font-weight:700; font-size:1rem; color:#1a1a1a; margin-bottom:0.2rem;">
-                    {{ reco.concours.nom_concours }}
-                </div>
-                <div style="font-size:0.82rem; color:#718096;">
-                    {{ reco.concours.duree_formation }} &nbsp;·&nbsp;
-                    {{ reco.concours.filiere_cible }}
-                </div>
-            </div>
-            <div style="text-align:right; flex-shrink:0;">
-                <div style="font-size:1.4rem; font-weight:700; color:
-                    {% if reco.niveau_chance == 'Excellente' %}#38a169
-                    {% elif reco.niveau_chance == 'Bonne' %}#3182ce
-                    {% elif reco.niveau_chance == 'Possible' %}#dd6b20
-                    {% else %}#e53e3e{% endif %};">
-                    {{ reco.score_admission }}%
-                </div>
-                <div style="font-size:0.78rem; color:#718096;">{{ reco.niveau_chance }}</div>
-            </div>
-        </div>
-
-        <div style="background:#e2e8f0; height:5px; margin:0 1rem;">
-            <div style="width:{{ reco.score_admission }}%;
-                        background:{% if reco.niveau_chance == 'Excellente' %}#48bb78{% elif reco.niveau_chance == 'Bonne' %}#4299e1{% elif reco.niveau_chance == 'Possible' %}#ed8936{% else %}#fc8181{% endif %};
-                        height:5px; border-radius:999px;"></div>
-        </div>
-
-        <div style="padding:0.8rem 1rem; display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; font-size:0.85rem;">
-            <div>
-                <div style="font-weight:600; color:#2d3748; margin-bottom:0.3rem;">✅ Points positifs</div>
-                {% for raison in reco.details.raisons %}
-                <div style="color:#276749; margin-bottom:0.2rem;">{{ raison }}</div>
-                {% empty %}
-                <div style="color:#718096;">—</div>
-                {% endfor %}
-            </div>
-            <div>
-                <div style="font-weight:600; color:#2d3748; margin-bottom:0.3rem;">⚠️ Points d'attention</div>
-                {% for blocage in reco.details.blocages %}
-                <div style="color:#c53030; margin-bottom:0.2rem;">{{ blocage }}</div>
-                {% empty %}
-                <div style="color:#718096;">Aucun blocage détecté</div>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div style="padding:0 1rem 0.8rem; display:grid; grid-template-columns:1fr 1fr; gap:0.8rem; font-size:0.82rem;">
-            <div style="background:#f7fafc; border-radius:8px; padding:0.6rem;">
-                <strong style="color:#2b6cb0;">📋 Séries requises :</strong>
-                {{ reco.concours.series_requises }}<br>
-                <strong style="color:#2b6cb0;">📊 Moyenne min :</strong>
-                {{ reco.concours.moyenne_min }}/20<br>
-                {% if reco.concours.note_maths_min > 0 %}
-                <strong style="color:#2b6cb0;">📐 Maths min :</strong>
-                {{ reco.concours.note_maths_min }}/20
-                {% endif %}
-            </div>
-            <div style="background:#f7fafc; border-radius:8px; padding:0.6rem;">
-                <strong style="color:#2b6cb0;">💼 Débouchés :</strong><br>
-                {{ reco.concours.debouches|truncatechars:120 }}
-            </div>
-        </div>
-
-        <div style="padding:0 1rem 0.8rem; font-size:0.82rem;">
-            <div style="background:var(--orange-light); border-radius:8px; padding:0.6rem;">
-                <strong style="color:var(--orange);">📁 Documents requis :</strong>
-                {{ reco.concours.documents_requis }}
-            </div>
-        </div>
-
-        <div style="padding:0 1rem 1rem; font-size:0.82rem;">
-            <span style="background:#1a365d; color:white; padding:0.3rem 0.8rem;
-                         border-radius:999px; font-weight:600;">
-                💰 Frais : {{ reco.concours.frais_inscription }}
-            </span>
-            <span style="margin-left:0.8rem; color:#718096;">
-                Âge max : {{ reco.concours.age_max }} ans
-            </span>
-        </div>
-    </div>
-    {% endfor %}
+    <h2 style="font-size:0.95rem; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.3rem;">ESATIC — École Supérieure Africaine des TIC</h2>
+    <p style="color:var(--text-muted); font-size:0.83rem; margin-bottom:1.2rem;">Abidjan &middot; Concours national TIC &middot; Frais : 20 000 FCFA &middot; Séries : A, C, D, E, F2</p>
+    {% for reco in esatic %}{% include 'orientation/_carte_concours.html' %}{% endfor %}
 </div>
 {% endif %}
 
-{% if not inphb and not esatic %}
-<div class="card" style="text-align:center; padding:2rem;">
-    <div style="font-size:3rem; margin-bottom:1rem;">😔</div>
-    <h2>Aucun concours compatible trouvé</h2>
-    <p style="color:#718096; margin:0.5rem 0 1.5rem;">
-        Ton profil actuel ne correspond pas aux critères minimaux des concours disponibles.
-        Améliore tes notes ou vérifie ta série BAC.
-    </p>
-    <a href="{% url 'profil' %}" class="btn btn-primary">Mettre à jour mon profil</a>
+{% if etat %}
+<div class="card">
+    <h2 style="font-size:0.95rem; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.3rem;">Concours d'État</h2>
+    <p style="color:var(--text-muted); font-size:0.83rem; margin-bottom:1.2rem;">Concours organisés par l'État ivoirien</p>
+    {% for reco in etat %}{% include 'orientation/_carte_concours.html' %}{% endfor %}
 </div>
 {% endif %}
 
 <!-- Navigation -->
-<div style="display:flex; gap:1rem; justify-content:center; margin-top:1rem; flex-wrap:wrap;">
-    <a href="{% url 'dashboard' %}" class="btn btn-secondary">🏠 Dashboard</a>
-    <a href="{% url 'resultats' %}" class="btn btn-primary">🎓 Voir mes filières →</a>
+<div style="display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; margin-top:0.5rem; margin-bottom:1rem;">
+    <a href="{% url 'resultats' %}" class="btn btn-secondary">Voir mes filières</a>
+    <a href="{% url 'profil' %}" class="btn btn-primary">Modifier mon profil</a>
 </div>
 
+{% endif %}
 {% endblock %}

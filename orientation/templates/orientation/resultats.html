@@ -1,204 +1,202 @@
 {% extends 'orientation/base.html' %}
-{% block title %}Mes Recommandations — AIOA{% endblock %}
+{% block title %}Mes recommandations — AIOA{% endblock %}
 
 {% block content %}
-<div class="card" style="background:linear-gradient(135deg,#1a365d,#2b6cb0); color:white; padding:1.8rem;">
+
+{% if not recommandations %}
+<div class="card" style="text-align:center; padding:3rem 1.5rem;">
+    <div style="font-size:2.5rem; margin-bottom:1rem; color:var(--text-muted);">&#9888;</div>
+    <h2 style="color:var(--text); margin-bottom:0.5rem;">Aucune filière compatible trouvée</h2>
+    <p style="color:var(--text-muted); margin-bottom:1.5rem; font-size:0.9rem;">
+        Ton profil ne correspond à aucune filière avec un score suffisant. Vérifie tes notes et tes aspirations.
+    </p>
+    <a href="{% url 'profil' %}" class="btn btn-primary">Mettre à jour mon profil</a>
+</div>
+{% else %}
+
+<!-- En-tête profil -->
+<div class="card" style="border-left:4px solid var(--orange); padding:1.2rem 1.5rem;">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
         <div>
-            <h1 style="color:white; font-size:1.5rem; margin-bottom:0.3rem;">🏆 Mes Recommandations</h1>
-            <p style="color:rgba(255,255,255,0.8); margin:0; font-size:0.88rem;">
-                Bonjour <strong>{{ utilisateur.prenom_util }}</strong> —
-                BAC {{ profil.serie_bac }}, {{ profil.mention_bac }},
-                Moyenne : <strong>{{ profil.moyenne_bac }}/20</strong>
-            </p>
-            <p style="color:rgba(255,255,255,0.7); font-size:0.82rem; margin:0.3rem 0 0;">
-                Voici tes 10 filières les plus compatibles avec ton profil, classées par score.
+            <h1 style="font-size:1.25rem; margin-bottom:0.3rem;">Mes recommandations</h1>
+            <p style="color:var(--text-muted); font-size:0.88rem; margin:0;">
+                {{ utilisateur.prenom_util }} {{ utilisateur.nom_util }} &mdash;
+                BAC {{ profil.serie_bac }}
+                {% if profil.mention_bac %}, {{ profil.mention_bac }}{% endif %}
+                &mdash; Moyenne : <strong>{{ profil.moyenne_bac }}/20</strong>
             </p>
         </div>
         <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
-            <a href="{% url 'concours' %}" class="btn"
-               style="background:#f6ad55; color:#1a1a1a; font-weight:700; flex-shrink:0;">
-                🎯 Voir mes concours
-            </a>
-            <a href="{% url 'telecharger_fiche' %}" class="btn"
-               style="background:#38a169; color:white; font-weight:700; flex-shrink:0;" target="_blank">
-                📄 Télécharger ma fiche
-            </a>
+            <a href="{% url 'profil' %}" class="btn btn-secondary" style="font-size:0.85rem;">Modifier le profil</a>
+            <a href="{% url 'concours' %}" class="btn btn-primary" style="font-size:0.85rem;">Voir mes concours</a>
+            <a href="{% url 'telecharger_fiche' %}" class="btn btn-vert" style="font-size:0.85rem;" target="_blank">Télécharger ma fiche</a>
         </div>
     </div>
 </div>
 
-<!-- Légende -->
-<div class="card" style="padding:1rem;">
-    <div style="display:flex; flex-wrap:wrap; gap:1rem; font-size:0.85rem; align-items:center;">
-        <strong style="color:#4a5568;">Compatibilité :</strong>
-        <span style="background:#f0fff4; color:#276749; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #48bb78;">🟢 Excellente ≥ 80%</span>
-        <span style="background:#ebf8ff; color:#2b6cb0; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #4299e1;">🔵 Bonne ≥ 60%</span>
-        <span style="background:#fffbeb; color:#b7791f; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #f6ad55;">🟡 Moyenne ≥ 40%</span>
-        <span style="background:#fff5f5; color:#c53030; padding:0.2rem 0.8rem; border-radius:999px; border:1px solid #fc8181;">🔴 Faible</span>
-    </div>
+<!-- Légende niveaux -->
+<div style="display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:1.2rem; font-size:0.82rem;">
+    <span style="background:var(--vert-light); color:var(--vert-dark); padding:0.25rem 0.75rem; border-radius:6px; border:1px solid #a7d7a8; font-weight:500;">Excellente &ge; 80%</span>
+    <span style="background:#EFF6FF; color:#1E40AF; padding:0.25rem 0.75rem; border-radius:6px; border:1px solid #93C5FD; font-weight:500;">Bonne &ge; 60%</span>
+    <span style="background:#FFFBEB; color:#92400E; padding:0.25rem 0.75rem; border-radius:6px; border:1px solid #FCD34D; font-weight:500;">Moyenne &ge; 40%</span>
+    <span style="background:#FFF5F5; color:#991B1B; padding:0.25rem 0.75rem; border-radius:6px; border:1px solid #FCA5A5; font-weight:500;">Faible &lt; 40%</span>
 </div>
 
-<!-- Top 3 podium -->
-<div class="card" style="border:2px solid #f6ad55; background:linear-gradient(135deg,#fffbeb,#fff8e1); padding:1.4rem;">
-    <h2 style="color:#92400e; font-size:1.05rem; margin-bottom:1rem;">🏆 Ton podium — Top 3 filières</h2>
-    <div style="display:flex; flex-direction:column; gap:0.7rem;">
+<!-- Top 3 -->
+{% if recommandations|length >= 1 %}
+<div class="card" style="border:1px solid #FCD34D; background:#FFFBEB; padding:1.3rem;">
+    <h2 style="color:#92400E; font-size:0.95rem; font-weight:700; margin-bottom:1rem; text-transform:uppercase; letter-spacing:0.04em;">Top 3 — Filières les plus compatibles</h2>
+    <div style="display:flex; flex-direction:column; gap:0.6rem;">
         {% for reco in recommandations|slice:":3" %}
-        <div style="display:flex; align-items:center; gap:1rem; background:white;
-                    border-radius:10px; padding:0.85rem 1.1rem;
-                    border-left:5px solid
-                    {% if forloop.counter == 1 %}#f6c90e
-                    {% elif forloop.counter == 2 %}#a0aec0
-                    {% else %}#cd7f32{% endif %};
-                    box-shadow:0 1px 4px rgba(0,0,0,0.07);">
-            <div style="font-size:1.8rem; flex-shrink:0;">
-                {% if forloop.counter == 1 %}🥇{% elif forloop.counter == 2 %}🥈{% else %}🥉{% endif %}
+        <div style="display:flex; align-items:center; gap:1rem; background:white; border-radius:10px; padding:0.85rem 1.1rem;
+                    border-left:4px solid {% if forloop.counter == 1 %}#F59E0B{% elif forloop.counter == 2 %}#9CA3AF{% else %}#B45309{% endif %};">
+            <div style="font-size:0.78rem; font-weight:700; color:var(--text-muted); width:20px; flex-shrink:0; text-align:center;">
+                {% if forloop.counter == 1 %}1er{% elif forloop.counter == 2 %}2e{% else %}3e{% endif %}
             </div>
             <div style="flex:1; min-width:0;">
                 <a href="{% url 'detail_filiere' reco.filiere.id %}"
-                   style="font-weight:700; font-size:0.95rem; color:#1a365d; text-decoration:none;">
-                    {{ reco.filiere.nom_filiere }} →
+                   style="font-weight:700; font-size:0.95rem; color:var(--text); text-decoration:none;">
+                    {{ reco.filiere.nom_filiere }}
                 </a>
-                <div style="font-size:0.8rem; color:#718096; margin-top:0.15rem;">
-                    {{ reco.filiere.code_filiere }} · {{ reco.filiere.duree_etudes|default:"N/A" }}
+                <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.1rem;">
+                    {{ reco.filiere.code_filiere }}{% if reco.filiere.duree_etudes %} &middot; {{ reco.filiere.duree_etudes }}{% endif %}
                 </div>
             </div>
             <div style="text-align:right; flex-shrink:0;">
-                <div style="font-size:1.5rem; font-weight:800; color:
-                    {% if reco.niveau_reco == 'Excellente' %}#38a169
-                    {% elif reco.niveau_reco == 'Bonne' %}#3182ce
-                    {% elif reco.niveau_reco == 'Moyenne' %}#dd6b20
-                    {% else %}#e53e3e{% endif %};">
+                <div style="font-size:1.4rem; font-weight:800; color:
+                    {% if reco.niveau_reco == 'Excellente' %}var(--vert)
+                    {% elif reco.niveau_reco == 'Bonne' %}#1D4ED8
+                    {% elif reco.niveau_reco == 'Moyenne' %}#D97706
+                    {% else %}#DC2626{% endif %};">
                     {{ reco.score_compatibilite }}%
                 </div>
-                <div style="font-size:0.75rem; color:#718096; font-weight:600;">{{ reco.niveau_reco }}</div>
+                <div style="font-size:0.75rem; color:var(--text-muted);">{{ reco.niveau_reco }}</div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+{% endif %}
 
-<!-- Liste complète Top 10 -->
+<!-- Liste complète -->
 <div class="card">
-    <h2 style="font-size:1.05rem; color:#2d3748; margin-bottom:1.2rem;">📋 Classement complet — Top 10</h2>
+    <h2 style="font-size:0.95rem; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:1.2rem;">
+        Classement complet &mdash; {{ recommandations|length }} filière{{ recommandations|length|pluralize }}
+    </h2>
 
-    {% for reco in recommandations|slice:":10" %}
-    <div style="border:1px solid var(--border); border-radius:10px; margin-bottom:1rem;
-                border-left:4px solid
-                {% if reco.niveau_reco == 'Excellente' %}#48bb78
-                {% elif reco.niveau_reco == 'Bonne' %}#4299e1
-                {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
-                {% else %}#fc8181{% endif %};">
+    {% for reco in recommandations %}
+    <div style="border:1px solid var(--border); border-radius:10px; margin-bottom:1rem; overflow:hidden;">
 
-        <div style="display:flex; justify-content:space-between; align-items:center;
-                    padding:1rem; flex-wrap:wrap; gap:0.5rem;">
+        <!-- Ligne principale -->
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem; gap:1rem; flex-wrap:wrap;">
             <div style="flex:1; min-width:0;">
-                <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
-                    <span style="background:#e2e8f0; color:#4a5568; font-weight:700;
-                                 font-size:0.78rem; padding:0.15rem 0.55rem; border-radius:999px;">
+                <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.2rem; flex-wrap:wrap;">
+                    <span style="background:var(--bg); color:var(--text-muted); font-size:0.75rem; font-weight:700;
+                                 padding:0.1rem 0.55rem; border-radius:5px; border:1px solid var(--border);">
                         #{{ forloop.counter }}
                     </span>
                     <a href="{% url 'detail_filiere' reco.filiere.id %}"
-                       style="font-weight:700; font-size:1rem; color:#1a365d; text-decoration:none;">
-                        {{ reco.filiere.nom_filiere }} →
+                       style="font-weight:700; font-size:0.97rem; color:var(--text); text-decoration:none;">
+                        {{ reco.filiere.nom_filiere }}
                     </a>
+                    <span style="font-size:0.75rem; padding:0.1rem 0.6rem; border-radius:5px; font-weight:600;
+                        {% if reco.niveau_reco == 'Excellente' %}background:var(--vert-light); color:var(--vert-dark);
+                        {% elif reco.niveau_reco == 'Bonne' %}background:#EFF6FF; color:#1E40AF;
+                        {% elif reco.niveau_reco == 'Moyenne' %}background:#FFFBEB; color:#92400E;
+                        {% else %}background:#FFF5F5; color:#991B1B;{% endif %}">
+                        {{ reco.niveau_reco }}
+                    </span>
                 </div>
-                <div style="font-size:0.82rem; color:#718096; margin-top:0.3rem;">
-                    {{ reco.filiere.code_filiere }}
-                </div>
+                <div style="font-size:0.8rem; color:var(--text-muted);">{{ reco.filiere.code_filiere }}{% if reco.filiere.duree_etudes %} &middot; {{ reco.filiere.duree_etudes }}{% endif %}</div>
             </div>
             <div style="text-align:right; flex-shrink:0;">
-                <div style="font-size:2rem; font-weight:700; color:
-                    {% if reco.niveau_reco == 'Excellente' %}#38a169
-                    {% elif reco.niveau_reco == 'Bonne' %}#3182ce
-                    {% elif reco.niveau_reco == 'Moyenne' %}#dd6b20
-                    {% else %}#e53e3e{% endif %};">
+                <div style="font-size:1.8rem; font-weight:800; line-height:1; color:
+                    {% if reco.niveau_reco == 'Excellente' %}var(--vert)
+                    {% elif reco.niveau_reco == 'Bonne' %}#1D4ED8
+                    {% elif reco.niveau_reco == 'Moyenne' %}#D97706
+                    {% else %}#DC2626{% endif %};">
                     {{ reco.score_compatibilite }}%
                 </div>
-                <span style="font-size:0.82rem; font-weight:600; color:#718096;">{{ reco.niveau_reco }}</span>
             </div>
         </div>
 
-        <!-- Barre de progression -->
-        <div style="background:#e2e8f0; border-radius:999px; height:6px; margin:0 1rem;">
-            <div style="width:{{ reco.score_compatibilite }}%; background:
-                {% if reco.niveau_reco == 'Excellente' %}#48bb78
-                {% elif reco.niveau_reco == 'Bonne' %}#4299e1
-                {% elif reco.niveau_reco == 'Moyenne' %}#ed8936
-                {% else %}#fc8181{% endif %};
-                height:6px; border-radius:999px; transition: width 1s;"></div>
+        <!-- Barre de score -->
+        <div style="height:4px; background:var(--bg);">
+            <div style="height:4px; width:{{ reco.score_compatibilite }}%; transition:width 1s ease;
+                background:{% if reco.niveau_reco == 'Excellente' %}var(--vert)
+                {% elif reco.niveau_reco == 'Bonne' %}#3B82F6
+                {% elif reco.niveau_reco == 'Moyenne' %}#F59E0B
+                {% else %}#EF4444{% endif %};"></div>
         </div>
 
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;
-                    font-size:0.88rem; color:#4a5568; padding:0.9rem 1rem;">
+        <!-- Détail du score (pourquoi ce score) -->
+        {% if reco.details_analyse %}
+        <div style="padding:0.8rem 1rem; background:var(--bg); border-top:1px solid var(--border);">
+            <div style="font-size:0.78rem; font-weight:600; color:var(--text-muted); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.04em;">Détail du score</div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:0.5rem;">
+
+                <div style="background:white; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid var(--border);">
+                    <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Matières clés</div>
+                    <div style="font-size:0.95rem; font-weight:700; color:var(--text);">{{ reco.details_analyse.score_matieres }}%</div>
+                    <div style="height:3px; background:var(--bg); border-radius:2px; margin-top:4px;">
+                        <div style="height:3px; width:{{ reco.details_analyse.score_matieres }}%; background:var(--orange); border-radius:2px;"></div>
+                    </div>
+                </div>
+
+                <div style="background:white; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid var(--border);">
+                    <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Moyenne générale</div>
+                    <div style="font-size:0.95rem; font-weight:700; color:var(--text);">{{ reco.details_analyse.score_moyenne }}%</div>
+                    <div style="height:3px; background:var(--bg); border-radius:2px; margin-top:4px;">
+                        <div style="height:3px; width:{{ reco.details_analyse.score_moyenne }}%; background:#3B82F6; border-radius:2px;"></div>
+                    </div>
+                </div>
+
+                <div style="background:white; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid var(--border);">
+                    <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Série BAC</div>
+                    <div style="font-size:0.95rem; font-weight:700; color:var(--text);">{{ reco.details_analyse.score_serie }}%</div>
+                    <div style="height:3px; background:var(--bg); border-radius:2px; margin-top:4px;">
+                        <div style="height:3px; width:{{ reco.details_analyse.score_serie }}%; background:#8B5CF6; border-radius:2px;"></div>
+                    </div>
+                </div>
+
+                <div style="background:white; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid var(--border);">
+                    <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Aspirations</div>
+                    <div style="font-size:0.95rem; font-weight:700; color:var(--text);">{{ reco.details_analyse.score_aspiration }}%</div>
+                    <div style="height:3px; background:var(--bg); border-radius:2px; margin-top:4px;">
+                        <div style="height:3px; width:{{ reco.details_analyse.score_aspiration }}%; background:#10B981; border-radius:2px;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Infos filière -->
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:0.8rem 1rem; font-size:0.83rem; color:var(--text-muted);">
             <div>
-                <strong>⏱ Durée :</strong> {{ reco.filiere.duree_etudes|default:"N/A" }}<br>
-                <strong>📋 Conditions :</strong> {{ reco.filiere.conditions_acces|default:"N/A" }}
+                {% if reco.filiere.conditions_acces %}
+                <div style="margin-bottom:0.3rem;"><strong style="color:var(--text);">Conditions :</strong> {{ reco.filiere.conditions_acces }}</div>
+                {% endif %}
+                {% if reco.filiere.duree_etudes %}
+                <div><strong style="color:var(--text);">Durée :</strong> {{ reco.filiere.duree_etudes }}</div>
+                {% endif %}
             </div>
             <div>
-                <strong>💼 Débouchés :</strong> {{ reco.filiere.debouches|default:"N/A"|truncatechars:100 }}<br>
-                {% if reco.filiere.code_filiere|slice:":4" == "UNA-" or reco.filiere.code_filiere|slice:":5" == "UFHB-" or reco.filiere.code_filiere|slice:":4" == "UAO-" %}
-                <strong style="color:#2b6cb0;">💰 Inscription :</strong>
-                <span style="color:#2b6cb0; font-weight:600;">30 000 FCFA (Licence) / 60 000 FCFA (Master)</span>
+                {% if reco.filiere.debouches %}
+                <div><strong style="color:var(--text);">Débouchés :</strong> {{ reco.filiere.debouches|truncatechars:90 }}</div>
                 {% endif %}
             </div>
         </div>
-    </div>
-    {% empty %}
-    <div style="text-align:center; padding:2rem; color:#718096;">
-        <div style="font-size:3rem; margin-bottom:1rem;">😔</div>
-        <h3>Aucune filière compatible trouvée</h3>
-        <p>Vérifie ton profil ou tes notes.</p>
-        <a href="{% url 'profil' %}" class="btn btn-primary">Mettre à jour mon profil</a>
+
     </div>
     {% endfor %}
 </div>
 
-<!-- Encadré aide aux frais d'inscription -->
-<div class="card" style="border:2px solid #4299e1; background:linear-gradient(135deg,#ebf8ff,#e6fffa); padding:1.4rem;">
-    <h2 style="color:#2b6cb0; font-size:1rem; margin-bottom:0.8rem;">💰 Guide des frais d'inscription universitaire en Côte d'Ivoire</h2>
-    <p style="font-size:0.85rem; color:#4a5568; margin-bottom:1rem;">
-        Voici les frais indicatifs pour t'aider à préparer ton inscription dans les universités publiques ivoiriennes.
-    </p>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:0.8rem; margin-bottom:1rem;">
-        <div style="background:white; border-radius:10px; padding:0.9rem; border:1px solid #bee3f8; text-align:center;">
-            <div style="font-weight:800; color:#2b6cb0; font-size:1rem;">UFHB</div>
-            <div style="font-size:0.75rem; color:#718096; margin-bottom:0.4rem;">Université FHB Abidjan</div>
-            <div style="font-weight:700; color:#276749;">30 000 FCFA (Licence)</div>
-            <div style="font-weight:700; color:#276749;">60 000 FCFA (Master)</div>
-        </div>
-        <div style="background:white; border-radius:10px; padding:0.9rem; border:1px solid #bee3f8; text-align:center;">
-            <div style="font-weight:800; color:#2b6cb0; font-size:1rem;">UNA</div>
-            <div style="font-size:0.75rem; color:#718096; margin-bottom:0.4rem;">Université Nangui Abrogoua</div>
-            <div style="font-weight:700; color:#276749;">30 000 FCFA (Licence)</div>
-            <div style="font-weight:700; color:#276749;">60 000 FCFA (Master)</div>
-        </div>
-        <div style="background:white; border-radius:10px; padding:0.9rem; border:1px solid #bee3f8; text-align:center;">
-            <div style="font-weight:800; color:#2b6cb0; font-size:1rem;">UAO</div>
-            <div style="font-size:0.75rem; color:#718096; margin-bottom:0.4rem;">Université Alassane Ouattara</div>
-            <div style="font-weight:700; color:#276749;">30 000 FCFA (Licence)</div>
-            <div style="font-weight:700; color:#276749;">60 000 FCFA (Master)</div>
-        </div>
-        <div style="background:white; border-radius:10px; padding:0.9rem; border:1px solid #fbd38d; text-align:center;">
-            <div style="font-weight:800; color:#c05621; font-size:1rem;">INP-HB</div>
-            <div style="font-size:0.75rem; color:#718096; margin-bottom:0.4rem;">Yamoussoukro</div>
-            <div style="font-weight:700; color:#c05621;">Concours — voir 🎯</div>
-            <div style="font-size:0.72rem; color:#718096;">Sur concours + dossier</div>
-        </div>
-        <div style="background:white; border-radius:10px; padding:0.9rem; border:1px solid #fbd38d; text-align:center;">
-            <div style="font-weight:800; color:#c05621; font-size:1rem;">ESATIC</div>
-            <div style="font-size:0.75rem; color:#718096; margin-bottom:0.4rem;">École Supérieure TIC</div>
-            <div style="font-weight:700; color:#c05621;">Sur concours — voir 🎯</div>
-            <div style="font-size:0.72rem; color:#718096;">Frais variables selon filière</div>
-        </div>
-    </div>
-    <div style="background:#fffbeb; border-left:4px solid #f6ad55; padding:0.7rem 1rem; border-radius:8px; font-size:0.82rem; color:#7b341e;">
-        <strong>📌 Conseil :</strong> Les montants exacts changent chaque année. Consulte le site officiel de l'université ou le MESRS (Ministère de l'Enseignement Supérieur) pour les tarifs en vigueur. Prépare aussi les frais annexes : photocopies, transport, logement.
-    </div>
+<!-- Actions bas de page -->
+<div style="display:flex; justify-content:center; gap:0.8rem; flex-wrap:wrap; margin-top:0.5rem; margin-bottom:1rem;">
+    <a href="{% url 'profil' %}" class="btn btn-secondary">Modifier mon profil</a>
+    <a href="{% url 'concours' %}" class="btn btn-primary">Voir mes concours</a>
 </div>
 
-<div style="text-align:center; margin-top:1rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-    <a href="{% url 'profil' %}" class="btn btn-secondary">✏️ Modifier mon profil</a>
-    <a href="{% url 'concours' %}" class="btn btn-primary">🎯 Voir mes concours →</a>
-</div>
+{% endif %}
 {% endblock %}

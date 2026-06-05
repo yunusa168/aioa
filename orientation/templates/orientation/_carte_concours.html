@@ -1,0 +1,100 @@
+<div style="border:1px solid var(--border); border-radius:10px; margin-bottom:1rem; overflow:hidden;">
+
+    <!-- Ligne principale -->
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:1rem; flex-wrap:wrap; gap:0.5rem;">
+        <div style="flex:1; min-width:0;">
+            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.2rem;">
+                <span style="font-weight:700; font-size:0.97rem; color:var(--text);">
+                    {{ reco.concours.nom_concours }}
+                </span>
+                <span style="font-size:0.75rem; padding:0.1rem 0.6rem; border-radius:5px; font-weight:600;
+                    {% if reco.niveau_chance == 'Excellente' %}background:var(--vert-light); color:var(--vert-dark);
+                    {% elif reco.niveau_chance == 'Bonne' %}background:#EFF6FF; color:#1E40AF;
+                    {% elif reco.niveau_chance == 'Possible' %}background:#FFFBEB; color:#92400E;
+                    {% else %}background:#FFF5F5; color:#991B1B;{% endif %}">
+                    {{ reco.niveau_chance }}
+                </span>
+            </div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">
+                {{ reco.concours.ecole }}
+                {% if reco.concours.duree_formation %} &middot; {{ reco.concours.duree_formation }}{% endif %}
+                {% if reco.concours.type_acces %}
+                &middot;
+                {% if reco.concours.type_acces == 'ecrit' %}Concours écrit
+                {% elif reco.concours.type_acces == 'dossier' %}Étude de dossier
+                {% else %}Écrit + Dossier{% endif %}
+                {% endif %}
+            </div>
+        </div>
+        <div style="text-align:right; flex-shrink:0;">
+            <div style="font-size:1.8rem; font-weight:800; line-height:1; color:
+                {% if reco.niveau_chance == 'Excellente' %}var(--vert)
+                {% elif reco.niveau_chance == 'Bonne' %}#1D4ED8
+                {% elif reco.niveau_chance == 'Possible' %}#D97706
+                {% else %}#DC2626{% endif %};">
+                {{ reco.score_admission }}%
+            </div>
+            <div style="font-size:0.72rem; color:var(--text-muted);">chance d'admission</div>
+        </div>
+    </div>
+
+    <!-- Barre de score -->
+    <div style="height:4px; background:var(--bg);">
+        <div style="height:4px; width:{{ reco.score_admission }}%;
+            background:{% if reco.niveau_chance == 'Excellente' %}var(--vert)
+            {% elif reco.niveau_chance == 'Bonne' %}#3B82F6
+            {% elif reco.niveau_chance == 'Possible' %}#F59E0B
+            {% else %}#EF4444{% endif %};"></div>
+    </div>
+
+    <!-- Points positifs / Blocages -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:0.8rem 1rem; background:var(--bg); border-top:1px solid var(--border);">
+        <div>
+            <div style="font-size:0.75rem; font-weight:600; color:var(--vert-dark); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.4rem;">Points positifs</div>
+            {% for raison in reco.details.raisons %}
+            <div style="font-size:0.82rem; color:var(--vert-dark); margin-bottom:0.2rem; padding-left:0.75rem; border-left:2px solid var(--vert);">{{ raison }}</div>
+            {% empty %}
+            <div style="font-size:0.82rem; color:var(--text-muted);">—</div>
+            {% endfor %}
+        </div>
+        <div>
+            <div style="font-size:0.75rem; font-weight:600; color:#991B1B; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.4rem;">Points d'attention</div>
+            {% for blocage in reco.details.blocages %}
+            <div style="font-size:0.82rem; color:#DC2626; margin-bottom:0.2rem; padding-left:0.75rem; border-left:2px solid #EF4444;">{{ blocage }}</div>
+            {% empty %}
+            <div style="font-size:0.82rem; color:var(--text-muted);">Aucun blocage détecté</div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Conditions et débouchés -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:0.8rem 1rem; font-size:0.82rem; color:var(--text-muted);">
+        <div style="background:var(--bg); border-radius:8px; padding:0.6rem;">
+            <div style="font-weight:600; color:var(--text); margin-bottom:0.3rem;">Conditions requises</div>
+            Séries : {{ reco.concours.series_requises }}<br>
+            Moyenne min : {{ reco.concours.moyenne_min }}/20
+            {% if reco.concours.note_maths_min > 0 %}<br>Maths min : {{ reco.concours.note_maths_min }}/20{% endif %}
+            {% if reco.concours.note_physique_min > 0 %}<br>Physique min : {{ reco.concours.note_physique_min }}/20{% endif %}
+        </div>
+        <div style="background:var(--bg); border-radius:8px; padding:0.6rem;">
+            <div style="font-weight:600; color:var(--text); margin-bottom:0.3rem;">Débouchés</div>
+            {{ reco.concours.debouches|truncatechars:120 }}
+        </div>
+    </div>
+
+    <!-- Documents et frais -->
+    <div style="padding:0 1rem 1rem; display:flex; flex-wrap:wrap; gap:0.6rem; align-items:center; font-size:0.82rem;">
+        {% if reco.concours.documents_requis %}
+        <div style="background:var(--orange-light); border:1px solid #FCD9B6; border-radius:7px; padding:0.4rem 0.75rem; color:var(--orange-dark);">
+            <strong>Documents :</strong> {{ reco.concours.documents_requis }}
+        </div>
+        {% endif %}
+        <div style="background:var(--text); color:white; border-radius:7px; padding:0.4rem 0.75rem; font-weight:600;">
+            Frais : {{ reco.concours.frais_inscription }}
+        </div>
+        {% if reco.concours.age_max %}
+        <div style="color:var(--text-muted);">Âge max : {{ reco.concours.age_max }} ans</div>
+        {% endif %}
+    </div>
+
+</div>

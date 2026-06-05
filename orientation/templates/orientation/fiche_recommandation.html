@@ -2,191 +2,187 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fiche de recommandation — AIOA — {{ utilisateur.prenom_util }} {{ utilisateur.nom_util }}</title>
+<title>Fiche d'orientation — {{ utilisateur.prenom_util }} {{ utilisateur.nom_util }}</title>
 <style>
-  @page {
-    size: A4;
-    margin: 1.5cm 1.8cm;
-  }
+  @page { size: A4; margin: 1.4cm 1.6cm; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: #f7fafc;
-    color: #2d3748;
-    font-size: 12px;
+    font-size: 11.5px;
     line-height: 1.5;
-  }
-  .page {
-    max-width: 800px;
-    margin: 0 auto;
+    color: #1A1A1A;
     background: white;
-    padding: 2rem;
   }
+  .page { max-width: 800px; margin: 0 auto; background: white; padding: 1.5rem; }
 
-  /* Header */
+  /* ── En-tête ── */
   .header {
-    background: #1a365d;
-    color: white;
-    border-radius: 10px;
-    padding: 1.4rem 2rem;
-    margin-bottom: 1.4rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    border-bottom: 3px solid #E8640C;
+    padding-bottom: 1rem;
+    margin-bottom: 1.2rem;
   }
-  .header h1 { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.2rem; }
-  .header p  { color: rgba(255,255,255,0.75); font-size: 0.78rem; }
-  .logo { font-size: 1.9rem; font-weight: 900; color: #f6ad55; letter-spacing: -1px; margin-bottom: 0.3rem; }
+  .logo { font-size: 1.7rem; font-weight: 900; color: #E8640C; letter-spacing: -1px; }
+  .logo span { color: #2E7D32; }
+  .header-sub { font-size: 0.72rem; color: #6B7280; margin-top: 0.15rem; }
+  .header-right { text-align: right; }
+  .header-right .nom { font-size: 1rem; font-weight: 700; color: #1A1A1A; }
+  .header-right .meta { font-size: 0.7rem; color: #6B7280; margin-top: 0.2rem; }
 
-  /* Section title */
+  /* ── Titres de section ── */
   .section-title {
-    font-size: 0.82rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    color: #4a5568;
+    color: #6B7280;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 0.35rem;
+    letter-spacing: 0.07em;
+    border-bottom: 1px solid #E5E7EB;
+    padding-bottom: 0.3rem;
     margin: 1.1rem 0 0.7rem;
   }
 
-  /* Profil grid */
-  .profil-grid { display: flex; gap: 0.7rem; margin-bottom: 0.9rem; }
+  /* ── Profil ── */
+  .profil-grid { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
   .profil-card {
-    flex: 1;
-    background: #f7fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 0.6rem;
+    flex: 1; min-width: 90px;
+    background: #F5F6FA;
+    border: 1px solid #E5E7EB;
+    border-radius: 7px;
+    padding: 0.55rem 0.7rem;
     text-align: center;
   }
-  .profil-card .val { font-size: 1.15rem; font-weight: 800; color: #2b6cb0; }
-  .profil-card .lbl { font-size: 0.68rem; color: #718096; margin-top: 0.1rem; }
+  .profil-card .val { font-size: 1.05rem; font-weight: 800; color: #E8640C; }
+  .profil-card .lbl { font-size: 0.65rem; color: #6B7280; margin-top: 0.1rem; }
 
-  /* Reco row */
+  /* ── Notes matières ── */
+  .notes-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .note-pill {
+    background: #F5F6FA;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.72rem;
+  }
+  .note-pill .mat { color: #6B7280; }
+  .note-pill .val { font-weight: 700; color: #1A1A1A; margin-left: 0.3rem; }
+  .note-pill.fort .val { color: #2E7D32; }
+  .note-pill.moyen .val { color: #D97706; }
+  .note-pill.faible .val { color: #DC2626; }
+
+  /* ── Aspirations ── */
+  .aspirations {
+    background: #F5F6FA;
+    border-left: 3px solid #E8640C;
+    border-radius: 0 7px 7px 0;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.78rem;
+    color: #4B5563;
+    font-style: italic;
+  }
+
+  /* ── Lignes filières ── */
   .reco-row {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
-    padding: 0.7rem 0.9rem;
+    gap: 0.65rem;
+    padding: 0.6rem 0.8rem;
     border-radius: 7px;
-    border-left: 4px solid #e2e8f0;
-    margin-bottom: 0.5rem;
-    background: #f7fafc;
+    border-left: 3px solid #E5E7EB;
+    margin-bottom: 0.4rem;
+    background: #F9FAFB;
     page-break-inside: avoid;
   }
+  .reco-row.excellent  { border-left-color: #2E7D32; }
+  .reco-row.bon        { border-left-color: #1D4ED8; }
+  .reco-row.possible   { border-left-color: #D97706; }
+  .reco-row.faible     { border-left-color: #DC2626; }
+
   .reco-rank {
-    width: 26px;
-    height: 26px;
+    width: 22px; height: 22px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 0.8rem;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.72rem;
     flex-shrink: 0;
+    background: #E5E7EB; color: #6B7280;
   }
+  .reco-rank.top1 { background: #F59E0B; color: #1A1A1A; }
+  .reco-rank.top2 { background: #9CA3AF; color: white; }
+  .reco-rank.top3 { background: #B45309; color: white; }
+
   .reco-main { flex: 1; min-width: 0; }
-  .reco-main .name { font-weight: 700; font-size: 0.85rem; color: #1a365d; }
-  .reco-main .meta { font-size: 0.7rem; color: #718096; margin-top: 0.1rem; }
-  .reco-score { font-size: 1.25rem; font-weight: 800; flex-shrink: 0; }
-  .bar-wrap { background: #e2e8f0; border-radius: 999px; height: 3px; margin-top: 0.35rem; }
-  .bar { height: 3px; border-radius: 999px; }
+  .reco-main .name { font-weight: 700; font-size: 0.83rem; color: #1A1A1A; }
+  .reco-main .meta { font-size: 0.67rem; color: #6B7280; margin-top: 0.1rem; }
+  .bar-wrap { background: #E5E7EB; border-radius: 3px; height: 3px; margin-top: 0.3rem; }
+  .bar { height: 3px; border-radius: 3px; }
+  .bar.excellent { background: #2E7D32; }
+  .bar.bon       { background: #1D4ED8; }
+  .bar.possible  { background: #D97706; }
+  .bar.faible    { background: #DC2626; }
 
-  /* Colors */
-  .excellent      { color: #38a169; }
-  .bon            { color: #3182ce; }
-  .possible       { color: #dd6b20; }
-  .faible         { color: #e53e3e; }
-  .bg-excellent   { background: #38a169; }
-  .bg-bon         { background: #3182ce; }
-  .bg-possible    { background: #dd6b20; }
-  .bg-faible      { background: #e53e3e; }
-  .border-excellent { border-left-color: #48bb78; }
-  .border-bon       { border-left-color: #4299e1; }
-  .border-possible  { border-left-color: #ed8936; }
-  .border-faible    { border-left-color: #fc8181; }
+  .reco-score { font-size: 1.1rem; font-weight: 800; flex-shrink: 0; text-align: right; }
+  .reco-score.excellent { color: #2E7D32; }
+  .reco-score.bon       { color: #1D4ED8; }
+  .reco-score.possible  { color: #D97706; }
+  .reco-score.faible    { color: #DC2626; }
+  .reco-level { font-size: 0.63rem; color: #6B7280; }
 
-  /* Concours */
+  /* ── Lignes concours ── */
   .concours-row {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.65rem 0.9rem;
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.55rem 0.8rem;
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
     border-radius: 7px;
-    background: #fffbeb;
-    border: 1px solid #f6e05e;
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.4rem;
     page-break-inside: avoid;
   }
-  .concours-etablissement {
-    font-size: 0.65rem;
-    font-weight: 700;
-    background: #f6ad55;
-    color: #1a1a1a;
-    padding: 0.12rem 0.45rem;
-    border-radius: 999px;
+  .badge-etab {
+    font-size: 0.62rem; font-weight: 700;
+    background: #E8640C; color: white;
+    padding: 0.1rem 0.4rem; border-radius: 4px;
     flex-shrink: 0;
   }
 
-  /* Légende */
+  /* ── Légende ── */
   .legende {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    font-size: 0.72rem;
-    background: #f7fafc;
+    display: flex; gap: 1.2rem; flex-wrap: wrap;
+    font-size: 0.68rem;
+    background: #F5F6FA;
+    border: 1px solid #E5E7EB;
     border-radius: 7px;
-    padding: 0.5rem 0.8rem;
-    border: 1px solid #e2e8f0;
+    padding: 0.45rem 0.75rem;
+    margin-top: 1rem;
   }
 
-  /* Footer */
+  /* ── Pied de page ── */
   .footer {
-    margin-top: 1.5rem;
-    padding-top: 0.8rem;
-    border-top: 2px solid #e2e8f0;
+    margin-top: 1.3rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid #E5E7EB;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #a0aec0;
-    font-size: 0.7rem;
+    color: #9CA3AF;
+    font-size: 0.67rem;
   }
-  .footer strong { color: #f6ad55; }
+  .footer strong { color: #E8640C; }
 
-  /* Bouton impression — masqué en PDF */
-  .print-btn {
-    display: block;
-    margin: 1.4rem auto 0;
-    padding: 0.85rem 2.5rem;
-    background: #2b6cb0;
-    color: white;
-    border: none;
-    border-radius: 999px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    cursor: pointer;
+  /* ── Boutons (masqués en PDF) ── */
+  .btn-bar {
+    text-align: center; margin-top: 1.4rem;
+    display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;
   }
-  .dl-btn {
-    display: block;
-    margin: 0.5rem auto 0;
-    padding: 0.85rem 2.5rem;
-    background: #38a169;
-    color: white;
-    border: none;
-    border-radius: 999px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    cursor: pointer;
+  .btn-imprimer, .btn-pdf {
+    padding: 0.75rem 2rem; border: none; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 700; cursor: pointer;
   }
-  @media print {
-    .print-btn, .dl-btn, .btn-bar { display: none; }
-    body { background: white; }
-    .page { padding: 0; }
-  }
-  {% if is_pdf %}.print-btn, .dl-btn, .btn-bar { display: none; }{% endif %}
+  .btn-imprimer { background: #E5E7EB; color: #1A1A1A; }
+  .btn-pdf      { background: #2E7D32; color: white; }
+
+  @media print { .btn-bar { display: none; } .page { padding: 0; } }
+  {% if is_pdf %} .btn-bar { display: none; } {% endif %}
 </style>
 </head>
 <body>
@@ -195,14 +191,15 @@
   <!-- En-tête -->
   <div class="header">
     <div>
-      <div class="logo">AIOA</div>
-      <h1>Fiche de recommandation d'orientation</h1>
-      <p>Application Intelligente d'Orientation Académique — Côte d'Ivoire</p>
+      <div class="logo">AI<span>OA</span></div>
+      <div class="header-sub">Application Intelligente d'Orientation Académique &mdash; Côte d'Ivoire</div>
     </div>
-    <div style="text-align:right;">
-      <div style="font-size:1.1rem; font-weight:700;">{{ utilisateur.prenom_util }} {{ utilisateur.nom_util }}</div>
-      <div style="color:rgba(255,255,255,0.7); font-size:0.78rem; margin-top:0.3rem;">Générée le {% now "d/m/Y" %}</div>
-      <div style="color:rgba(255,255,255,0.6); font-size:0.72rem;">{{ utilisateur.email_util }}</div>
+    <div class="header-right">
+      <div class="nom">{{ utilisateur.prenom_util }} {{ utilisateur.nom_util }}</div>
+      <div class="meta">
+        Générée le {% now "d/m/Y" %}<br>
+        {{ utilisateur.email_util }}
+      </div>
     </div>
   </div>
 
@@ -222,56 +219,82 @@
       <div class="lbl">Mention</div>
     </div>
     <div class="profil-card">
-      <div class="val">{{ profil.annee_bac }}</div>
-      <div class="lbl">Année BAC</div>
+      <div class="val">{{ profil.annee_bac|default:"—" }}</div>
+      <div class="lbl">Année</div>
     </div>
     {% if profil.etablissement_bac %}
     <div class="profil-card" style="flex:2;">
-      <div class="val" style="font-size:0.85rem;">{{ profil.etablissement_bac }}</div>
+      <div class="val" style="font-size:0.8rem;">{{ profil.etablissement_bac }}</div>
       <div class="lbl">Établissement</div>
     </div>
     {% endif %}
   </div>
 
-  <!-- Top filières recommandées -->
-  <div class="section-title">Top 10 — Filières recommandées</div>
+  <!-- Notes par matière -->
+  {% if notes_bac %}
+  <div class="section-title">Notes par matière</div>
+  <div class="notes-grid">
+    {% for n in notes_bac %}
+    <div class="note-pill {% if n.note_bac >= 14 %}fort{% elif n.note_bac >= 10 %}moyen{% else %}faible{% endif %}">
+      <span class="mat">{{ n.matiere.nom_matiere }}</span>
+      <span class="val">{{ n.note_bac }}/20</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- Aspirations -->
+  {% if profil.aspirations_bac %}
+  <div class="section-title">Aspirations professionnelles</div>
+  <div class="aspirations">{{ profil.aspirations_bac }}</div>
+  {% endif %}
+
+  <!-- Top filières -->
+  <div class="section-title">Top 10 &mdash; Filières recommandées</div>
   {% for reco in recommandations %}
-  {% with score=reco.score_compatibilite|floatformat:0 %}
-  <div class="reco-row {% if reco.niveau_reco == 'Excellente' %}border-excellent{% elif reco.niveau_reco == 'Bonne' %}border-bon{% elif reco.niveau_reco == 'Moyenne' %}border-possible{% else %}border-faible{% endif %}">
-    <div class="reco-rank" style="background:{% if forloop.counter == 1 %}#f6c90e; color:#1a1a1a;{% elif forloop.counter == 2 %}#a0aec0; color:white;{% elif forloop.counter == 3 %}#cd7f32; color:white;{% else %}#e2e8f0; color:#4a5568;{% endif %}">
+  {% with niveau=reco.niveau_reco score=reco.score_compatibilite|floatformat:0 %}
+  <div class="reco-row {% if niveau == 'Excellente' %}excellent{% elif niveau == 'Bonne' %}bon{% elif niveau == 'Moyenne' %}possible{% else %}faible{% endif %}">
+    <div class="reco-rank {% if forloop.counter == 1 %}top1{% elif forloop.counter == 2 %}top2{% elif forloop.counter == 3 %}top3{% endif %}">
       {{ forloop.counter }}
     </div>
     <div class="reco-main">
       <div class="name">{{ reco.filiere.nom_filiere }}</div>
-      <div class="meta">{{ reco.filiere.code_filiere }} &middot; {{ reco.filiere.duree_etudes|default:"N/A" }} &middot; {{ reco.filiere.conditions_acces|default:""|truncatechars:65 }}</div>
+      <div class="meta">
+        {{ reco.filiere.code_filiere }}
+        {% if reco.filiere.duree_etudes %} &middot; {{ reco.filiere.duree_etudes }}{% endif %}
+        {% if reco.filiere.conditions_acces %} &middot; {{ reco.filiere.conditions_acces|truncatechars:55 }}{% endif %}
+      </div>
       <div class="bar-wrap">
-        <div class="bar {% if reco.niveau_reco == 'Excellente' %}bg-excellent{% elif reco.niveau_reco == 'Bonne' %}bg-bon{% elif reco.niveau_reco == 'Moyenne' %}bg-possible{% else %}bg-faible{% endif %}" style="width:{{ score }}%;"></div>
+        <div class="bar {% if niveau == 'Excellente' %}excellent{% elif niveau == 'Bonne' %}bon{% elif niveau == 'Moyenne' %}possible{% else %}faible{% endif %}"
+             style="width:{{ score }}%;"></div>
       </div>
     </div>
-    <div style="text-align:right;">
-      <div class="reco-score {% if reco.niveau_reco == 'Excellente' %}excellent{% elif reco.niveau_reco == 'Bonne' %}bon{% elif reco.niveau_reco == 'Moyenne' %}possible{% else %}faible{% endif %}">{{ score }}%</div>
-      <div style="font-size:0.66rem; color:#718096;">{{ reco.niveau_reco }}</div>
+    <div>
+      <div class="reco-score {% if niveau == 'Excellente' %}excellent{% elif niveau == 'Bonne' %}bon{% elif niveau == 'Moyenne' %}possible{% else %}faible{% endif %}">{{ score }}%</div>
+      <div class="reco-level">{{ niveau }}</div>
     </div>
   </div>
   {% endwith %}
   {% empty %}
-  <p style="color:#718096; padding:1rem; text-align:center; font-style:italic;">Aucune recommandation de filière disponible.</p>
+  <p style="color:#6B7280; padding:0.8rem; text-align:center; font-style:italic;">Aucune recommandation disponible.</p>
   {% endfor %}
 
-  <!-- Top concours recommandés -->
+  <!-- Top concours -->
   {% if recommandations_concours %}
-  <div class="section-title">Top 5 — Concours recommandés</div>
+  <div class="section-title">Top 5 &mdash; Concours recommandés</div>
   {% for reco in recommandations_concours %}
   <div class="concours-row">
-    <div style="font-size:1rem; font-weight:800; color:{% if reco.niveau_chance == 'Excellente' %}#38a169{% elif reco.niveau_chance == 'Bonne' %}#3182ce{% elif reco.niveau_chance == 'Possible' %}#dd6b20{% else %}#e53e3e{% endif %};">
+    <div style="font-size:1rem; font-weight:800; color:{% if reco.niveau_chance == 'Excellente' %}#2E7D32{% elif reco.niveau_chance == 'Bonne' %}#1D4ED8{% elif reco.niveau_chance == 'Possible' %}#D97706{% else %}#DC2626{% endif %};">
       {{ reco.score_admission|floatformat:0 }}%
     </div>
-    <span class="concours-etablissement">{{ reco.concours.etablissement }}</span>
+    <span class="badge-etab">{{ reco.concours.etablissement }}</span>
     <div style="flex:1;">
-      <div style="font-weight:700; font-size:0.83rem;">{{ reco.concours.nom_concours }}</div>
-      <div style="font-size:0.7rem; color:#718096;">{{ reco.concours.ecole }} &middot; {{ reco.concours.duree_formation }}</div>
+      <div style="font-weight:700; font-size:0.82rem;">{{ reco.concours.nom_concours }}</div>
+      <div style="font-size:0.68rem; color:#6B7280;">
+        {{ reco.concours.ecole }}{% if reco.concours.duree_formation %} &middot; {{ reco.concours.duree_formation }}{% endif %}
+      </div>
     </div>
-    <div style="text-align:right; font-size:0.7rem; color:#718096; flex-shrink:0;">
+    <div style="text-align:right; font-size:0.68rem; color:#6B7280; flex-shrink:0;">
       Séries : {{ reco.concours.series_requises }}<br>
       Moy. min. : {{ reco.concours.moyenne_min }}/20
     </div>
@@ -281,57 +304,55 @@
 
   <!-- Légende -->
   <div class="legende">
-    <span style="color:#38a169; font-weight:600;">Excellente &ge; 80%</span>
-    <span style="color:#3182ce; font-weight:600;">Bonne &ge; 60%</span>
-    <span style="color:#dd6b20; font-weight:600;">Moyenne &ge; 40%</span>
-    <span style="color:#e53e3e; font-weight:600;">Faible &lt; 40%</span>
+    <span style="color:#2E7D32; font-weight:600;">Excellente &ge; 80%</span>
+    <span style="color:#1D4ED8; font-weight:600;">Bonne &ge; 60%</span>
+    <span style="color:#D97706; font-weight:600;">Moyenne &ge; 40%</span>
+    <span style="color:#DC2626; font-weight:600;">Faible &lt; 40%</span>
   </div>
 
   <!-- Pied de page -->
   <div class="footer">
-    <div><strong>AIOA</strong> &copy; {% now "Y" %} — Application Intelligente d'Orientation Académique | Côte d'Ivoire</div>
-    <div>Document confidentiel — Usage personnel uniquement</div>
+    <div><strong>AIOA</strong> &copy; {% now "Y" %} &mdash; Application Intelligente d'Orientation Académique | Côte d'Ivoire</div>
+    <div>Document confidentiel &mdash; Usage personnel uniquement</div>
   </div>
 
-  <div class="btn-bar" style="text-align:center; margin-top:1.5rem; display:flex; gap:0.8rem; justify-content:center; flex-wrap:wrap; align-items:center;">
-    <button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
-    <button class="dl-btn" id="btn-pdf" onclick="telechargerPDF()">⬇️ Télécharger en PDF</button>
+  <!-- Boutons (masqués en PDF serveur) -->
+  <div class="btn-bar">
+    <button class="btn-imprimer" onclick="window.print()">Imprimer</button>
+    <button class="btn-pdf" id="btn-pdf" onclick="telechargerPDF()">Télécharger en PDF</button>
   </div>
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
 <script>
 function telechargerPDF() {
-  const btn = document.getElementById('btn-pdf');
+  var btn = document.getElementById('btn-pdf');
+  var bar = document.querySelector('.btn-bar');
   btn.disabled = true;
-  btn.textContent = '⏳ Génération du PDF...';
-
-  const element = document.querySelector('.page');
-  const nom = '{{ utilisateur.prenom_util|default:utilisateur.username }}_{{ utilisateur.nom_util|default:"" }}'.trim();
-  const opt = {
+  btn.textContent = 'Génération en cours...';
+  bar.style.display = 'none';
+  var nom = '{{ utilisateur.prenom_util|default:utilisateur.username }}_{{ utilisateur.nom_util|default:"" }}'.trim();
+  html2pdf().set({
     margin: [10, 14],
     filename: 'fiche_orientation_AIOA_' + nom + '.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true, logging: false },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-  };
-
-  // Masquer les boutons pendant la génération
-  document.querySelector('.btn-bar').style.display = 'none';
-
-  html2pdf().set(opt).from(element).save()
-    .then(() => {
-      document.querySelector('.btn-bar').style.display = 'flex';
+  }).from(document.querySelector('.page')).save()
+    .then(function() {
+      bar.style.display = 'flex';
       btn.disabled = false;
-      btn.textContent = '✅ Téléchargé !';
-      setTimeout(() => { btn.textContent = '⬇️ Télécharger en PDF'; }, 3000);
+      btn.textContent = 'Telechargé !';
+      setTimeout(function() { btn.textContent = 'Télécharger en PDF'; }, 3000);
     })
-    .catch(() => {
-      document.querySelector('.btn-bar').style.display = 'flex';
+    .catch(function() {
+      bar.style.display = 'flex';
       btn.disabled = false;
-      btn.textContent = '❌ Erreur — réessayer';
-      setTimeout(() => { btn.textContent = '⬇️ Télécharger en PDF'; }, 3000);
+      btn.textContent = 'Erreur — réessayer';
+      setTimeout(function() { btn.textContent = 'Télécharger en PDF'; }, 3000);
     });
 }
-</script></body>
+</script>
+</body>
 </html>
