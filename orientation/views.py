@@ -13,8 +13,29 @@ from decimal import Decimal
 from django.http import HttpResponse
 # Ajouter ces imports en haut de views.py
 from .services.mistral_service import analyser_document_mistral
+from .utils.validators import (
+    valider_profil_complet, valider_notes_formulaire, valider_bulletins_formulaire, valider_note
+)
+import logging
+logger = logging.getLogger(__name__)
 import magic
 from django.http import JsonResponse
+from functools import wraps
+
+
+def login_required(view_func):
+    """Décorateur maison : redirige vers /connexion/ si pas de session."""
+    @wraps(view_func)
+    def wrapper(request, *args, **kwargs):
+        if not request.session.get('user_id'):
+            return redirect('connexion')
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+
+def get_utilisateur(request):
+    """Récupère l'utilisateur depuis la session. Lève une exception si introuvable."""
+    return Utilisateur.objects.get(id=request.session['user_id'])
 from django.views.decorators.http import require_POST
 
 
@@ -335,6 +356,7 @@ def deconnexion(request):
     return redirect('accueil')
 
 
+@login_required
 def dashboard(request):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -363,21 +385,36 @@ def dashboard(request):
     })
 
 
+@login_required
 def profil(request):
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return redirect('connexion')
-
+    user_id = request.session['user_id']
     utilisateur = Utilisateur.objects.get(id=user_id)
     toutes_matieres = {m.nom_matiere: m.id for m in Matiere.objects.all()}
 
     if request.method == 'POST':
-        serie         = request.POST.get('serie_bac')
-        mention       = request.POST.get('mention_bac') or None
-        moyenne       = request.POST.get('moyenne_bac')
-        annee         = request.POST.get('annee_bac')
-        etablissement = request.POST.get('etablissement_bac')
-        aspirations   = request.POST.get('aspirations_bac')
+        # ── Validation des champs principaux ────────────────────────────────
+        data_valide, erreurs_profil = valider_profil_complet(request.POST)
+        if erreurs_profil:
+            for e in erreurs_profil:
+                messages.error(request, e)
+            return render(request, 'orientation/profil.html', {
+                'utilisateur': utilisateur,
+                'profil': None,
+                'notes_bac_exist': '{}',
+                'notes_trim_exist': '{}',
+                'bulletins_exist': '{}',
+                'matieres_par_serie':      json.dumps(MATIERES_PAR_SERIE),
+                'matieres_2nde_par_serie': json.dumps(MATIERES_2NDE_PAR_SERIE),
+                'matieres_1ere_par_serie': json.dumps(MATIERES_1ERE_PAR_SERIE),
+                'toutes_matieres': json.dumps(toutes_matieres),
+            })
+
+        serie         = data_valide['serie_bac']
+        mention       = data_valide.get('mention_bac')
+        moyenne       = data_valide['moyenne_bac']
+        annee         = data_valide['annee_bac']
+        etablissement = data_valide.get('etablissement_bac')
+        aspirations   = data_valide.get('aspirations_bac')
 
         profil_bac, _ = ProfilBachelier.objects.update_or_create(
             utilisateur=utilisateur,
@@ -391,11 +428,32 @@ def profil(request):
             }
         )
 
+        # ── VALIDATION CÔTÉ SERVEUR ──────────────────────────────────────────
+        matieres_serie = MATIERES_PAR_SERIE.get(profil_bac.serie_bac, [])
+        notes_form, erreurs_notes = valider_notes_formulaire(request.POST, matieres_serie)
+
+        # Matières extra 2nde/1ère
+        matieres_tle   = set(MATIERES_PAR_SERIE.get(profil_bac.serie_bac, []))
+        matieres_2nde  = set(MATIERES_2NDE_PAR_SERIE.get(profil_bac.serie_bac, []))
+        matieres_1ere_ = set(MATIERES_1ERE_PAR_SERIE.get(profil_bac.serie_bac, []))
+        matieres_extra = (matieres_2nde | matieres_1ere_) - matieres_tle
+        toutes_matieres_form = list(matieres_serie) + list(matieres_extra)
+        bulletins_form, erreurs_bul = valider_bulletins_formulaire(request.POST, toutes_matieres_form)
+
+        if erreurs_notes or erreurs_bul:
+            for e in (erreurs_notes + erreurs_bul):
+                messages.error(request, e)
+            logger.warning(
+                "Validation notes échouée user=%s : %d erreur(s)",
+                utilisateur.id, len(erreurs_notes) + len(erreurs_bul)
+            )
+            return redirect('profil')
+
+        # ── SAUVEGARDE SÉCURISÉE ──────────────────────────────────────────────
         NoteBachelier.objects.filter(profil_bachelier=profil_bac).delete()
         NoteTrimestrielle.objects.filter(profil_bachelier=profil_bac).delete()
         MoyenneBulletin.objects.filter(profil_bachelier=profil_bac).delete()
 
-        matieres_serie = MATIERES_PAR_SERIE.get(serie, [])
         for nom_mat in matieres_serie:
             mat_id = toutes_matieres.get(nom_mat)
             if not mat_id:
@@ -405,73 +463,49 @@ def profil(request):
             except Matiere.DoesNotExist:
                 continue
 
-            t1_val = request.POST.get(f't1_{nom_mat}')
-            t2_val = request.POST.get(f't2_{nom_mat}')
-            t3_val = request.POST.get(f't3_{nom_mat}')
-            bac_val = request.POST.get(f'bac_{nom_mat}')
+            entry = notes_form.get(nom_mat, {})
+            t1v = float(entry['t1']) if entry.get('t1') is not None else None
+            t2v = float(entry['t2']) if entry.get('t2') is not None else None
+            t3v = float(entry['t3']) if entry.get('t3') is not None else None
+            bac_note = float(entry['bac']) if entry.get('bac') is not None else None
 
             notes_valides = {}
-            for trim, val in [('T1', t1_val), ('T2', t2_val), ('T3', t3_val)]:
-                if val and val.strip():
-                    nf = float(val)
+            for trim_key, val in [('T1', t1v), ('T2', t2v), ('T3', t3v)]:
+                if val is not None:
                     NoteTrimestrielle.objects.create(
                         profil_bachelier=profil_bac,
                         matiere=matiere,
-                        trimestre=trim,
-                        note=nf,
+                        trimestre=trim_key,
+                        note=val,
                     )
-                    notes_valides[trim] = nf
+                    notes_valides[trim_key] = val
 
-            note_bac = float(bac_val) if bac_val and bac_val.strip() else None
-
-            t1v = notes_valides.get('T1')
-            t2v = notes_valides.get('T2')
-            t3v = notes_valides.get('T3')
-
-            if t1v is not None or t2v is not None or t3v is not None:
-                numerateur   = (t1v or 0)*1 + (t2v or 0)*2 + (t3v or 0)*2
-                denominateur = (1 if t1v else 0) + (2 if t2v else 0) + (2 if t3v else 0)
-                mga = numerateur / denominateur if denominateur > 0 else 0
-                if note_bac is not None:
-                    note_finale = note_bac * 0.60 + mga * 0.40
-                else:
-                    note_finale = mga
+            if notes_valides:
+                t1 = notes_valides.get('T1')
+                t2 = notes_valides.get('T2')
+                t3 = notes_valides.get('T3')
+                num = (t1 or 0)*1 + (t2 or 0)*2 + (t3 or 0)*2
+                den = (1 if t1 else 0) + (2 if t2 else 0) + (2 if t3 else 0)
+                mga = num / den if den > 0 else 0
+                note_finale = bac_note * 0.60 + mga * 0.40 if bac_note is not None else mga
                 NoteBachelier.objects.create(
                     profil_bachelier=profil_bac,
                     matiere=matiere,
                     note_bac=round(note_finale, 2),
                     coefficient_bac=float(matiere.coeff_default),
                 )
-            elif note_bac is not None:
+            elif bac_note is not None:
                 NoteBachelier.objects.create(
                     profil_bachelier=profil_bac,
                     matiere=matiere,
-                    note_bac=note_bac,
+                    note_bac=bac_note,
                     coefficient_bac=float(matiere.coeff_default),
                 )
 
-            for classe in ['2nde', '1ere']:
-                for trim in ['T1', 'T2', 'T3']:
-                    val_b = request.POST.get(f'bulletin_{classe}_{trim}_{nom_mat}')
-                    if val_b and val_b.strip():
-                        MoyenneBulletin.objects.create(
-                            profil_bachelier=profil_bac,
-                            matiere=matiere,
-                            classe=classe,
-                            trimestre=trim,
-                            moyenne=float(val_b),
-                        )
-
-        # ── Sauvegarder les matières 2nde/1ère qui ne sont pas en Terminale ──
-        # (ex : EPS, Culture Manuelle, Conduite, Arts Plastiques, Musique)
-        matieres_tle = set(MATIERES_PAR_SERIE.get(serie, []))
-        matieres_2nde = set(MATIERES_2NDE_PAR_SERIE.get(serie, []))
-        matieres_1ere = set(MATIERES_1ERE_PAR_SERIE.get(serie, []))
-        matieres_extra = (matieres_2nde | matieres_1ere) - matieres_tle
+        # ── Matières extra (EPS, Culture Manuelle…) ───────────────────────────
         for nom_mat in matieres_extra:
             mat_id = toutes_matieres.get(nom_mat)
             if not mat_id:
-                # Créer la matière si elle n'existe pas encore
                 mat_obj, _ = Matiere.objects.get_or_create(
                     nom_matiere=nom_mat,
                     defaults={'categorie_matiere': 'generale', 'coeff_default': '1.0'}
@@ -481,17 +515,34 @@ def profil(request):
                 matiere = Matiere.objects.get(id=mat_id)
             except Matiere.DoesNotExist:
                 continue
-            for classe in ['2nde', '1ere']:
-                for trim in ['T1', 'T2', 'T3']:
-                    val_b = request.POST.get(f'bulletin_{classe}_{trim}_{nom_mat}')
-                    if val_b and val_b.strip():
-                        MoyenneBulletin.objects.create(
-                            profil_bachelier=profil_bac,
-                            matiere=matiere,
-                            classe=classe,
-                            trimestre=trim,
-                            moyenne=float(val_b),
-                        )
+            for (cls, trm, mat_n), note_val in bulletins_form.items():
+                if mat_n == nom_mat:
+                    MoyenneBulletin.objects.create(
+                        profil_bachelier=profil_bac,
+                        matiere=matiere,
+                        classe=cls,
+                        trimestre=trm,
+                        moyenne=float(note_val),
+                    )
+
+        # ── Bulletins des matières de Terminale ────────────────────────────────
+        for nom_mat in matieres_serie:
+            mat_id = toutes_matieres.get(nom_mat)
+            if not mat_id:
+                continue
+            try:
+                matiere = Matiere.objects.get(id=mat_id)
+            except Matiere.DoesNotExist:
+                continue
+            for (cls, trm, mat_n), note_val in bulletins_form.items():
+                if mat_n == nom_mat:
+                    MoyenneBulletin.objects.create(
+                        profil_bachelier=profil_bac,
+                        matiere=matiere,
+                        classe=cls,
+                        trimestre=trm,
+                        moyenne=float(note_val),
+                    )
 
         return redirect('concours')
 
@@ -527,11 +578,9 @@ def profil(request):
     })
 
 
+@login_required
 def concours(request):
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return redirect('connexion')
-
+    user_id = request.session['user_id']
     utilisateur = Utilisateur.objects.get(id=user_id)
     try:
         profil_bac = ProfilBachelier.objects.get(utilisateur=utilisateur)
@@ -664,11 +713,9 @@ def concours(request):
     })
 
 
+@login_required
 def resultats(request):
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return redirect('connexion')
-
+    user_id = request.session['user_id']
     utilisateur = Utilisateur.objects.get(id=user_id)
     try:
         profil_bac = ProfilBachelier.objects.get(utilisateur=utilisateur)
@@ -790,11 +837,9 @@ def resultats(request):
     })
 
 
+@login_required
 def detail_filiere(request, filiere_id):
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return redirect('connexion')
-
+    user_id = request.session['user_id']
     utilisateur = Utilisateur.objects.get(id=user_id)
     try:
         filiere = FiliereOrientation.objects.get(id=filiere_id)
@@ -951,12 +996,10 @@ def analyser_bulletin(request):
                 )
 
     return JsonResponse(resultat)
+@login_required
 def telecharger_fiche(request):
     """Génère et télécharge la fiche de recommandation en PDF."""
-    user_id = request.session.get('user_id')
-    if not user_id:
-        return redirect('connexion')
-
+    user_id = request.session['user_id']
     utilisateur = Utilisateur.objects.get(id=user_id)
     try:
         profil_bac = ProfilBachelier.objects.get(utilisateur=utilisateur)

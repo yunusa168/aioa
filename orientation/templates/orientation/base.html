@@ -273,21 +273,21 @@
 
     <div class="nav-links" id="navLinks">
         {% if request.session.user_id %}
-            <a href="{% url 'accueil' %}">🏠 Accueil</a>
-            <a href="{% url 'dashboard' %}">📊 Dashboard</a>
-            <a href="{% url 'profil' %}">🎓 Mon Profil</a>
-            <a href="{% url 'resultats' %}">🏆 Résultats</a>
-            <a href="{% url 'concours' %}">🎯 Concours</a>
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+            <a href="{% url 'profil' %}">Mon Profil</a>
+            <a href="{% url 'resultats' %}">Résultats</a>
+            <a href="{% url 'concours' %}">Concours</a>
             <a href="{% url 'deconnexion' %}"
                style="color:#E53E3E;"
                onclick="return confirm('Tu veux vraiment te déconnecter ?')">
-               🚪 Déconnexion
+               Déconnexion
             </a>
         {% else %}
-            <a href="{% url 'accueil' %}">🏠 Accueil</a>
-            <a href="{% url 'connexion' %}">🔐 Connexion</a>
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <a href="{% url 'connexion' %}">Connexion</a>
             <a href="{% url 'inscription' %}" class="btn btn-primary" style="margin-left:0.5rem;">
-                📝 S'inscrire
+                S'inscrire
             </a>
         {% endif %}
     </div>
@@ -309,7 +309,7 @@
 
 <!-- ═══════ FOOTER ═══════ -->
 <footer>
-    <strong>AIOA</strong> © 2025 — Application Intelligente d'Orientation Académique | Côte d'Ivoire 🇨🇮
+    <strong>AIOA</strong> © 2025 — Application Intelligente d'Orientation Académique | Côte d'Ivoire
 </footer>
 
 <script>
