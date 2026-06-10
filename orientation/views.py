@@ -23,6 +23,7 @@ from django.http import JsonResponse
 from functools import wraps
 
 
+
 def login_required(view_func):
     """Décorateur maison : redirige vers /connexion/ si pas de session."""
     @wraps(view_func)
@@ -104,7 +105,7 @@ ASPIRATIONS_KEYWORDS = {
     'ECO-001':  ['économie','finance','banque','économiste','analyste','investissement'],
     'GEST-001': ['gestion','management','manager','entreprise','marketing','rh','commerce','entrepreneur'],
     # UNA
-    'UNA-BIO':      ['biologie','biologiste','sciences naturelles','laboratoire','recherche','SVT'],
+    'UNA-BIO':      ['biologie','biologiste','sciences naturelles','laboratoire','recherche','SVT','SN','sciences de la nature'],
     'UNA-BIOCHIM':  ['biochimie','biochimiste','laboratoire','chimie','analyse','pharmacie'],
     'UNA-BOTANIQUE':['botanique','plantes','agriculture','agronomie','végétaux','nature','CNRA'],
     'UNA-ZOOLOGIE': ['zoologie','animaux','élevage','production animale','vétérinaire'],
@@ -112,7 +113,8 @@ ASPIRATIONS_KEYWORDS = {
     'UNA-MATHINFO-L12': ['informatique','mathématiques','maths','développeur','code','tech','IA','sciences'],
     'UNA-L3-MATHS':     ['mathématiques','maths','calcul','statistiques','analyse','actuariat','enseignant maths'],
     'UNA-L3-GENIE-INFO':['informatique','développeur','réseau','logiciel','IA','data','ingénieur info'],
-    'UNA-L3-MIAGE':     ['MIAGE','gestion informatique','ERP','systèmes information','informatique de gestion'],
+    'UNA-M12-MIAGE':     ['MIAGE','gestion informatique','ERP','systèmes information','informatique de gestion','chef de projet','DSI'],
+    'UNA-M12-GENIE-INFO':['informatique','développeur','ingénieur logiciel','architecture','DevOps','IA','cybersécurité','data','réseau'],
     'UNA-MATHS':    ['mathématiques','maths','calcul','statistiques','analyse','actuariat'],
     'UNA-PHYSIQUE': ['physique','sciences','recherche','ingénieur','technologie'],
     'UNA-CHIMIE':   ['chimie','laboratoire','chimiste','analyse chimique','industrie'],
@@ -126,7 +128,8 @@ ASPIRATIONS_KEYWORDS = {
     'UFHB-MATHINFO-L12':  ['informatique','mathématiques','maths','développeur','code','tech','IA'],
     'UFHB-L3-MATHS':      ['mathématiques','maths','calcul','statistiques','analyse','actuariat'],
     'UFHB-L3-GENIE-INFO': ['informatique','développeur','réseau','logiciel','IA','cybersécurité','data'],
-    'UFHB-MIAGE-L1-M2':   ['MIAGE','gestion informatique','ERP','systèmes information','DSI','informatique gestion'],
+    'UFHB-M12-MIAGE':     ['MIAGE','gestion informatique','ERP','systèmes information','DSI','informatique gestion','chef de projet'],
+    'UFHB-M12-GENIE-INFO':['informatique','développeur','ingénieur logiciel','architecture','DevOps','IA','cybersécurité','data','réseau'],
     'UFHB-PHYSIQUE':['physique','sciences','ingénieur','recherche','technologie'],
     'UFHB-CHIMIE':  ['chimie','laboratoire','chimiste','industrie','analyse'],
     'UFHB-GEO':     ['géologie','mines','minéraux','pétrole','ressources minières','géologue'],
@@ -146,6 +149,8 @@ ASPIRATIONS_KEYWORDS = {
     'UAO-MATHINFO-L12':  ['informatique','mathématiques','maths','développeur','code','tech','IA','sciences'],
     'UAO-L3-MATHS':      ['mathématiques','maths','calcul','statistiques','analyse','actuariat'],
     'UAO-L3-GENIE-INFO': ['informatique','développeur','réseau','logiciel','IA','data','ingénieur info'],
+    'UAO-M12-MIAGE':      ['MIAGE','gestion informatique','ERP','systèmes information','informatique de gestion','chef de projet','DSI'],
+    'UAO-M12-GENIE-INFO': ['informatique','développeur','ingénieur logiciel','architecture','DevOps','IA','cybersécurité','data','réseau'],
     'UAO-BIO':      ['biologie','agronomie','agriculture','CNRA','ANADER','végétaux','nature','recherche'],
     'UAO-CHIMIE':   ['chimie','biochimie','laboratoire','chimiste','analyse chimique','industrie','qualité'],
     'UAO-PSYCHO':   ['psychologie','éducation','conseil','orientation','social','thérapeute','enfants'],
@@ -200,7 +205,8 @@ COMPAT_SERIE = {
     'UNA-MATHINFO-L12':  ['C','D','E','TI'],
     'UNA-L3-MATHS':      ['C','D'],
     'UNA-L3-GENIE-INFO': ['C','D','E','TI'],
-    'UNA-L3-MIAGE':      ['C','D','E','G1','G2','TI'],
+    'UNA-M12-MIAGE':     ['C','D','E','G1','G2','TI'],
+    'UNA-M12-GENIE-INFO':['C','D','E','TI'],
     'UNA-MATHS':    ['C','D','E'],
     'UNA-PHYSIQUE': ['C','D','E'],
     'UNA-CHIMIE':   ['C','D'],
@@ -214,7 +220,8 @@ COMPAT_SERIE = {
     'UFHB-MATHINFO-L12':  ['C','D','E','TI'],
     'UFHB-L3-MATHS':      ['C','D'],
     'UFHB-L3-GENIE-INFO': ['C','D','E','TI'],
-    'UFHB-MIAGE-L1-M2':   ['C','D','G1','G2','TI'],
+    'UFHB-M12-MIAGE':     ['C','D','G1','G2','TI'],
+    'UFHB-M12-GENIE-INFO':['C','D','E','TI'],
     'UFHB-PHYSIQUE':['C','D','E'],
     'UFHB-CHIMIE':  ['C','D'],
     'UFHB-GEO':     ['C','D'],
@@ -234,6 +241,8 @@ COMPAT_SERIE = {
     'UAO-MATHINFO-L12':  ['C','D','E','TI'],
     'UAO-L3-MATHS':      ['C','D'],
     'UAO-L3-GENIE-INFO': ['C','D','E','TI'],
+    'UAO-M12-MIAGE':     ['C','D','G1','G2','TI'],
+    'UAO-M12-GENIE-INFO':['C','D','E','TI'],
     'UAO-BIO':      ['C','D'],
     'UAO-CHIMIE':   ['C','D'],
     'UAO-PSYCHO':   ['A1','A2','C','D'],
@@ -362,6 +371,26 @@ def dashboard(request):
     if not user_id:
         return redirect('connexion')
     utilisateur = Utilisateur.objects.get(id=user_id)
+
+    completion = {
+        'serie':          False,
+        'moyenne':        False,
+        'mention':        False,
+        'notes':          False,
+        'aspirations':    False,
+        'bulletins':      False,
+        'etablissement':  False,
+    }
+    labels = {
+        'serie':         'Série BAC',
+        'moyenne':       'Moyenne BAC',
+        'mention':       'Mention BAC',
+        'notes':         'Notes par matière',
+        'aspirations':   'Aspirations / Métier',
+        'bulletins':     'Bulletins scolaires',
+        'etablissement': 'Établissement',
+    }
+
     try:
         profil_bac = ProfilBachelier.objects.get(utilisateur=utilisateur)
         top3 = Recommandation.objects.filter(
@@ -371,17 +400,45 @@ def dashboard(request):
             profil_bachelier=profil_bac
         ).select_related('matiere').order_by('matiere__nom_matiere')
         notes_count = notes.count()
+        choix_final = Recommandation.objects.filter(
+            utilisateur=utilisateur, choix_final=True
+        ).select_related('filiere').first()
+
+        # ── Calcul complétion ──────────────────────────────────────────────
+        completion['serie']         = bool(profil_bac.serie_bac)
+        completion['moyenne']       = bool(profil_bac.moyenne_bac)
+        completion['mention']       = bool(profil_bac.mention_bac)
+        completion['notes']         = notes_count >= 3
+        completion['aspirations']   = bool(profil_bac.aspirations_bac and len(profil_bac.aspirations_bac) > 5)
+        completion['etablissement'] = bool(profil_bac.etablissement_bac)
+        completion['bulletins']     = MoyenneBulletin.objects.filter(profil_bachelier=profil_bac).exists()
+
     except ProfilBachelier.DoesNotExist:
         profil_bac = None
         top3 = []
         notes = []
         notes_count = 0
+        choix_final = None
+
+    # Score complétion (pourcentage)
+    total_etapes = len(completion)
+    etapes_faites = sum(1 for v in completion.values() if v)
+    score_completion = round(etapes_faites / total_etapes * 100)
+
+    # Liste des étapes manquantes pour le conseil
+    etapes_manquantes = [labels[k] for k, v in completion.items() if not v]
+
     return render(request, 'orientation/dashboard.html', {
         'utilisateur': utilisateur,
         'profil': profil_bac,
         'top3': top3,
         'notes': notes,
         'notes_count': notes_count,
+        'choix_final': choix_final,
+        'completion': completion,
+        'score_completion': score_completion,
+        'etapes_manquantes': etapes_manquantes,
+        'labels_completion': labels,
     })
 
 
@@ -690,9 +747,9 @@ def concours(request):
         recommandations_concours.append(reco)
 
     recommandations_concours.sort(key=lambda r: r.score_admission, reverse=True)
-    inphb  = [r for r in recommandations_concours if r.concours.etablissement == 'INPHB'  and r.score_admission >= 30]
-    esatic = [r for r in recommandations_concours if r.concours.etablissement == 'ESATIC' and r.score_admission >= 30]
-    etat   = [r for r in recommandations_concours if r.concours.etablissement == 'ETAT'   and r.score_admission >= 20]
+    inphb  = [r for r in recommandations_concours if r.concours.etablissement == 'INPHB'  and r.score_admission >= 50]
+    esatic = [r for r in recommandations_concours if r.concours.etablissement == 'ESATIC' and r.score_admission >= 50]
+    etat   = [r for r in recommandations_concours if r.concours.etablissement == 'ETAT'   and r.score_admission >= 50]
 
     # Top 3 : fusion TOUTES listes, triée par score décroissant
     top3_concours = sorted(
@@ -713,6 +770,162 @@ def concours(request):
     })
 
 
+# ─────────────────────────────────────────────────────────────
+# POIDS DYNAMIQUES PAR SÉRIE (amélioration 2)
+# Définit l'importance relative de chaque matière selon la série BAC
+# ─────────────────────────────────────────────────────────────
+POIDS_MATIERES_PAR_SERIE = {
+    'C':  {'Mathématiques': 1.8, 'Physique-Chimie': 1.6, 'SVT': 1.2, 'Français': 0.8, 'Philosophie': 0.7},
+    'D':  {'Mathématiques': 1.6, 'Physique-Chimie': 1.4, 'SVT': 1.6, 'Français': 0.9, 'Philosophie': 0.7},
+    'E':  {'Mathématiques': 1.8, 'Physique-Chimie': 1.5, 'Sciences Industrielles': 1.7, 'Français': 0.7},
+    'A1': {'Français': 1.8, 'Philosophie': 1.5, 'Histoire-Géographie': 1.4, 'Anglais': 1.2, 'Espagnol': 1.0, 'Allemand': 1.0, 'Mathématiques': 0.6},
+    'A2': {'Français': 1.8, 'Philosophie': 1.5, 'Histoire-Géographie': 1.4, 'Anglais': 1.2, 'Mathématiques': 0.6},
+    'G1': {'Comptabilité': 1.8, 'Économie-Gestion': 1.6, 'Mathématiques': 1.2, 'Français': 0.8},
+    'G2': {'Économie-Gestion': 1.7, 'Gestion Commerciale': 1.8, 'Mathématiques': 1.1, 'Français': 0.8},
+    'TI': {'Informatique': 2.0, 'Mathématiques': 1.7, 'Physique': 1.4, 'Français': 0.7},
+    'F1': {'Mathématiques': 1.7, 'Physique': 1.5, 'Dessin Technique': 1.6, 'Construction Mécanique': 1.6, 'Français': 0.7},
+    'F2': {'Mathématiques': 1.6, 'Physique': 1.5, 'Électronique': 1.8, 'Électrotechnique': 1.7, 'Français': 0.7},
+    'F3': {'Mathématiques': 1.6, 'Physique': 1.4, 'Génie Civil': 1.8, 'Dessin Technique': 1.5, 'Français': 0.7},
+    'F4': {'Mathématiques': 1.6, 'Physique': 1.4, 'Topographie': 1.9, 'Français': 0.7},
+}
+
+
+def _calculer_score_progression(profil_bac) -> tuple[float, str]:
+    """
+    Amélioration 1 — Progression 3 ans (2nde → 1ère → Tle).
+    Calcule la tendance de l'élève sur ses bulletins disponibles.
+    Retourne (bonus_progression, explication).
+    Bonus de -5 à +10 selon la tendance.
+    """
+    bulletins = MoyenneBulletin.objects.filter(profil_bachelier=profil_bac)
+    if not bulletins.exists():
+        return 0.0, "Pas de bulletins disponibles"
+
+    # Calculer moyenne par classe
+    moyennes_par_classe = {}
+    for b in bulletins:
+        classe = b.classe  # '2nde' ou '1ere'
+        if classe not in moyennes_par_classe:
+            moyennes_par_classe[classe] = []
+        moyennes_par_classe[classe].append(float(b.moyenne))
+
+    moy_2nde = sum(moyennes_par_classe['2nde']) / len(moyennes_par_classe['2nde']) if '2nde' in moyennes_par_classe else None
+    moy_1ere = sum(moyennes_par_classe['1ere']) / len(moyennes_par_classe['1ere']) if '1ere' in moyennes_par_classe else None
+
+    # Comparaison avec la note BAC (Terminale)
+    notes_tle = list(profil_bac.notes_trimestrielles.values_list('note', flat=True))
+    moy_tle = sum(float(n) for n in notes_tle) / len(notes_tle) if notes_tle else float(profil_bac.moyenne_bac)
+
+    niveaux = [x for x in [moy_2nde, moy_1ere, moy_tle] if x is not None]
+
+    if len(niveaux) < 2:
+        return 0.0, "Données insuffisantes pour calculer la progression"
+
+    # Tendance : comparaison premier vs dernier niveau connu
+    delta = niveaux[-1] - niveaux[0]
+
+    if delta >= 3.0:
+        return 10.0, f"Progression excellente +{delta:.1f} pts sur 3 ans 📈"
+    elif delta >= 1.5:
+        return 6.0, f"Bonne progression +{delta:.1f} pts 📈"
+    elif delta >= 0.5:
+        return 3.0, f"Légère progression +{delta:.1f} pts →"
+    elif delta >= -0.5:
+        return 0.0, f"Niveau stable ({delta:+.1f} pts) →"
+    elif delta >= -1.5:
+        return -2.0, f"Légère baisse {delta:.1f} pts 📉"
+    else:
+        return -5.0, f"Baisse notable {delta:.1f} pts sur 3 ans 📉"
+
+
+def _calculer_score_matieres_pondere(notes: dict, ponderations, serie: str, moyenne: float) -> float:
+    """
+    Amélioration 2 — Poids dynamiques par série.
+    Applique des multiplicateurs selon la série BAC de l'élève.
+    """
+    poids_serie = POIDS_MATIERES_PAR_SERIE.get(serie, {})
+
+    if not ponderations:
+        return moyenne / 20 * 100
+
+    score_mat = 0.0
+    poids_total = 0.0
+
+    for p in ponderations:
+        nom_mat = p.matiere.nom_matiere
+        note = notes.get(p.matiere_id, moyenne)
+        coeff_filiere = float(p.coeff_importance)
+
+        # Multiplicateur dynamique selon la série (défaut 1.0 si matière non listée)
+        multiplicateur_serie = poids_serie.get(nom_mat, 1.0)
+        coeff_effectif = coeff_filiere * multiplicateur_serie
+
+        score_mat   += note * coeff_effectif
+        poids_total += coeff_effectif * 20
+
+    return (score_mat / poids_total * 100) if poids_total > 0 else (moyenne / 20 * 100)
+
+
+def _calculer_score_aspiration_ameliore(aspirations_text: str, code_filiere: str) -> float:
+    """
+    Score aspiration amélioré — correspondance exacte + partielle.
+    Règles de plancher :
+      - Pas d'aspiration renseignée        → 50% (neutre, on ne pénalise pas)
+      - Aspiration renseignée, 0 match     → 20% (signal faible mais pas 0)
+      - Aspiration renseignée, matches     → score calculé entre 20% et 100%
+    """
+    keywords = ASPIRATIONS_KEYWORDS.get(code_filiere, [])
+
+    # Pas de keywords définis pour cette filière → neutre
+    if not keywords:
+        return 50.0
+
+    # Pas d'aspiration renseignée → neutre (pas de pénalité)
+    if not aspirations_text or not aspirations_text.strip():
+        return 50.0
+
+    score = 0.0
+    aspir_lower = aspirations_text.lower()
+
+    for kw in keywords:
+        kw_lower = kw.lower()
+        # Correspondance exacte — poids fort
+        if kw_lower in aspir_lower:
+            score += 1.0
+        else:
+            # Correspondance partielle — mot de l'aspiration inclus dans le keyword
+            mots_aspiration = aspir_lower.split()
+            for mot in mots_aspiration:
+                if len(mot) >= 4 and (mot in kw_lower or kw_lower.startswith(mot)):
+                    score += 0.4
+                    break
+
+    score_calcule = score / len(keywords) * 100
+
+    # Plancher à 20% : si l'élève a renseigné une aspiration mais zéro correspondance,
+    # on ne retourne pas 0% car ça fausse le score global de manière injuste
+    return round(max(score_calcule, 20.0), 2)
+
+
+def _bonus_mention(mention: str) -> float:
+    """
+    Amélioration 4 — Bonus mention BAC.
+    Mention Bien/Très Bien/Excellent = coup de pouce sur le score final.
+    """
+    if not mention:
+        return 0.0
+    mention_lower = mention.lower()
+    if 'excellent' in mention_lower:
+        return 8.0
+    elif 'très bien' in mention_lower or 'tres bien' in mention_lower:
+        return 6.0
+    elif 'bien' in mention_lower:
+        return 4.0
+    elif 'assez bien' in mention_lower:
+        return 2.0
+    return 0.0
+
+
 @login_required
 def resultats(request):
     user_id = request.session['user_id']
@@ -724,9 +937,10 @@ def resultats(request):
 
     notes = {
         n.matiere_id: float(n.note_bac)
-        for n in profil_bac.notes.all() if n.note_bac
+        for n in profil_bac.notes.select_related('matiere').all() if n.note_bac
     }
-    # Uniquement les filières précises avec université — on exclut les génériques (MED-001, INFO-001, etc.)
+
+    # Uniquement les filières précises avec université — on exclut les génériques
     CODES_UNIVERSITE = ('UNA-', 'UFHB-', 'UAO-')
     from django.db.models import Q
     filtre_univ = Q()
@@ -734,28 +948,32 @@ def resultats(request):
         filtre_univ |= Q(code_filiere__startswith=prefix)
     filieres = FiliereOrientation.objects.filter(actif_filiere=True).filter(filtre_univ)
     Recommandation.objects.filter(utilisateur=utilisateur).delete()
+
+    serie          = profil_bac.serie_bac
+    moyenne        = float(profil_bac.moyenne_bac)
+    mention        = profil_bac.mention_bac or ''
     aspirations_text = (profil_bac.aspirations_bac or '').lower()
 
+    # ── Amélioration 1 : calcul progression une seule fois ──────────────
+    bonus_progression, explication_progression = _calculer_score_progression(profil_bac)
+
+    # ── Amélioration 4 : bonus mention BAC calculé une seule fois ───────
+    bonus_mention_val = _bonus_mention(mention)
+
     recommandations = []
+
     for filiere in filieres:
-        ponderations = PonderationMatiere.objects.filter(filiere=filiere)
-        serie   = profil_bac.serie_bac
-        moyenne = float(profil_bac.moyenne_bac)
+        ponderations = list(
+            PonderationMatiere.objects.filter(filiere=filiere).select_related('matiere')
+        )
 
-        if ponderations.exists():
-            score_mat = 0
-            poids_total = 0
-            for p in ponderations:
-                note = notes.get(p.matiere_id, moyenne)
-                score_mat   += note * float(p.coeff_importance)
-                poids_total += float(p.coeff_importance) * 20
-            score_matieres = (score_mat / poids_total * 100) if poids_total > 0 else (moyenne / 20 * 100)
-        else:
-            score_matieres = moyenne / 20 * 100
+        # ── COMPOSANTE 1 — Score matières pondérées dynamiquement (45%) ──
+        score_matieres = _calculer_score_matieres_pondere(notes, ponderations, serie, moyenne)
 
+        # ── COMPOSANTE 2 — Moyenne générale BAC (10%) ────────────────────
         score_moyenne = moyenne / 20 * 100
 
-        # COMPOSANTE 3 — Compatibilité série BAC (25%)
+        # ── COMPOSANTE 3 — Compatibilité série BAC (25%) ─────────────────
         series_compat = COMPAT_SERIE.get(filiere.code_filiere, [])
 
         if serie in series_compat:
@@ -764,18 +982,17 @@ def resultats(request):
             score_serie = 60
         else:
             serie_famille = (
-                'litteraire' if serie in SERIES_LITTERAIRES else
+                'litteraire'  if serie in SERIES_LITTERAIRES  else
                 'scientifique' if serie in SERIES_SCIENTIFIQUES else
-                'commerciale' if serie in SERIES_COMMERCIALES else
+                'commerciale' if serie in SERIES_COMMERCIALES  else
                 'tech'
             )
             compat_famille = (
-                'litteraire' if any(s in SERIES_LITTERAIRES for s in series_compat) else
+                'litteraire'  if any(s in SERIES_LITTERAIRES  for s in series_compat) else
                 'scientifique' if any(s in SERIES_SCIENTIFIQUES for s in series_compat) else
-                'commerciale' if any(s in SERIES_COMMERCIALES for s in series_compat) else
+                'commerciale' if any(s in SERIES_COMMERCIALES  for s in series_compat) else
                 'mixte'
             )
-
             if serie_famille == 'litteraire' and compat_famille == 'scientifique':
                 score_serie = 5
             elif serie_famille == 'scientifique' and compat_famille == 'litteraire':
@@ -785,20 +1002,20 @@ def resultats(request):
             else:
                 score_serie = 20
 
-        keywords = ASPIRATIONS_KEYWORDS.get(filiere.code_filiere, [])
-        if aspirations_text and keywords:
-            matches = sum(1 for kw in keywords if kw in aspirations_text)
-            score_aspiration = min(matches / len(keywords) * 100, 100)
-        else:
-            score_aspiration = 50
+        # ── COMPOSANTE 4 — Score aspiration amélioré (15%) ───────────────
+        score_aspiration = _calculer_score_aspiration_ameliore(aspirations_text, filiere.code_filiere)
 
-        score_final = (
-            score_matieres   * 0.50 +
+        # ── SCORE FINAL pondéré ───────────────────────────────────────────
+        score_base = (
+            score_matieres   * 0.45 +
             score_moyenne    * 0.10 +
             score_serie      * 0.25 +
-            score_aspiration * 0.15
+            score_aspiration * 0.15 +
+            bonus_progression * 0.05   # 5% dédié à la progression
         )
-        score_final = round(min(score_final, 100), 2)
+
+        # Bonus mention ajouté directement (hors pondération, plafonné)
+        score_final = round(min(score_base + bonus_mention_val, 100), 2)
 
         if score_final >= 80:
             niveau = 'Excellente'
@@ -810,12 +1027,16 @@ def resultats(request):
             niveau = 'Faible'
 
         details = {
-            'serie_bac': serie,
-            'moyenne_bac': str(profil_bac.moyenne_bac),
-            'score_matieres': round(score_matieres, 2),
-            'score_moyenne': round(score_moyenne, 2),
-            'score_serie': score_serie,
-            'score_aspiration': round(score_aspiration, 2),
+            'serie_bac':             serie,
+            'moyenne_bac':           str(profil_bac.moyenne_bac),
+            'mention_bac':           mention,
+            'score_matieres':        round(score_matieres, 2),
+            'score_moyenne':         round(score_moyenne, 2),
+            'score_serie':           score_serie,
+            'score_aspiration':      round(score_aspiration, 2),
+            'bonus_progression':     round(bonus_progression, 2),
+            'progression_detail':    explication_progression,
+            'bonus_mention':         round(bonus_mention_val, 2),
         }
 
         reco = Recommandation.objects.create(
@@ -830,10 +1051,13 @@ def resultats(request):
     recommandations.sort(key=lambda r: r.score_compatibilite, reverse=True)
     recommandations = [r for r in recommandations if r.score_compatibilite >= 50]
 
+    has_choix_final = any(r.choix_final for r in recommandations)
+
     return render(request, 'orientation/resultats.html', {
         'utilisateur': utilisateur,
         'profil': profil_bac,
         'recommandations': recommandations,
+        'has_choix_final': has_choix_final,
     })
 
 
@@ -1050,5 +1274,87 @@ def telecharger_fiche(request):
         import logging
         logging.getLogger(__name__).error(f"WeasyPrint PDF error: {e}")
         # Retourne HTML pour que le JS côté client prenne le relais
+        response = HttpResponse(html_string, content_type='text/html; charset=utf-8')
+        return response
+
+@login_required
+def choisir_filiere(request, reco_id):
+    """
+    POST — L'utilisateur choisit une filière comme son choix final.
+    Marque la recommandation comme choisie et redirige vers le PDF.
+    """
+    user_id = request.session['user_id']
+    utilisateur = Utilisateur.objects.get(id=user_id)
+
+    try:
+        reco = Recommandation.objects.get(id=reco_id, utilisateur=utilisateur)
+    except Recommandation.DoesNotExist:
+        messages.error(request, "Recommandation introuvable.")
+        return redirect('resultats')
+
+    # Annuler tout choix précédent
+    Recommandation.objects.filter(utilisateur=utilisateur).update(choix_final=False)
+
+    # Marquer le nouveau choix
+    reco.choix_final = True
+    reco.save()
+
+    messages.success(
+        request,
+        f"✅ Ton choix a été enregistré : {reco.filiere.nom_filiere}. "
+        f"Tu peux maintenant télécharger ta fiche de choix final."
+    )
+    return redirect('resultats')
+
+
+@login_required
+def telecharger_choix_final(request):
+    """Génère et télécharge le PDF du choix final de l'utilisateur."""
+    user_id = request.session['user_id']
+    utilisateur = Utilisateur.objects.get(id=user_id)
+
+    try:
+        profil_bac = ProfilBachelier.objects.get(utilisateur=utilisateur)
+    except ProfilBachelier.DoesNotExist:
+        return redirect('profil')
+
+    # Récupérer le choix final
+    try:
+        choix = Recommandation.objects.select_related('filiere').get(
+            utilisateur=utilisateur, choix_final=True
+        )
+    except Recommandation.DoesNotExist:
+        messages.error(request, "Aucun choix final enregistré. Sélectionne d'abord une filière.")
+        return redirect('resultats')
+
+    notes_bac = list(
+        profil_bac.notes.select_related('matiere')
+        .filter(note_bac__isnull=False)
+        .order_by('-note_bac')
+    )
+
+    from django.template.loader import render_to_string
+    from django.utils import timezone as tz
+    html_string = render_to_string('orientation/fiche_choix_final.html', {
+        'utilisateur': utilisateur,
+        'profil': profil_bac,
+        'choix': choix,
+        'notes_bac': notes_bac,
+        'date_impression': tz.localtime(tz.now()),
+        'is_pdf': True,
+    }, request=request)
+
+    try:
+        from weasyprint import HTML as WeasyHTML
+        pdf_bytes = WeasyHTML(
+            string=html_string,
+            base_url=request.build_absolute_uri('/')
+        ).write_pdf()
+        response = HttpResponse(pdf_bytes, content_type='application/pdf')
+        nom_fichier = f"choix_final_AIOA_{utilisateur.username}.pdf"
+        response['Content-Disposition'] = f'attachment; filename="{nom_fichier}"' 
+        return response
+    except Exception as e:
+        logger.error(f"WeasyPrint choix final error: {e}")
         response = HttpResponse(html_string, content_type='text/html; charset=utf-8')
         return response

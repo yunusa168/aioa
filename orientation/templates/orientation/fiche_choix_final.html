@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Choix Final d'Orientation — AIOA</title>
+<style>
+  @page { size: A4; margin: 2cm 2.2cm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11pt; color: #1a1a2e; background: white; }
+
+  /* En-tête */
+  .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 14px; border-bottom: 3px solid #E85D04; margin-bottom: 20px; }
+  .logo-zone h1 { font-size: 22pt; font-weight: 900; color: #E85D04; letter-spacing: -0.5px; }
+  .logo-zone .tagline { font-size: 8pt; color: #666; margin-top: 2px; }
+  .date-zone { text-align: right; font-size: 8pt; color: #888; }
+  .date-zone strong { display: block; font-size: 9pt; color: #444; }
+
+  /* Bandeau identité */
+  .identite { background: #F8F9FA; border: 1px solid #E5E7EB; border-radius: 8px; padding: 14px 18px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .identite .nom { font-size: 14pt; font-weight: 800; color: #1a1a2e; }
+  .identite .info { font-size: 9pt; color: #555; margin-top: 4px; }
+  .badge-mention { background: #FEF3C7; color: #92400E; font-size: 8pt; font-weight: 700; padding: 4px 10px; border-radius: 20px; border: 1px solid #FDE68A; }
+
+  /* Titre section */
+  .section-title { font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 8px; }
+
+  /* Carte choix principal */
+  .choix-card { border: 2px solid #E85D04; border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+  .choix-header { background: #E85D04; color: white; padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .choix-header .label { font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.9; }
+  .choix-header .nom-filiere { font-size: 14pt; font-weight: 800; margin-top: 2px; }
+  .choix-score { text-align: right; }
+  .choix-score .pct { font-size: 28pt; font-weight: 900; line-height: 1; }
+  .choix-score .niveau { font-size: 8pt; opacity: 0.9; margin-top: 2px; }
+  .choix-body { padding: 16px 18px; }
+  .choix-meta { display: flex; gap: 20px; font-size: 9pt; color: #555; margin-bottom: 14px; flex-wrap: wrap; }
+  .choix-meta span strong { color: #1a1a2e; }
+
+  /* Grille scores */
+  .scores-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+  .score-cell { background: #F8F9FA; border: 1px solid #E5E7EB; border-radius: 7px; padding: 8px 10px; }
+  .score-cell .label { font-size: 7pt; color: #888; margin-bottom: 3px; }
+  .score-cell .val { font-size: 13pt; font-weight: 800; color: #1a1a2e; }
+  .score-bar { height: 3px; background: #E5E7EB; border-radius: 2px; margin-top: 4px; }
+  .score-bar-fill { height: 3px; border-radius: 2px; }
+
+  /* Bonus */
+  .bonus-row { display: flex; gap: 8px; }
+  .bonus-cell { flex: 1; border-radius: 7px; padding: 8px 10px; font-size: 8pt; }
+  .bonus-cell .val { font-size: 12pt; font-weight: 800; }
+
+  /* Débouchés */
+  .debouches { background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 8px; padding: 10px 14px; font-size: 9pt; color: #166534; margin-top: 12px; }
+  .debouches strong { display: block; font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #15803D; margin-bottom: 4px; }
+
+  /* Notes BAC */
+  .notes-table { width: 100%; border-collapse: collapse; font-size: 9pt; margin-top: 8px; }
+  .notes-table th { background: #F3F4F6; padding: 6px 10px; text-align: left; font-weight: 700; font-size: 7.5pt; text-transform: uppercase; color: #555; }
+  .notes-table td { padding: 5px 10px; border-bottom: 1px solid #F3F4F6; }
+  .notes-table tr:last-child td { border-bottom: none; }
+  .note-bon { color: #16A34A; font-weight: 700; }
+  .note-moyen { color: #D97706; font-weight: 700; }
+  .note-faible { color: #DC2626; font-weight: 700; }
+
+  /* Footer */
+  .footer { margin-top: 24px; padding-top: 10px; border-top: 1px solid #E5E7EB; display: flex; justify-content: space-between; font-size: 7.5pt; color: #aaa; }
+  .footer .aioa { color: #E85D04; font-weight: 700; }
+
+  /* Signature */
+  .signature-zone { margin-top: 28px; display: flex; justify-content: flex-end; }
+  .signature-box { border: 1px solid #E5E7EB; border-radius: 8px; padding: 14px 24px; text-align: center; width: 200px; }
+  .signature-box .label { font-size: 7.5pt; color: #888; margin-bottom: 30px; }
+  .signature-box .nom { font-size: 8.5pt; font-weight: 700; color: #1a1a2e; border-top: 1px solid #CCC; padding-top: 6px; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<!-- EN-TÊTE -->
+<div class="header">
+  <div class="logo-zone">
+    <h1>AIOA</h1>
+    <div class="tagline">Aide à l'Orientation des Bacheliers — Côte d'Ivoire</div>
+  </div>
+  <div class="date-zone">
+    <strong>Fiche de Choix Final</strong>
+    Imprimée le {{ date_impression|date:"d/m/Y à H\hi" }}
+  </div>
+</div>
+
+<!-- IDENTITÉ -->
+<div class="identite">
+  <div>
+    <div class="nom">{{ utilisateur.prenom_util|upper }} {{ utilisateur.nom_util|upper }}</div>
+    <div class="info">
+      BAC série {{ profil.serie_bac }}
+      {% if profil.annee_bac %} · Année {{ profil.annee_bac }}{% endif %}
+      {% if profil.etablissement_bac %} · {{ profil.etablissement_bac }}{% endif %}
+      · Moyenne : <strong>{{ profil.moyenne_bac }}/20</strong>
+    </div>
+  </div>
+  {% if profil.mention_bac %}
+  <div class="badge-mention">Mention {{ profil.mention_bac }}</div>
+  {% endif %}
+</div>
+
+<!-- CHOIX FINAL -->
+<div class="section-title">Mon Choix Final d'Orientation</div>
+
+<div class="choix-card">
+  <div class="choix-header">
+    <div>
+      <div class="label">✓ Filière choisie</div>
+      <div class="nom-filiere">{{ choix.filiere.nom_filiere }}</div>
+    </div>
+    <div class="choix-score">
+      <div class="pct">{{ choix.score_compatibilite }}%</div>
+      <div class="niveau">Compatibilité {{ choix.niveau_reco }}</div>
+    </div>
+  </div>
+
+  <div class="choix-body">
+    <!-- Métadonnées filière -->
+    <div class="choix-meta">
+      <span><strong>Code :</strong> {{ choix.filiere.code_filiere }}</span>
+      {% if choix.filiere.duree_etudes %}<span><strong>Durée :</strong> {{ choix.filiere.duree_etudes }}</span>{% endif %}
+      {% if choix.filiere.conditions_acces %}<span><strong>Conditions :</strong> {{ choix.filiere.conditions_acces }}</span>{% endif %}
+    </div>
+
+    <!-- Détail du score -->
+    {% if choix.details_analyse %}
+    <div class="section-title">Détail de la compatibilité</div>
+    <div class="scores-grid">
+      <div class="score-cell">
+        <div class="label">Matières clés</div>
+        <div class="val">{{ choix.details_analyse.score_matieres }}%</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:{{ choix.details_analyse.score_matieres }}%; background:#E85D04;"></div></div>
+      </div>
+      <div class="score-cell">
+        <div class="label">Moyenne générale</div>
+        <div class="val">{{ choix.details_analyse.score_moyenne }}%</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:{{ choix.details_analyse.score_moyenne }}%; background:#3B82F6;"></div></div>
+      </div>
+      <div class="score-cell">
+        <div class="label">Série BAC</div>
+        <div class="val">{{ choix.details_analyse.score_serie }}%</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:{{ choix.details_analyse.score_serie }}%; background:#8B5CF6;"></div></div>
+      </div>
+      <div class="score-cell">
+        <div class="label">Aspirations</div>
+        <div class="val">{{ choix.details_analyse.score_aspiration }}%</div>
+        <div class="score-bar"><div class="score-bar-fill" style="width:{{ choix.details_analyse.score_aspiration }}%; background:#10B981;"></div></div>
+      </div>
+    </div>
+
+    <!-- Bonus -->
+    {% if choix.details_analyse.bonus_progression or choix.details_analyse.bonus_mention %}
+    <div class="bonus-row">
+      {% if choix.details_analyse.bonus_progression %}
+      <div class="bonus-cell" style="background:{% if choix.details_analyse.bonus_progression > 0 %}#F0FDF4; border:1px solid #BBF7D0;{% else %}#FFF5F5; border:1px solid #FCA5A5;{% endif %}">
+        <div class="label" style="color:#888; font-size:7.5pt;">Progression scolaire</div>
+        <div class="val" style="color:{% if choix.details_analyse.bonus_progression > 0 %}#16A34A{% else %}#DC2626{% endif %};">
+          {% if choix.details_analyse.bonus_progression > 0 %}+{% endif %}{{ choix.details_analyse.bonus_progression }} pts
+        </div>
+        {% if choix.details_analyse.progression_detail %}
+        <div style="font-size:7pt; color:#666; margin-top:2px;">{{ choix.details_analyse.progression_detail }}</div>
+        {% endif %}
+      </div>
+      {% endif %}
+      {% if choix.details_analyse.bonus_mention %}
+      <div class="bonus-cell" style="background:#FEFCE8; border:1px solid #FDE68A;">
+        <div class="label" style="color:#888; font-size:7.5pt;">Bonus mention BAC</div>
+        <div class="val" style="color:#D97706;">+{{ choix.details_analyse.bonus_mention }} pts</div>
+        <div style="font-size:7pt; color:#92400E; margin-top:2px;">Mention {{ profil.mention_bac }}</div>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% endif %}
+
+    <!-- Débouchés -->
+    {% if choix.filiere.debouches %}
+    <div class="debouches">
+      <strong>Débouchés professionnels</strong>
+      {{ choix.filiere.debouches }}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- NOTES BAC -->
+{% if notes_bac %}
+<div class="section-title">Notes obtenues au BAC</div>
+<table class="notes-table">
+  <thead>
+    <tr>
+      <th>Matière</th>
+      <th>Note /20</th>
+      <th>Appréciation</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for n in notes_bac %}
+    <tr>
+      <td>{{ n.matiere.nom_matiere }}</td>
+      <td class="{% if n.note_bac >= 14 %}note-bon{% elif n.note_bac >= 10 %}note-moyen{% else %}note-faible{% endif %}">
+        {{ n.note_bac }}/20
+      </td>
+      <td style="color:#888;">
+        {% if n.note_bac >= 16 %}Très bien{% elif n.note_bac >= 14 %}Bien{% elif n.note_bac >= 12 %}Assez bien{% elif n.note_bac >= 10 %}Passable{% else %}Insuffisant{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<!-- SIGNATURE -->
+<div class="signature-zone">
+  <div class="signature-box">
+    <div class="label">Signature de l'étudiant(e)</div>
+    <div class="nom">{{ utilisateur.prenom_util }} {{ utilisateur.nom_util }}</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span><span class="aioa">AIOA</span> — Système d'Aide à l'Orientation · Côte d'Ivoire</span>
+  <span>Document généré automatiquement — Non officiel</span>
+</div>
+
+</body>
+</html>

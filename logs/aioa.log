@@ -1,0 +1,280 @@
+[INFO] 2026-06-05 14:35:21,559 mistral_service — Pixtral image (bulletin_2nde_T1): ```json
+{
+  "type": "bulletin",
+  "trimestre": "bulletin_2nde_T1",
+  "classe": "2nde C",
+  "etablissement": "COURS SECONDAIRE BONNE NOUVELLE",
+  "etudiant": {
+    "nom": "TOURE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Composition Français", "moyenne": 13.88},
+    {"matiere": "
+[INFO] 2026-06-05 14:35:21,560 mistral_service — Parser OK — 10 notes extraites pour bulletin_2nde_T1
+[INFO] 2026-06-05 14:35:29,721 mistral_service — Pixtral image (bulletin_2nde_T2): ```json
+{
+  "type": "bulletin",
+  "trimestre": "bulletin_2nde_T2",
+  "classe": "2nde C",
+  "etablissement": "COURS SECONDAIRE BONNE NOUVELLE, Koumassi",
+  "etudiant": {
+    "nom": "TOURE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Composition Français", "moyenne": 13.88},
+    {"m
+[INFO] 2026-06-05 14:35:29,723 mistral_service — Parser OK — 10 notes extraites pour bulletin_2nde_T2
+[INFO] 2026-06-05 14:35:41,085 mistral_service — Pixtral image (bulletin_2nde_T3): ```json
+{
+  "type": "bulletin",
+  "trimestre": "bulletin_2nde_T3",
+  "classe": "2nde C",
+  "etablissement": "COURS SECONDAIRE BONNE NOUVELLE",
+  "etudiant": {
+    "nom": "TOURE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Composition Français", "moyenne": 14.12},
+    {"matiere": "
+[INFO] 2026-06-05 14:35:41,087 mistral_service — Parser OK — 10 notes extraites pour bulletin_2nde_T3
+[INFO] 2026-06-05 14:36:16,814 mistral_service — Pixtral image (bulletin_1ere_T1): ```json
+{
+  "type": "bulletin",
+  "trimestre": "Premier Trimestre",
+  "classe": "1ERE D1",
+  "etablissement": "LYCÉE MAMIE ADJOUA YAMOUSSOUKRO",
+  "etudiant": {
+    "nom": "TOURE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Français", "moyenne": 10.50},
+    {"matiere": "Anglais", 
+[INFO] 2026-06-05 14:36:16,817 mistral_service — Parser OK — 15 notes extraites pour bulletin_1ere_T1
+[INFO] 2026-06-05 14:36:29,264 mistral_service — Pixtral image (bulletin_1ere_T2): ```json
+{
+  "type": "bulletin",
+  "trimestre": "Deuxième Trimestre",
+  "classe": "1ERE D1",
+  "etablissement": {
+    "nom": "LYCEE MAMIE ADJOUA YAMOUSSOURRO",
+    "code": "000849",
+    "statut": "Public"
+  },
+  "etudiant": {
+    "nom": "TOURE",
+    "prenoms": "MOUSSA",
+    "matricule": "17293847C",
+
+[INFO] 2026-06-05 14:36:29,265 mistral_service — Parser OK — 15 notes extraites pour bulletin_1ere_T2
+[INFO] 2026-06-05 14:36:32,189 mistral_service — Pixtral image (bulletin_1ere_T3): ```json
+{
+  "type": "bulletin",
+  "trimestre": "Troisième Trimestre",
+  "classe": "1ERE D1",
+  "etablissement": {
+    "nom": "LYCÉE MAMIE ADJOUA YAMOUSSOUKRO",
+    "code": "000849",
+    "statut": "Public"
+  },
+  "etudiant": {
+    "nom": "TOURE",
+    "prenoms": "MOUSSA"
+  },
+  "moyenne_generale": 12.
+[INFO] 2026-06-05 14:36:32,190 mistral_service — Parser OK — 15 notes extraites pour bulletin_1ere_T3
+[INFO] 2026-06-05 14:37:17,307 mistral_service — Pixtral image (T1): ```json
+{
+  "type": "bulletin",
+  "trimestre": "1er Trimestre",
+  "classe": "TD1",
+  "etablissement": "Collège Les Phalènes 1",
+  "etudiant": {
+    "nom": "MOUSSA",
+    "prenoms": "TOURE"
+  },
+  "moyenne_generale": 12.14,
+  "avertissement": "La classe indiquée sur le document est TD1 (Terminale D1),
+[INFO] 2026-06-05 14:37:17,309 mistral_service — Parser OK — 10 notes extraites pour T1
+[INFO] 2026-06-05 14:37:24,616 mistral_service — Pixtral image (T2): ```json
+{
+  "type": "bulletin",
+  "trimestre": "2eme",
+  "classe": "TD4",
+  "etablissement": "Collège Les Phalènes 1",
+  "etudiant": {
+    "nom": "TOURE",
+    "prenoms": "MOUSSA"
+  },
+  "moyenne_generale": 11.97,
+  "avertissement": "La classe indiquée sur le document est TD4 (Terminale D4), ce qui c
+[INFO] 2026-06-05 14:37:24,617 mistral_service — Parser OK — 9 notes extraites pour T2
+[INFO] 2026-06-05 14:37:36,187 mistral_service — Pixtral image (T3): ```json
+{
+  "type": "bulletin",
+  "trimestre": "3ème Trimestre",
+  "classe": "TD5",
+  "etablissement": "Collège Les Phalènes 1",
+  "etudiant": {
+    "nom": "MOUSSA",
+    "prenoms": "TOURE"
+  },
+  "avertissement": "La classe indiquée sur le document est TD5 (Terminale D5), ce qui correspond à une cla
+[INFO] 2026-06-05 14:37:36,188 mistral_service — Parser OK — 10 notes extraites pour T3
+[INFO] 2026-06-05 14:38:00,555 mistral_service — Pixtral image (bac): ```json
+{
+  "type": "bac",
+  "etudiant": {
+    "nom": "MOUSSA TOURE",
+    "prenoms": null,
+    "serie": "D",
+    "etablissement": "LYCÉE TECHNIQUE DE COCODY",
+    "annee": 2020
+  },
+  "matieres": [
+    {"matiere": "Mathématiques", "note_obtenue": 46, "coefficient": 4},
+    {"matiere": "Sciences de l
+[INFO] 2026-06-05 14:38:00,557 mistral_service — Parser OK — 8 notes extraites pour bac
+[ERROR] 2026-06-05 14:48:04,222 views — WeasyPrint PDF error: cannot load library 'libgobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'libgobject-2.0-0'
+[ERROR] 2026-06-05 14:48:24,406 views — WeasyPrint PDF error: cannot load library 'libgobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'libgobject-2.0-0'
+[INFO] 2026-06-07 01:39:37,262 mistral_service — Pixtral image (bulletin_2nde_T1): ```json
+{
+  "type": "bulletin",
+  "trimestre": "TROISIEME_TRIMESTRE",
+  "classe": "2nde C",
+  "etablissement": "COURS SECONDAIRE BONNE NOUVELLE",
+  "etudiant": {
+    "nom": "KONE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Composition Français", "moyenne": 14.5},
+    {"matiere": 
+[INFO] 2026-06-07 01:39:37,268 mistral_service — Parser OK — 10 notes extraites pour bulletin_2nde_T1
+[INFO] 2026-06-07 01:39:45,889 mistral_service — Pixtral image (bulletin_2nde_T2): ```json
+{
+  "type": "bulletin",
+  "trimestre": "bulletin_2nde_T2",
+  "classe": "2nde C",
+  "etablissement": "COURS SECONDAIRE BONNE NOUVELLE",
+  "etudiant": {
+    "nom": "KONE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Composition Français", "moyenne": 13.0},
+    {"matiere": "Or
+[INFO] 2026-06-07 01:39:45,891 mistral_service — Parser OK — 10 notes extraites pour bulletin_2nde_T2
+[INFO] 2026-06-07 01:40:00,939 mistral_service — Pixtral image (bulletin_2nde_T3): ```json
+{
+  "type": "bulletin",
+  "trimestre": "premier_trimestre",
+  "classe": "2nde C",
+  "etablissement": "COURS SECONDAIRE BONNE NOUVELLE",
+  "etudiant": {
+    "nom": "KONE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Composition Français", "moyenne": 13.5},
+    {"matiere": "O
+[INFO] 2026-06-07 01:40:00,941 mistral_service — Parser OK — 10 notes extraites pour bulletin_2nde_T3
+[INFO] 2026-06-07 01:43:55,861 mistral_service — Pixtral image (bulletin_1ere_T1): ```json
+{
+  "type": "bulletin",
+  "trimestre": "Premier Trimestre",
+  "classe": "1ERE D1",
+  "etablissement": "LYCEE MAMIE ADJOUA YAMOUSSOUKRO",
+  "etudiant": {
+    "nom": "KONE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Français", "moyenne": 10.50},
+    {"matiere": "Anglais", "
+[INFO] 2026-06-07 01:43:55,864 mistral_service — Parser OK — 15 notes extraites pour bulletin_1ere_T1
+[INFO] 2026-06-07 01:44:02,057 mistral_service — Pixtral image (bulletin_1ere_T2): ```json
+{
+  "type": "bulletin",
+  "trimestre": "Deuxième Trimestre",
+  "classe": "1ERE D1",
+  "etablissement": "LYCÉE MAMIE ADJOUA YAMOUSSOUKRO",
+  "etudiant": {
+    "nom": "KONE",
+    "prenoms": "MOUSSA"
+  },
+  "moyenne_generale": 11.25,
+  "avertissement": "Le document correspond bien à la classe i
+[INFO] 2026-06-07 01:44:02,074 mistral_service — Parser OK — 15 notes extraites pour bulletin_1ere_T2
+[INFO] 2026-06-07 01:44:11,920 mistral_service — Pixtral image (bulletin_1ere_T3): ```json
+{
+  "type": "bulletin",
+  "trimestre": "Troisième Trimestre",
+  "classe": "1ERE D1",
+  "etablissement": "LYCÉE MAMIE ADJOUA YAMOUSSOUKRO",
+  "etudiant": {
+    "nom": "KONE",
+    "prenoms": "MOUSSA"
+  },
+  "matieres": [
+    {"matiere": "Français", "moyenne": 10.9},
+    {"matiere": "Anglais", 
+[INFO] 2026-06-07 01:44:11,922 mistral_service — Parser OK — 15 notes extraites pour bulletin_1ere_T3
+[INFO] 2026-06-07 01:45:58,122 mistral_service — Pixtral image (T1): ```json
+{
+  "type": "bulletin",
+  "trimestre": "1er Trimestre",
+  "classe": "TD1",
+  "etablissement": "Collège Les Phalènes 1",
+  "etudiant": {
+    "nom": "MOUSSA",
+    "prenoms": "KONE"
+  },
+  "avertissement": "La classe indiquée sur le document est TD1 (Terminale D1), ce qui correspond à une class
+[INFO] 2026-06-07 01:45:58,126 mistral_service — Parser OK — 9 notes extraites pour T1
+[INFO] 2026-06-07 01:46:04,156 mistral_service — Pixtral image (T2): ```json
+{
+  "type": "bulletin",
+  "trimestre": "2ème",
+  "classe": "TD1",
+  "etablissement": "Collège Les Phalènes 1",
+  "etudiant": {
+    "nom": "MOUSSA",
+    "prenoms": "KONE"
+  },
+  "moyenne_generale": 13.8,
+  "avertissement": "La classe indiquée sur le document est TD1 (Terminale D1), ce qui cor
+[INFO] 2026-06-07 01:46:04,158 mistral_service — Parser OK — 11 notes extraites pour T2
+[INFO] 2026-06-07 01:46:08,043 mistral_service — Pixtral image (T3): ```json
+{
+  "type": "bulletin",
+  "trimestre": "Troisième Trimestre",
+  "classe": "TD1",
+  "etablissement": "Collège Les Phalènes 1",
+  "etudiant": {
+    "nom": "MOUSSA",
+    "prenoms": "KONE"
+  },
+  "moyenne_generale": 14.07,
+  "avertissement": "La classe indiquée sur le document est TD1 (Terminale
+[INFO] 2026-06-07 01:46:08,044 mistral_service — Parser OK — 9 notes extraites pour T3
+[INFO] 2026-06-07 01:50:40,341 mistral_service — Pixtral image (bac): ```json
+{
+  "type": "bac",
+  "etudiant": {
+    "nom": "MOUSSA KONÉ",
+    "prenoms": null,
+    "serie": "D",
+    "etablissement": "COLLÈGE SCIENTIFIQUE DE YAMOUSSOUKRO",
+    "annee": 2020
+  },
+  "matieres": [
+    {"matiere": "Mathématiques", "note_obtenue": 49, "coefficient": 4},
+    {"matiere": "Sci
+[INFO] 2026-06-07 01:50:40,344 mistral_service — Parser OK — 8 notes extraites pour bac
+[ERROR] 2026-06-07 15:52:50,138 views — WeasyPrint PDF error: cannot load library 'libgobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'libgobject-2.0-0'
+[ERROR] 2026-06-07 15:56:27,364 views — WeasyPrint PDF error: cannot load library 'libgobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'libgobject-2.0-0'
+[ERROR] 2026-06-07 17:18:31,145 views — WeasyPrint PDF error: cannot load library 'libgobject-2.0-0': error 0x7e.  Additionally, ctypes.util.find_library() did not manage to locate a library called 'libgobject-2.0-0'

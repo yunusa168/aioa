@@ -116,7 +116,7 @@
     "pk": 19,
     "fields": {
       "code_filiere": "UNA-CHIMIE",
-      "nom_filiere": "Chimie — Université Nangui Abrogoua",
+      "nom_filiere": "Physique-Chimie — Université Nangui Abrogoua",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "Bac C ou D",
       "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
@@ -692,7 +692,7 @@
     "pk": 85,
     "fields": {
       "code_filiere": "UAO-CHIMIE",
-      "nom_filiere": "Chimie et Biochimie — UAO Bouaké",
+      "nom_filiere": "Chimie et Biochimie — Université Alassane Ouattara de Bouaké",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "Bac C ou D",
       "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
@@ -724,7 +724,7 @@
     "pk": 87,
     "fields": {
       "code_filiere": "UAO-STAPS",
-      "nom_filiere": "STAPS — Sciences et Techniques des Activités Physiques et Sportives — UAO",
+      "nom_filiere": "STAPS — Sciences et Techniques des Activités Physiques et Sportives — UAO Bouaké",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "Bac",
       "duree_etudes": "3 ans (Licence) / 5 ans (Master)",
@@ -740,7 +740,7 @@
     "pk": 88,
     "fields": {
       "code_filiere": "UNA-MATHINFO-L12",
-      "nom_filiere": "Licence 1 & 2 Mathématiques-Informatique — Université Nangui Abrogoua",
+      "nom_filiere": "Mathématiques et Informatique (L1-L2) — Université Nangui Abrogoua",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "Bac C ou D",
       "duree_etudes": "2 ans (tronc commun avant spécialisation)",
@@ -772,7 +772,7 @@
     "pk": 90,
     "fields": {
       "code_filiere": "UNA-L3-GENIE-INFO",
-      "nom_filiere": "Licence 3 Génie Informatique — Université Nangui Abrogoua",
+      "nom_filiere": "Licence 3 Informatique — Université Nangui Abrogoua",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "Bac C ou D + L2 Maths-Info UNA",
       "duree_etudes": "1 an (L3) + 2 ans (Master Génie Informatique)",
@@ -785,26 +785,10 @@
   },
   {
     "model": "orientation.filiereorientation",
-    "pk": 91,
-    "fields": {
-      "code_filiere": "UNA-L3-MIAGE",
-      "nom_filiere": "Licence 3 MIAGE (Méthodes Informatiques Appliquées à la Gestion) — UNA",
-      "type_profil_filiere": "bachelier",
-      "niveau_minimum": "Bac C, D ou G + L2 Maths-Info UNA",
-      "duree_etudes": "1 an (L3) + 2 ans (Master MIAGE)",
-      "description_filiere": "Spécialisation MIAGE à l'UNA : informatique de gestion, ERP, systèmes d'information, SI d'entreprise.",
-      "debouches": "Chef de projet SI, consultant ERP, analyste fonctionnel, responsable informatique d'entreprise",
-      "conditions_acces": "L2 Maths-Info UNA validée",
-      "competences_requises": "Informatique, Gestion, Mathématiques",
-      "actif_filiere": true
-    }
-  },
-  {
-    "model": "orientation.filiereorientation",
     "pk": 92,
     "fields": {
       "code_filiere": "UAO-MATHINFO-L12",
-      "nom_filiere": "Licence 1 & 2 Mathématiques-Informatique — Université Alassane Ouattara de Bouaké",
+      "nom_filiere": "Mathématiques et Informatique (L1-L2) — Université Alassane Ouattara de Bouaké",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "Bac C ou D",
       "duree_etudes": "2 ans (tronc commun avant spécialisation)",
@@ -836,7 +820,7 @@
     "pk": 94,
     "fields": {
       "code_filiere": "UAO-L3-GENIE-INFO",
-      "nom_filiere": "Licence 3 Génie Informatique — Université Alassane Ouattara de Bouaké",
+      "nom_filiere": "Licence 3 Informatique — Université Alassane Ouattara de Bouaké",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "Bac C ou D + L2 Maths-Info UAO",
       "duree_etudes": "1 an (L3) + 2 ans (Master Génie Informatique)",
@@ -852,7 +836,7 @@
     "pk": 95,
     "fields": {
       "code_filiere": "UFHB-MATHINFO-L12",
-      "nom_filiere": "Licence 1 & 2 Mathématiques-Informatique — Université Félix Houphouët-Boigny",
+      "nom_filiere": "Mathématiques et Informatique (L1-L2) — Université Félix Houphouët-Boigny",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "Bac C ou D",
       "duree_etudes": "2 ans (tronc commun avant spécialisation)",
@@ -884,7 +868,7 @@
     "pk": 97,
     "fields": {
       "code_filiere": "UFHB-L3-GENIE-INFO",
-      "nom_filiere": "Licence 3 Génie Informatique — Université Félix Houphouët-Boigny",
+      "nom_filiere": "Licence 3 Informatique — Université Félix Houphouët-Boigny",
       "type_profil_filiere": "bachelier",
       "niveau_minimum": "L2 Maths-Info UFHB validée",
       "duree_etudes": "1 an (L3) + 2 ans (Master Génie Informatique)",
@@ -897,18 +881,80 @@
   },
   {
     "model": "orientation.filiereorientation",
-    "pk": 98,
+    "pk": 99,
     "fields": {
-      "code_filiere": "UFHB-MIAGE-L1-M2",
-      "nom_filiere": "MIAGE de Licence 1 à Master 2 — Université Félix Houphouët-Boigny (Filière spéciale)",
-      "type_profil_filiere": "bachelier",
-      "niveau_minimum": "Bac C, D ou G — Sélection sur dossier",
-      "duree_etudes": "5 ans (L1 → M2, filière intégrée)",
-      "description_filiere": "Filière MIAGE spéciale à l'UFHB : parcours intégré de Licence 1 jusqu'au Master 2 sans rupture. Formation coûteuse mais très complète en informatique de gestion, systèmes d'information, management des SI. Sélection sur dossier dès le BAC.",
-      "debouches": "Directeur des systèmes d'information (DSI), chef de projet IT, consultant SI, architecte fonctionnel, manager IT",
-      "conditions_acces": "BAC C, D ou G — Sélection sur dossier — Frais élevés (filière privée/partenariat)",
-      "competences_requises": "Mathématiques, Informatique, Gestion, Anglais",
-      "actif_filiere": true
+      "code_filiere": "UNA-M12-MIAGE",
+      "nom_filiere": "Master 1 & 2 MIAGE — Université Nangui Abrogoua",
+      "duree_etudes": "Bac+5 (M1-M2)",
+      "conditions_acces": "Licence 3 MIAGE ou équivalent",
+      "debouches": "Chef de projet SI, consultant ERP, ingénieur méthodes, DSI",
+      "actif_filiere": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 100,
+    "fields": {
+      "code_filiere": "UNA-M12-GENIE-INFO",
+      "nom_filiere": "Master 1 & 2 Génie Informatique — Université Nangui Abrogoua",
+      "duree_etudes": "Bac+5 (M1-M2)",
+      "conditions_acces": "Licence 3 Informatique ou équivalent",
+      "debouches": "Ingénieur logiciel, architecte système, développeur senior, DevOps",
+      "actif_filiere": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 101,
+    "fields": {
+      "code_filiere": "UAO-M12-MIAGE",
+      "nom_filiere": "Master 1 & 2 MIAGE — Université Alassane Ouattara de Bouaké",
+      "duree_etudes": "Bac+5 (M1-M2)",
+      "conditions_acces": "Licence 3 MIAGE ou équivalent",
+      "debouches": "Chef de projet SI, consultant ERP, ingénieur méthodes, DSI",
+      "actif_filiere": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 102,
+    "fields": {
+      "code_filiere": "UAO-M12-GENIE-INFO",
+      "nom_filiere": "Master 1 & 2 Génie Informatique — Université Alassane Ouattara de Bouaké",
+      "duree_etudes": "Bac+5 (M1-M2)",
+      "conditions_acces": "Licence 3 Informatique ou équivalent",
+      "debouches": "Ingénieur logiciel, architecte système, développeur senior, DevOps",
+      "actif_filiere": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 103,
+    "fields": {
+      "code_filiere": "UFHB-M12-MIAGE",
+      "nom_filiere": "Master 1 & 2 MIAGE — Université Félix Houphouët-Boigny",
+      "duree_etudes": "Bac+5 (M1-M2)",
+      "conditions_acces": "Licence 3 MIAGE ou équivalent",
+      "debouches": "Chef de projet SI, consultant ERP, ingénieur méthodes, DSI",
+      "actif_filiere": true,
+      "description": ""
+    }
+  },
+  {
+    "model": "orientation.filiereorientation",
+    "pk": 104,
+    "fields": {
+      "code_filiere": "UFHB-M12-GENIE-INFO",
+      "nom_filiere": "Master 1 & 2 Génie Informatique — Université Félix Houphouët-Boigny",
+      "duree_etudes": "Bac+5 (M1-M2)",
+      "conditions_acces": "Licence 3 Informatique ou équivalent",
+      "debouches": "Ingénieur logiciel, architecte système, développeur senior, DevOps",
+      "actif_filiere": true,
+      "description": ""
     }
   }
 ]

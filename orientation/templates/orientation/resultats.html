@@ -30,6 +30,9 @@
             <a href="{% url 'profil' %}" class="btn btn-secondary" style="font-size:0.85rem;">Modifier le profil</a>
             <a href="{% url 'concours' %}" class="btn btn-primary" style="font-size:0.85rem;">Voir mes concours</a>
             <a href="{% url 'telecharger_fiche' %}" class="btn btn-vert" style="font-size:0.85rem;" target="_blank">Télécharger ma fiche</a>
+            {% if has_choix_final %}
+            <a href="{% url 'telecharger_choix_final' %}" class="btn btn-primary" style="font-size:0.85rem; background:#16A34A; border-color:#16A34A;" target="_blank">⬇ Télécharger mon choix final</a>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -135,6 +138,7 @@
             <div style="font-size:0.78rem; font-weight:600; color:var(--text-muted); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.04em;">Détail du score</div>
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:0.5rem;">
 
+                <!-- Matières clés -->
                 <div style="background:white; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid var(--border);">
                     <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Matières clés</div>
                     <div style="font-size:0.95rem; font-weight:700; color:var(--text);">{{ reco.details_analyse.score_matieres }}%</div>
@@ -143,6 +147,7 @@
                     </div>
                 </div>
 
+                <!-- Moyenne générale -->
                 <div style="background:white; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid var(--border);">
                     <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Moyenne générale</div>
                     <div style="font-size:0.95rem; font-weight:700; color:var(--text);">{{ reco.details_analyse.score_moyenne }}%</div>
@@ -151,6 +156,7 @@
                     </div>
                 </div>
 
+                <!-- Série BAC -->
                 <div style="background:white; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid var(--border);">
                     <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Série BAC</div>
                     <div style="font-size:0.95rem; font-weight:700; color:var(--text);">{{ reco.details_analyse.score_serie }}%</div>
@@ -159,6 +165,7 @@
                     </div>
                 </div>
 
+                <!-- Aspirations -->
                 <div style="background:white; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid var(--border);">
                     <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Aspirations</div>
                     <div style="font-size:0.95rem; font-weight:700; color:var(--text);">{{ reco.details_analyse.score_aspiration }}%</div>
@@ -167,9 +174,57 @@
                     </div>
                 </div>
 
+                <!-- Progression 3 ans — affiché uniquement si disponible -->
+                {% if reco.details_analyse.bonus_progression %}
+                <div style="background:{% if reco.details_analyse.bonus_progression > 0 %}#F0FDF4{% elif reco.details_analyse.bonus_progression < 0 %}#FFF5F5{% else %}white{% endif %};
+                            border-radius:8px; padding:0.5rem 0.75rem;
+                            border:1px solid {% if reco.details_analyse.bonus_progression > 0 %}#86EFAC{% elif reco.details_analyse.bonus_progression < 0 %}#FCA5A5{% else %}var(--border){% endif %};">
+                    <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Progression scolaire</div>
+                    <div style="font-size:0.95rem; font-weight:700;
+                                color:{% if reco.details_analyse.bonus_progression > 0 %}#16A34A{% elif reco.details_analyse.bonus_progression < 0 %}#DC2626{% else %}var(--text){% endif %};">
+                        {% if reco.details_analyse.bonus_progression > 0 %}+{% endif %}{{ reco.details_analyse.bonus_progression }} pts
+                    </div>
+                    {% if reco.details_analyse.progression_detail %}
+                    <div style="font-size:0.7rem; color:var(--text-muted); margin-top:3px; line-height:1.3;">
+                        {{ reco.details_analyse.progression_detail }}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                <!-- Bonus mention BAC — affiché uniquement si mention présente -->
+                {% if reco.details_analyse.bonus_mention %}
+                <div style="background:#FEFCE8; border-radius:8px; padding:0.5rem 0.75rem; border:1px solid #FDE68A;">
+                    <div style="font-size:0.72rem; color:var(--text-muted); margin-bottom:2px;">Bonus mention BAC</div>
+                    <div style="font-size:0.95rem; font-weight:700; color:#D97706;">
+                        +{{ reco.details_analyse.bonus_mention }} pts
+                    </div>
+                    <div style="font-size:0.7rem; color:#92400E; margin-top:3px;">
+                        Mention {{ reco.details_analyse.mention_bac|default:profil.mention_bac }}
+                    </div>
+                </div>
+                {% endif %}
+
             </div>
         </div>
         {% endif %}
+
+        <!-- Action choix final -->
+        <div style="padding:0.6rem 1rem; background:white; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+            {% if reco.choix_final %}
+            <span style="color:#16A34A; font-weight:700; font-size:0.82rem;">✅ Ton choix final actuel</span>
+            {% else %}
+            <span style="font-size:0.78rem; color:var(--text-muted);">Intéressé(e) par cette filière ?</span>
+            {% endif %}
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                <a href="{% url 'detail_filiere' reco.filiere.id %}" class="btn btn-secondary" style="font-size:0.78rem; padding:0.3rem 0.75rem;">Voir le détail</a>
+                {% if not reco.choix_final %}
+                <a href="{% url 'choisir_filiere' reco.id %}" class="btn btn-primary" style="font-size:0.78rem; padding:0.3rem 0.75rem; background:#16A34A; border-color:#16A34A;">Choisir cette filière</a>
+                {% else %}
+                <a href="{% url 'telecharger_choix_final' %}" class="btn btn-vert" style="font-size:0.78rem; padding:0.3rem 0.75rem;" target="_blank">⬇ Télécharger mon choix</a>
+                {% endif %}
+            </div>
+        </div>
 
         <!-- Infos filière -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:0.8rem 1rem; font-size:0.83rem; color:var(--text-muted);">

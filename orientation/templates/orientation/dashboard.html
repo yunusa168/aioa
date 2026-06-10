@@ -47,11 +47,6 @@
 {% if not profil %}
 <!-- Pas de profil -->
 <div class="card" style="text-align:center; border:2px dashed var(--orange); background:var(--orange-light); padding:2.5rem;">
-    <div style="width:56px; height:56px; background:white; border-radius:14px; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center; border:2px solid var(--orange);">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
-        </svg>
-    </div>
     <h2 style="color:var(--orange); font-size:1.1rem; margin-bottom:0.5rem;">Complète ton profil BAC</h2>
     <p style="color:var(--text-muted); margin:0 0 1.5rem; font-size:0.9rem;">
         Saisis ta série, ta mention et tes notes pour obtenir tes recommandations personnalisées.
@@ -60,6 +55,81 @@
 </div>
 
 {% else %}
+
+<!-- ══ INDICATEUR DE COMPLÉTION DU PROFIL ══ -->
+<div class="card" style="border-left:4px solid {% if score_completion == 100 %}var(--vert){% elif score_completion >= 60 %}var(--orange){% else %}#e53e3e{% endif %};">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap; gap:0.5rem;">
+        <div>
+            <h2 style="margin:0; font-size:1rem; font-weight:700; color:var(--text);">Complétion du profil</h2>
+            <p style="margin:0.2rem 0 0; font-size:0.82rem; color:var(--text-muted);">
+                {% if score_completion == 100 %}
+                    Profil complet — recommandations optimales ✅
+                {% elif score_completion >= 60 %}
+                    Bon profil — quelques infos manquantes
+                {% else %}
+                    Profil incomplet — les recommandations seront moins précises
+                {% endif %}
+            </p>
+        </div>
+        <div style="text-align:right;">
+            <span style="font-size:1.6rem; font-weight:900; color:{% if score_completion == 100 %}var(--vert){% elif score_completion >= 60 %}var(--orange){% else %}#e53e3e{% endif %};">
+                {{ score_completion }}%
+            </span>
+        </div>
+    </div>
+
+    <!-- Barre de progression -->
+    <div style="background:var(--border); border-radius:999px; height:8px; margin-bottom:1rem;">
+        <div style="width:{{ score_completion }}%;
+                    background:{% if score_completion == 100 %}var(--vert){% elif score_completion >= 60 %}var(--orange){% else %}#e53e3e{% endif %};
+                    height:8px; border-radius:999px; transition:width 0.6s ease;">
+        </div>
+    </div>
+
+    <!-- Étapes -->
+    <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:{% if etapes_manquantes %}0.8rem{% else %}0{% endif %};">
+        {% for key, done in completion.items %}
+        <span style="display:inline-flex; align-items:center; gap:0.3rem; font-size:0.78rem; font-weight:600;
+                     padding:0.25rem 0.65rem; border-radius:999px;
+                     background:{% if done %}#F0FDF4{% else %}#FFF5F5{% endif %};
+                     color:{% if done %}#16A34A{% else %}#DC2626{% endif %};
+                     border:1px solid {% if done %}#BBF7D0{% else %}#FCA5A5{% endif %};">
+            {% if done %}✓{% else %}✗{% endif %} {{ labels_completion|get_item:key }}
+        </span>
+        {% endfor %}
+    </div>
+
+    <!-- Conseil si incomplet -->
+    {% if etapes_manquantes %}
+    <div style="background:var(--bg); border-radius:8px; padding:0.7rem 1rem; font-size:0.82rem; color:var(--text-muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+        <span>💡 Pour améliorer tes recommandations, ajoute : <strong style="color:var(--text);">{{ etapes_manquantes|join:", " }}</strong></span>
+        <a href="{% url 'profil' %}" style="color:var(--orange); font-weight:700; text-decoration:none; font-size:0.82rem; flex-shrink:0;">Compléter →</a>
+    </div>
+    {% endif %}
+</div>
+
+<!-- ══ CHOIX FINAL ══ -->
+{% if choix_final %}
+<div class="card" style="border:2px solid #16A34A; background:#F0FDF4;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.8rem;">
+        <div style="display:flex; align-items:center; gap:0.8rem;">
+            <div style="width:40px; height:40px; background:#16A34A; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+            </div>
+            <div>
+                <div style="font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#16A34A; margin-bottom:0.15rem;">Mon Choix Final</div>
+                <div style="font-weight:800; font-size:0.98rem; color:#14532D;">{{ choix_final.filiere.nom_filiere }}</div>
+                <div style="font-size:0.8rem; color:#166534;">{{ choix_final.score_compatibilite }}% de compatibilité · {{ choix_final.niveau_reco }}</div>
+            </div>
+        </div>
+        <a href="{% url 'telecharger_choix_final' %}" class="btn" style="background:#16A34A; color:white; border-color:#16A34A; font-size:0.82rem;" target="_blank">
+            ⬇ Télécharger mon choix
+        </a>
+    </div>
+</div>
+{% endif %}
 
 <!-- TOP 3 Filières -->
 {% if top3 %}
@@ -83,8 +153,7 @@
 
         <div style="flex:1; min-width:140px;">
             <div style="font-weight:700; font-size:0.95rem; color:var(--text);">
-                <a href="{% url 'detail_filiere' reco.filiere.id %}"
-                   style="color:var(--text); text-decoration:none;">
+                <a href="{% url 'detail_filiere' reco.filiere.id %}" style="color:var(--text); text-decoration:none;">
                     {{ reco.filiere.nom_filiere }}
                 </a>
             </div>
@@ -117,11 +186,6 @@
 
 {% else %}
 <div class="card" style="text-align:center; padding:2rem;">
-    <div style="width:52px; height:52px; background:var(--bg); border-radius:12px; margin:0 auto 1rem; display:flex; align-items:center; justify-content:center; border:2px solid var(--border);">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/>
-        </svg>
-    </div>
     <h2 style="color:var(--text-muted); font-size:1rem; margin-bottom:0.5rem;">Pas encore de recommandations</h2>
     <p style="color:var(--text-muted); margin:0 0 1.5rem; font-size:0.88rem;">Valide ton profil BAC pour que l'IA génère tes recommandations.</p>
     <a href="{% url 'profil' %}" class="btn btn-primary">Compléter mon profil</a>

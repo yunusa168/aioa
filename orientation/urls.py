@@ -13,4 +13,6 @@ urlpatterns = [
     path('filiere/<int:filiere_id>/', views.detail_filiere, name='detail_filiere'),
     path('analyser-bulletin/', views.analyser_bulletin, name='analyser_bulletin'),
     path('fiche/', views.telecharger_fiche, name='telecharger_fiche'),
+    path('choisir/<int:reco_id>/', views.choisir_filiere, name='choisir_filiere'),
+    path('choix-final/', views.telecharger_choix_final, name='telecharger_choix_final'),
 ]

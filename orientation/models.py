@@ -168,6 +168,7 @@ class Recommandation(models.Model):
     details_analyse = models.JSONField(blank=True, null=True)
     date_reco = models.DateTimeField(auto_now_add=True)
     est_consultee = models.BooleanField(default=False)
+    choix_final = models.BooleanField(default=False, help_text='Filière choisie par le bachelier comme choix définitif')
 
     class Meta:
         db_table = 'recommandation'
